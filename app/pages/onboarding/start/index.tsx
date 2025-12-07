@@ -1,4 +1,5 @@
 import { LinearGradient } from "expo-linear-gradient";
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
   ImageBackground,
@@ -31,7 +32,7 @@ export default function OnboardingScreen() {
           <TouchableOpacity
             style={styles.getStartedButton}
             onPress={() => {
-              console.log("Get Started pressed");
+              router.push("/pages/onboarding/benefits");
             }}
             activeOpacity={0.8}
           >
