@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Epistoria",
-    "slug": "Epistoria",
+    "name": "Cultured",
+    "slug": "cultured",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "epistoria",
+    "scheme": "cultured",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -37,6 +37,13 @@
           "dark": {
             "backgroundColor": "#000000"
           }
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/icon.png",
+          "color": "#4A9EFF"
         }
       ]
     ],

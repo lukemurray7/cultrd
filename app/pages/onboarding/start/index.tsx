@@ -1,73 +1,77 @@
-import { LinearGradient } from "expo-linear-gradient";
+import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
+    Pressable,
+    StyleSheet,
+    Text,
+    View,
 } from "react-native";
+import { ContinueButton } from "../../../components/ContinueButton";
 
 export default function OnboardingScreen() {
   return (
     <View style={styles.container}>
-      <StatusBar style="light" />
-      <ImageBackground
-        source={require("../../../../assets/images/onboarding/start-screen.png")}
-        style={styles.backgroundImage}
-        resizeMode="cover"
-      >
-        <View style={styles.topSection} />
-      </ImageBackground>
+      <StatusBar style="dark" />
+      
+      <View style={styles.topSection}>
+        <Image
+          source={require("../../../../assets/images/icon.png")}
+          style={styles.icon}
+          contentFit="contain"
+        />
+        <Text style={styles.title}>Understand the world</Text>
+      </View>
 
-      <View style={styles.bottomSection}>
-        <Text style={styles.titleContainer}>Epistoria</Text>
-        <Text style={styles.tagline}>
-          Learn about the world.
+      <View style={styles.iconLayout}>
+        <Ionicons
+          name="flag"
+          size={48}
+          color="#4A9EFF"
+          style={styles.politicsIcon}
+        />
+        <Ionicons
+          name="trending-up"
+          size={48}
+          color="#6366F1"
+          style={styles.economicsIcon}
+        />
+        <Ionicons
+          name="musical-notes"
+          size={32}
+          color="#4A9EFF"
+          style={styles.cultureIcon}
+        />
+        <Ionicons
+          name="time"
+          size={32}
+          color="#6366F1"
+          style={styles.historyIcon}
+        />
+      </View>
+
+      <View style={styles.contentSection}>
+        <Text style={styles.description}>
+          Interactive lessons in politics, economics, history & culture. Get smarter in minutes a day.
         </Text>
+      </View>
 
-        <View style={styles.buttonContainer}>
-          <TouchableOpacity
-            style={styles.getStartedButton}
-            onPress={() => {
-              router.push("/pages/onboarding/benefits");
-            }}
-            activeOpacity={0.8}
-          >
-            <LinearGradient
-              colors={["#4A9EFF", "#2563EB"]}
-              start={{ x: 0, y: 0 }}
-              end={{ x: 0, y: 1 }}
-              style={styles.gradientButton}
-            >
-              <Text style={styles.getStartedButtonText}>Get Started</Text>
-            </LinearGradient>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.accountButton}
-            onPress={() => {
-              console.log("I already have an account pressed");
-            }}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.accountButtonText}>
-              I already have an account
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.legalLinks}>
-          <Pressable onPress={() => console.log("Terms pressed")}>
-            <Text style={styles.legalLink}>Terms & Conditions</Text>
-          </Pressable>
-          <Text style={styles.legalSeparator}> • </Text>
-          <Pressable onPress={() => console.log("Privacy pressed")}>
-            <Text style={styles.legalLink}>Privacy Policy</Text>
-          </Pressable>
-        </View>
+      <View style={styles.actionsSection}>
+        <ContinueButton
+          onPress={() => {
+            router.push("/pages/onboarding/welcome");
+          }}
+        />
+        
+        <Pressable
+          onPress={() => {
+            router.push("/pages/auth/login");
+          }}
+          style={styles.loginLink}
+        >
+          <Text style={styles.loginLinkText}>Log in</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -76,80 +80,74 @@ export default function OnboardingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#000000",
-  },
-  backgroundImage: {
-    flex: 1,
-    width: "100%",
+    backgroundColor: "#FFFFFF",
+    paddingTop: 60,
+    paddingHorizontal: 20,
   },
   topSection: {
-    flex: 1,
-    flexGrow: 1,
-  },
-  bottomSection: {
-    backgroundColor: "#FFFFFF",
-    padding: 20,
     alignItems: "center",
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    paddingBottom: 60,
+    marginTop: 20,
+    marginBottom: 40,
   },
-  tagline: {
-    fontSize: 24,
-    color: "#666666",
+  icon: {
+    width: 80,
+    height: 80,
     marginBottom: 24,
-    fontWeight: "400",
-    fontStyle: "italic",
   },
-  buttonContainer: {
-    width: "100%",
-    marginBottom: 16,
-  },
-  getStartedButton: {
-    borderRadius: 12,
-    marginBottom: 12,
-    overflow: "hidden",
-  },
-  gradientButton: {
-    paddingVertical: 16,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  getStartedButtonText: {
-    color: "#FFFFFF",
-    fontSize: 16,
-    fontWeight: "600",
-  },
-  accountButton: {
-    backgroundColor: "#FFFFFF",
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: "#E5E5E5",
-    paddingVertical: 16,
-    alignItems: "center",
-  },
-  accountButtonText: {
-    color: "#000000",
-    fontSize: 16,
-    fontWeight: "400",
-  },
-  legalLinks: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  legalLink: {
-    color: "#4A9EFF",
-    fontSize: 12,
-  },
-  legalSeparator: {
-    color: "#000000",
-    fontSize: 12,
-  },
-  titleContainer: {
-    fontSize: 40,
+  title: {
+    fontSize: 32,
     fontWeight: "700",
     color: "#000000",
     textAlign: "center",
+  },
+  iconLayout: {
+    height: 240,
+    position: "relative",
+    marginBottom: 20,
+  },
+  politicsIcon: {
+    position: "absolute",
+    left: 20,
+    top: 0,
+  },
+  economicsIcon: {
+    position: "absolute",
+    right: 20,
+    top: 60,
+  },
+  cultureIcon: {
+    position: "absolute",
+    left: 40,
+    top: 120,
+    opacity: 0.5,
+  },
+  historyIcon: {
+    position: "absolute",
+    right: 40,
+    top: 180,
+    opacity: 0.5,
+  },
+  contentSection: {
+    marginBottom: 32,
+    paddingHorizontal: 20,
+  },
+  description: {
+    fontSize: 16,
+    color: "#666666",
+    textAlign: "center",
+    lineHeight: 24,
+  },
+  actionsSection: {
+    marginBottom: 40,
+  },
+  loginLink: {
+    alignItems: "center",
+    marginTop: 16,
+    paddingVertical: 12,
+  },
+  loginLinkText: {
+    color: "#4A9EFF",
+    fontSize: 16,
+    fontWeight: "400",
   },
 });

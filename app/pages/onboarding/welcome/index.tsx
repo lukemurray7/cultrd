@@ -6,7 +6,7 @@ import { ProgressBar } from "../../../components/ProgressBar";
 
 export default function WelcomeScreen() {
   const handleContinue = () => {
-    router.push("/pages/onboarding/age");
+    router.push("/pages/onboarding/topics");
   };
 
   return (

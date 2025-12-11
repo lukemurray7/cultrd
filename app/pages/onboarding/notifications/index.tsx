@@ -1,16 +1,18 @@
 import { LinearGradient } from "expo-linear-gradient";
+import * as Notifications from "expo-notifications";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ProgressBar } from "../../../components/ProgressBar";
 
 export default function NotificationsScreen() {
-  const handleEnable = () => {
-    router.push("/pages/onboarding/personalizing");
+  const handleEnable = async () => {
+    await Notifications.requestPermissionsAsync();
+    router.push("/pages/onboarding/create-account");
   };
 
-  const handleNotNow = () => {
-    router.push("/pages/onboarding/personalizing");
+  const handleNotNow = async () => {
+    router.push("/pages/onboarding/create-account");
   };
 
   return (

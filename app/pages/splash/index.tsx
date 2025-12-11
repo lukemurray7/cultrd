@@ -2,17 +2,44 @@ import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
+import { supabase } from "../../../lib/supabase";
+import { useAuth } from "../../contexts/AuthContext";
 
 export default function SplashScreen() {
   const router = useRouter();
+  const { session, loading } = useAuth();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      router.replace("/pages/onboarding/start");
-    }, 1000);
+    const checkAuthAndRoute = async () => {
+      if (loading) return;
 
-    return () => clearTimeout(timer);
-  }, [router]);
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      if (!session) {
+        router.replace("/pages/onboarding/start");
+        return;
+      }
+
+      try {
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("onboarding_completed")
+          .eq("id", session.user.id)
+          .single();
+
+        if (profile?.onboarding_completed) {
+          router.replace("/pages/home");
+        } else {
+          router.replace("/pages/onboarding/start");
+        }
+      } catch (error) {
+        console.error("Error checking profile:", error);
+        router.replace("/pages/onboarding/start");
+      }
+    };
+
+    checkAuthAndRoute();
+  }, [session, loading, router]);
 
   return (
     <View style={styles.container}>

@@ -1,10 +1,9 @@
-import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { ProgressBar } from "../../../components/ProgressBar";
-import { ContinueButton } from "../../../components/ContinueButton";
 import { router } from "expo-router";
-import { Pressable } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ContinueButton } from "../../../components/ContinueButton";
+import { ProgressBar } from "../../../components/ProgressBar";
 
 interface GoalOption {
   label: string;
