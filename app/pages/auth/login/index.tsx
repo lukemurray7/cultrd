@@ -36,6 +36,7 @@ export default function LoginScreen() {
         message: error.message || 'Invalid email address or password.',
       });
     } else if (data.user) {
+      setLoading(false);
       setSuccessDialog(true);
       setTimeout(async () => {
         setSuccessDialog(false);
