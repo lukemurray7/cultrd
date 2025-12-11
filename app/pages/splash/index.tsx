@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { supabase } from "../../../lib/supabase";
 import { useAuth } from "../../contexts/AuthContext";
+import { colors } from "../../theme/colors";
 
 export default function SplashScreen() {
   const router = useRouter();
@@ -57,10 +58,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    backgroundColor: colors.background.primary,
   },
   logo: {
-    width: 300,
-    height: 300,
+    width: 400,
+    height: 400,
     marginBottom: 24,
   },
   title: {

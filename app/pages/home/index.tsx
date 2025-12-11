@@ -1,28 +1,98 @@
-import { router } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { useAuth } from '../../contexts/AuthContext';
+import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { useRef } from "react";
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { BottomNavBar } from "../../components/BottomNavBar";
+import { Carousel } from "../../components/Carousel";
+import { CourseCard } from "../../components/CourseCard";
+import { FeedbackCard } from "../../components/FeedbackCard";
+import { StreakView } from "../../components/StreakView";
+import { colors } from "../../theme/colors";
 
 export default function HomeScreen() {
-  const { user, signOut } = useAuth();
+  const insets = useSafeAreaInsets();
+  const scrollViewRef = useRef<ScrollView>(null);
 
-  const handleLogout = async () => {
-    await signOut();
-    router.replace('/pages/onboarding/start');
-  };
+  const courseCards = [
+    {
+      icon: "book" as const,
+      title: "Essential Philosophy: Theories and Thinkers",
+      subtitle: "John Kaag",
+    },
+    {
+      icon: "flask" as const,
+      title: "The Science Behind Andrew Huberman's Morning Routine",
+      subtitle: "Science Daily",
+    },
+    {
+      icon: "trending-up" as const,
+      title: "Economics Fundamentals",
+      subtitle: "Economic Times",
+    },
+    {
+      icon: "musical-notes" as const,
+      title: "History of Classical Music",
+      subtitle: "Music History",
+    },
+    {
+      icon: "time" as const,
+      title: "Ancient Civilizations",
+      subtitle: "Historical Society",
+    },
+  ];
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
-      <View style={styles.content}>
-        <Text style={styles.title}>User logged in</Text>
-        {user?.email && (
-          <Text style={styles.email}>{user.email}</Text>
-        )}
-        <Pressable style={styles.logoutButton} onPress={handleLogout}>
-          <Text style={styles.logoutText}>Log Out</Text>
+      <StatusBar style="light" />
+      <ScrollView
+        ref={scrollViewRef}
+        style={styles.scrollView}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: insets.bottom + 80, paddingTop: insets.top },
+        ]}
+        showsVerticalScrollIndicator={false}
+        nestedScrollEnabled={true}
+      >
+        <StreakView currentStreak={1} activeDayIndex={0} />
+
+        <Carousel>
+          {courseCards.map((card, index) => (
+            <CourseCard
+              key={index}
+              icon={card.icon}
+              title={card.title}
+              subtitle={card.subtitle}
+            />
+          ))}
+        </Carousel>
+
+        <Pressable
+          style={styles.exploreSection}
+          onPress={() => router.push("/pages/courses")}
+        >
+          <View style={styles.exploreCard}>
+            <View style={styles.exploreIconContainer}>
+              <Ionicons
+                name="compass"
+                size={48}
+                color={colors.text.primary}
+              />
+            </View>
+            <Text style={styles.exploreTitle}>Explore All Paths</Text>
+          </View>
         </Pressable>
-      </View>
+
+        <View style={styles.feedbackSection}>
+          <FeedbackCard icon="add-circle" label="Suggest a course" />
+          <FeedbackCard icon="chatbubble-ellipses" label="Give feedback" />
+          <FeedbackCard icon="help-circle" label="Any questions?" />
+        </View>
+      </ScrollView>
+      <BottomNavBar />
     </View>
   );
 }
@@ -30,38 +100,44 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.background.primary,
   },
-  content: {
+  scrollView: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+  },
+  scrollContent: {
+    paddingBottom: 20,
+  },
+  exploreSection: {
     paddingHorizontal: 20,
+    marginTop: 32,
+    marginBottom: 24,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: '700',
-    color: '#000000',
-    marginBottom: 12,
-  },
-  email: {
-    fontSize: 16,
-    color: '#666666',
-    marginBottom: 40,
-  },
-  logoutButton: {
-    marginTop: 20,
-    paddingVertical: 16,
-    paddingHorizontal: 32,
-    borderRadius: 12,
+  exploreCard: {
+    backgroundColor: colors.background.secondary,
+    borderRadius: 16,
+    padding: 24,
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: '#4A9EFF',
-    backgroundColor: '#FFFFFF',
+    borderColor: colors.border.light,
   },
-  logoutText: {
-    fontSize: 16,
-    fontWeight: '600',
-    color: '#4A9EFF',
-    textAlign: 'center',
+  exploreIconContainer: {
+    marginBottom: 16,
+  },
+  exploreTitle: {
+    fontSize: 24,
+    fontWeight: "700",
+    color: colors.text.primary,
+  },
+  feedbackSection: {
+    flexDirection: "row",
+    paddingHorizontal: 14,
+    marginBottom: 20,
+    borderWidth: 1,
+    borderColor: colors.border.light,
+    borderRadius: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 8,
   },
 });
