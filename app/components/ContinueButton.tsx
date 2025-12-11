@@ -1,5 +1,5 @@
-import { LinearGradient } from "expo-linear-gradient";
 import { Pressable, StyleSheet, Text, View } from "react-native";
+import { fonts } from "../theme/colors";
 
 interface ContinueButtonProps {
   onPress: () => void;
@@ -23,14 +23,7 @@ export function ContinueButton({
           <Text style={styles.disabledText}>{label}</Text>
         </View>
       ) : (
-        <LinearGradient
-          colors={["#4A9EFF", "#6366F1"]}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 1, y: 0 }}
-          style={styles.gradient}
-        >
           <Text style={styles.text}>{label}</Text>
-        </LinearGradient>
       )}
     </Pressable>
   );
@@ -63,11 +56,13 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "600",
+    fontFamily: fonts.ubuntu.medium,
   },
   disabledText: {
     color: "#666666",
     fontSize: 16,
     fontWeight: "600",
+    fontFamily: fonts.ubuntu.medium,
   },
 });
 

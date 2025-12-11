@@ -11,15 +11,19 @@ export function StreakView({
   currentStreak = 1,
   activeDayIndex = 0,
 }: StreakViewProps) {
-  const days = ["T", "W", "Th", "F", "S"];
+  const days = ["M", "T", "W", "Th", "F", "Sa", "Su"];
 
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>For you</Text>
+        <Text style={styles.title}>Good Morning</Text>
         <View style={styles.streakBadge}>
           <Text style={styles.streakNumber}>{currentStreak}</Text>
-          <Ionicons name="flame-outline" size={16} color={colors.text.onYellow} />
+          <Ionicons
+            name="flame-outline"
+            size={16}
+            color={colors.text.primary}
+          />
         </View>
       </View>
       <View style={styles.daysContainer}>
@@ -33,13 +37,11 @@ export function StreakView({
                   isActive ? styles.dayCircleActive : styles.dayCircleInactive,
                 ]}
               >
-                {isActive && (
-                  <Ionicons
-                    name="flame-outline"
-                    size={20}
-                    color={colors.text.onYellow}
-                  />
-                )}
+                <Ionicons
+                  name="flame-outline"
+                  size={20}
+                  color={colors.text.primary}
+                />
               </View>
               <Text style={styles.dayLabel}>{day}</Text>
             </View>
@@ -54,25 +56,26 @@ export default StreakView;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 20,
-    paddingTop: 20,
-    paddingBottom: 24,
+    marginLeft: 24,
+    marginRight: 24,
+    borderRadius: 20,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 16,
+    marginBottom: 24,
   },
   title: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: "700",
     color: colors.text.primary,
   },
   streakBadge: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: colors.accent.yellow,
+    backgroundColor: colors.accent.red,
+    color: colors.text.primary,
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
@@ -81,31 +84,36 @@ const styles = StyleSheet.create({
   streakNumber: {
     fontSize: 16,
     fontWeight: "700",
-    color: colors.text.onYellow,
+    color: colors.text.primary,
   },
   daysContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    backgroundColor: colors.background.secondary,
+    paddingHorizontal: 16,
+    borderRadius: 16,
+    paddingTop: 16,
+    paddingBottom: 16,
   },
   dayItem: {
     alignItems: "center",
     gap: 8,
   },
   dayCircle: {
-    width: 48,
-    height: 48,
+    width: 32,
+    height: 32,
     borderRadius: 24,
     justifyContent: "center",
     alignItems: "center",
   },
   dayCircleActive: {
-    backgroundColor: colors.accent.yellow,
+    backgroundColor: colors.accent.red,
   },
   dayCircleInactive: {
     backgroundColor: colors.background.secondary,
-    borderWidth: 1,
-    borderColor: colors.text.tertiary,
+    borderWidth: 0.5,
+    borderColor: colors.accent.red,
   },
   dayLabel: {
     fontSize: 14,

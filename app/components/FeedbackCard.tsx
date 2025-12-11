@@ -23,7 +23,7 @@ export default FeedbackCard;
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: colors.background.secondary,
+    backgroundColor: colors.accent.blue,
     borderRadius: 16,
     padding: 20,
     alignItems: "center",
@@ -36,9 +36,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   label: {
-    fontSize: 14,
-    fontWeight: "600",
-    color: colors.text.primary,
+    fontSize: 12,
+    fontWeight: "500",
     textAlign: "center",
+    includeFontPadding: false,
+    color: colors.text.primary,
   },
 });
+
+

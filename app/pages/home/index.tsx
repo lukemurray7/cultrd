@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useRef } from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { ImageBackground, Pressable, StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomNavBar } from "../../components/BottomNavBar";
@@ -18,29 +18,19 @@ export default function HomeScreen() {
 
   const courseCards = [
     {
-      icon: "book" as const,
       title: "Essential Philosophy: Theories and Thinkers",
-      subtitle: "John Kaag",
     },
     {
-      icon: "flask" as const,
       title: "The Science Behind Andrew Huberman's Morning Routine",
-      subtitle: "Science Daily",
     },
     {
-      icon: "trending-up" as const,
       title: "Economics Fundamentals",
-      subtitle: "Economic Times",
     },
     {
-      icon: "musical-notes" as const,
       title: "History of Classical Music",
-      subtitle: "Music History",
     },
     {
-      icon: "time" as const,
       title: "Ancient Civilizations",
-      subtitle: "Historical Society",
     },
   ];
 
@@ -52,38 +42,38 @@ export default function HomeScreen() {
         style={styles.scrollView}
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: insets.bottom + 80, paddingTop: insets.top },
+          { paddingBottom: insets.bottom + 80, paddingTop: insets.top + 8 },
         ]}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
       >
         <StreakView currentStreak={1} activeDayIndex={0} />
-
-        <Carousel>
-          {courseCards.map((card, index) => (
-            <CourseCard
-              key={index}
-              icon={card.icon}
-              title={card.title}
-              subtitle={card.subtitle}
-            />
-          ))}
-        </Carousel>
+        <View style={styles.carouselContainer}>
+          <Text style={styles.carouselTitle}>Your Learning Paths</Text>
+          <Carousel>
+            {courseCards.map((card, index) => (
+              <CourseCard key={index} title={card.title} />
+            ))}
+          </Carousel>
+        </View>
 
         <Pressable
           style={styles.exploreSection}
           onPress={() => router.push("/pages/courses")}
         >
-          <View style={styles.exploreCard}>
-            <View style={styles.exploreIconContainer}>
-              <Ionicons
-                name="compass"
-                size={48}
-                color={colors.text.primary}
-              />
-            </View>
-            <Text style={styles.exploreTitle}>Explore All Paths</Text>
-          </View>
+          <Text style={styles.exploreTitle}>
+            Explore All Topics{" "}
+            <Ionicons
+              name="arrow-forward"
+              size={18}
+              color={colors.text.primary}
+            />
+          </Text>
+          <ImageBackground
+            source={require("../../../assets/images/onboarding/cover-test.png")}
+            style={styles.exploreCard}
+            imageStyle={styles.exploreCardImage}
+          ></ImageBackground>
         </Pressable>
 
         <View style={styles.feedbackSection}>
@@ -109,35 +99,53 @@ const styles = StyleSheet.create({
     paddingBottom: 20,
   },
   exploreSection: {
-    paddingHorizontal: 20,
-    marginTop: 32,
-    marginBottom: 24,
-  },
-  exploreCard: {
-    backgroundColor: colors.background.secondary,
+    marginHorizontal: 24,
     borderRadius: 16,
-    padding: 24,
-    alignItems: "center",
-    justifyContent: "center",
+    marginTop: 32,
+    paddingHorizontal: 24,
+    paddingVertical: 16,
+    marginBottom: 24,
     borderWidth: 1,
     borderColor: colors.border.light,
   },
-  exploreIconContainer: {
-    marginBottom: 16,
+  exploreCard: {
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    minHeight: 120,
+  },
+  exploreCardImage: {
+    borderRadius: 16,
   },
   exploreTitle: {
-    fontSize: 24,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    fontSize: 18,
     fontWeight: "700",
     color: colors.text.primary,
+    textAlign: "center",
+    marginBottom: 12
   },
   feedbackSection: {
     flexDirection: "row",
     paddingHorizontal: 14,
     marginBottom: 20,
+    marginHorizontal: 24,
     borderWidth: 1,
     borderColor: colors.border.light,
     borderRadius: 16,
     paddingVertical: 16,
-    paddingHorizontal: 8,
+  },
+  carouselContainer: {
+    marginTop: 32,
+    marginHorizontal: 24,
+    marginBottom: 16,
+  },
+  carouselTitle: {
+    fontSize: 20,
+    fontWeight: "700",
+    color: colors.text.primary,
+    marginBottom: 8,
   },
 });

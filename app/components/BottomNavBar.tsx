@@ -15,7 +15,7 @@ const navItems: NavItem[] = [
   { name: "Home", iconOutline: "home-outline", iconFilled: "home", route: "/pages/home" },
   { name: "Courses", iconOutline: "book-outline", iconFilled: "book", route: "/pages/courses" },
   { name: "Library", iconOutline: "bookmark-outline", iconFilled: "bookmark", route: "/pages/library" },
-  { name: "Saved", iconOutline: "heart-outline", iconFilled: "heart", route: "/pages/saved" },
+  { name: "Settings", iconOutline: "settings-outline", iconFilled: "settings", route: "/pages/settings/account" },
 ];
 
 export function BottomNavBar() {
@@ -23,6 +23,9 @@ export function BottomNavBar() {
   const insets = useSafeAreaInsets();
 
   const handlePress = (route: string) => {
+    if (route === pathname) {
+      return;
+    }
     router.push(route as any);
   };
 
