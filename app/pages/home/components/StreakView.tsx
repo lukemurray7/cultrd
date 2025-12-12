@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
-import { colors } from "../theme/colors";
+import { colors } from "../../../theme/colors";
 
 interface StreakViewProps {
   currentStreak?: number;
@@ -121,3 +121,4 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
   },
 });
+

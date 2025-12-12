@@ -4,6 +4,7 @@ import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ProgressBar } from "../../../components/ProgressBar";
+import { colors } from "../../../theme/colors";
 
 export default function NotificationsScreen() {
   const handleEnable = async () => {
@@ -50,7 +51,7 @@ export default function NotificationsScreen() {
           style={styles.enableButton}
         >
           <LinearGradient
-            colors={["#4A9EFF", "#6366F1"]}
+            colors={[colors.accent.blueLight, colors.accent.purple]}
             start={{ x: 0, y: 0 }}
             end={{ x: 1, y: 0 }}
             style={styles.gradient}
@@ -69,7 +70,7 @@ export default function NotificationsScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -85,16 +86,16 @@ const styles = StyleSheet.create({
   phone: {
     width: 120,
     height: 180,
-    backgroundColor: "#F5F5DC",
+    backgroundColor: colors.background.beige,
     borderRadius: 20,
     borderWidth: 3,
-    borderColor: "#22C55E",
+    borderColor: colors.success.green,
     padding: 10,
     zIndex: 2,
   },
   phoneScreen: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
     borderRadius: 12,
     justifyContent: "center",
     alignItems: "center",
@@ -115,7 +116,7 @@ const styles = StyleSheet.create({
     top: 0,
     width: 20,
     height: 50,
-    backgroundColor: "#DCFCE7",
+    backgroundColor: colors.success.lightGreen,
     borderRadius: 10,
   },
   finger2: {
@@ -124,7 +125,7 @@ const styles = StyleSheet.create({
     top: 0,
     width: 20,
     height: 50,
-    backgroundColor: "#DCFCE7",
+    backgroundColor: colors.success.lightGreen,
     borderRadius: 10,
   },
   finger3: {
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
     top: 0,
     width: 20,
     height: 50,
-    backgroundColor: "#DCFCE7",
+    backgroundColor: colors.success.lightGreen,
     borderRadius: 10,
   },
   finger4: {
@@ -142,7 +143,7 @@ const styles = StyleSheet.create({
     top: 0,
     width: 20,
     height: 50,
-    backgroundColor: "#DCFCE7",
+    backgroundColor: colors.success.lightGreen,
     borderRadius: 10,
   },
   thumb: {
@@ -151,20 +152,20 @@ const styles = StyleSheet.create({
     top: 20,
     width: 30,
     height: 60,
-    backgroundColor: "#DCFCE7",
+    backgroundColor: colors.success.lightGreen,
     borderRadius: 15,
   },
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#000000",
+    color: colors.text.black,
     textAlign: "center",
     marginBottom: 16,
     lineHeight: 36,
   },
   subtitle: {
     fontSize: 16,
-    color: "#666666",
+    color: colors.text.tertiary,
     textAlign: "center",
     lineHeight: 24,
   },
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   enableButtonText: {
-    color: "#FFFFFF",
+    color: colors.text.primary,
     fontSize: 16,
     fontWeight: "600",
   },
@@ -193,7 +194,7 @@ const styles = StyleSheet.create({
   },
   notNowText: {
     fontSize: 16,
-    color: "#4A9EFF",
+    color: colors.accent.blueLight,
     fontWeight: "600",
   },
 });

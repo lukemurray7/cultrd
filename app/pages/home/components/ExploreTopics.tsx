@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import { colors } from "../theme/colors";
+import { colors } from "../../../theme/colors";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CONTAINER_WIDTH = SCREEN_WIDTH - 48;
@@ -12,13 +12,13 @@ const MEDIUM_CARD_WIDTH = (CONTAINER_WIDTH - GAP) / 2;
 const LARGE_CARD_WIDTH = CONTAINER_WIDTH;
 
 const topics = [
-  { name: "History", size: "large", color: "#6369D1" },
-  { name: "Economics", size: "medium", color: "#F7EEDC" },
-  { name: "Philosophy", size: "medium", color: "#E83F6F" },
-  { name: "Culture", size: "medium", color: "#4ECDC4" },
-  { name: "Art & Music", size: "tall", color: "#9B59B6" },
-  { name: "Politics", size: "large", color: "#F39C12" },
-  { name: "Science", size: "medium", color: "#2ECC71" },
+  { name: "History", size: "large", color: colors.accent.blue },
+  { name: "Economics", size: "medium", color: colors.accent.yellow },
+  { name: "Philosophy", size: "medium", color: colors.accent.red },
+  { name: "Culture", size: "medium", color: colors.accent.teal },
+  { name: "Art & Music", size: "tall", color: colors.accent.purpleDark },
+  { name: "Politics", size: "large", color: colors.accent.orange },
+  { name: "Science", size: "medium", color: colors.accent.green },
 ];
 
 export function ExploreTopics() {
@@ -40,8 +40,8 @@ export function ExploreTopics() {
   };
 
   const getTextColor = (bgColor: string) => {
-    const lightColors = ["#F7EEDC", "#F39C12"];
-    return lightColors.includes(bgColor) ? "#000000" : "#FFFFFF";
+    const lightColors = [colors.accent.yellow, colors.accent.orange];
+    return lightColors.includes(bgColor) ? colors.text.black : colors.text.primary;
   };
 
   const renderCard = (topic: typeof topics[0]) => {

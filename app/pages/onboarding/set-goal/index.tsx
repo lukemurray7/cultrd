@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ContinueButton } from "../../../components/ContinueButton";
 import { ProgressBar } from "../../../components/ProgressBar";
+import { colors } from "../../../theme/colors";
 
 interface GoalOption {
   label: string;
@@ -93,7 +94,7 @@ export default function SetGoalScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -103,13 +104,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#000000",
+    color: colors.text.black,
     textAlign: "center",
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: "#666666",
+    color: colors.text.tertiary,
     textAlign: "center",
     marginBottom: 32,
   },
@@ -118,16 +119,16 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   option: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#E5E5E5",
+    borderColor: colors.border.lightGray,
     paddingVertical: 16,
     paddingHorizontal: 20,
   },
   optionSelected: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
+    backgroundColor: colors.success.lightGreen,
+    borderColor: colors.success.green,
   },
   optionContent: {
     flexDirection: "row",
@@ -136,42 +137,42 @@ const styles = StyleSheet.create({
   optionLabel: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#000000",
+    color: colors.text.black,
     flex: 1,
   },
   optionLabelSelected: {
-    color: "#000000",
+    color: colors.text.black,
   },
   divider: {
     width: 1,
     height: 24,
-    backgroundColor: "#E5E5E5",
+    backgroundColor: colors.border.lightGray,
     marginHorizontal: 16,
   },
   optionTime: {
     fontSize: 16,
-    color: "#666666",
+    color: colors.text.tertiary,
   },
   optionTimeSelected: {
-    color: "#000000",
+    color: colors.text.black,
   },
   infoBox: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "#FEF3C7",
+    backgroundColor: colors.accent.yellowLight,
     borderRadius: 12,
     padding: 16,
     borderWidth: 1,
-    borderColor: "#FCD34D",
+    borderColor: colors.accent.yellowDark,
     marginBottom: 20,
   },
   infoIcon: {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
     borderWidth: 2,
-    borderColor: "#000000",
+    borderColor: colors.text.black,
     justifyContent: "center",
     alignItems: "center",
     marginRight: 12,
@@ -182,7 +183,7 @@ const styles = StyleSheet.create({
   infoText: {
     flex: 1,
     fontSize: 16,
-    color: "#000000",
+    color: colors.text.black,
   },
   infoBold: {
     fontWeight: "700",

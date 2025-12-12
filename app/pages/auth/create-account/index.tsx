@@ -2,6 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { colors } from '../../../theme/colors';
 
 export default function CreateAccountScreen() {
   const handleSocialLogin = (provider: 'apple' | 'google' | 'email') => {
@@ -21,7 +22,7 @@ export default function CreateAccountScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <Ionicons name="chevron-back" size={24} color="#000000" />
+          <Ionicons name="chevron-back" size={24} color={colors.text.black} />
         </Pressable>
 
         <Text style={styles.title}>Create an Account</Text>
@@ -34,7 +35,7 @@ export default function CreateAccountScreen() {
             style={[styles.socialButton, styles.appleButton]}
             onPress={() => handleSocialLogin('apple')}
           >
-            <Ionicons name="logo-apple" size={20} color="#FFFFFF" />
+            <Ionicons name="logo-apple" size={20} color={colors.text.primary} />
             <Text style={styles.appleText}>Continue with Apple</Text>
           </Pressable>
 
@@ -42,7 +43,7 @@ export default function CreateAccountScreen() {
             style={[styles.socialButton, styles.googleButton]}
             onPress={() => handleSocialLogin('google')}
           >
-            <Ionicons name="logo-google" size={20} color="#000000" />
+            <Ionicons name="logo-google" size={20} color={colors.text.black} />
             <Text style={styles.googleText}>Continue with Google</Text>
           </Pressable>
 
@@ -73,7 +74,7 @@ export default function CreateAccountScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -90,13 +91,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
     textAlign: 'center',
     marginBottom: 12,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666666',
+    color: colors.text.tertiary,
     textAlign: 'center',
     marginBottom: 40,
   },
@@ -115,29 +116,29 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   appleButton: {
-    backgroundColor: '#000000',
-    borderColor: '#000000',
+    backgroundColor: colors.background.black,
+    borderColor: colors.background.black,
   },
   appleText: {
-    color: '#FFFFFF',
+    color: colors.text.primary,
     fontSize: 16,
     fontWeight: '600',
   },
   googleButton: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#E5E5E5',
+    backgroundColor: colors.background.white,
+    borderColor: colors.border.lightGray,
   },
   googleText: {
-    color: '#000000',
+    color: colors.text.black,
     fontSize: 16,
     fontWeight: '600',
   },
   emailButton: {
-    backgroundColor: '#FFFFFF',
-    borderColor: '#E5E5E5',
+    backgroundColor: colors.background.white,
+    borderColor: colors.border.lightGray,
   },
   emailText: {
-    color: '#000000',
+    color: colors.text.black,
     fontSize: 16,
     fontWeight: '600',
   },
@@ -148,10 +149,10 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: '#666666',
+    color: colors.text.tertiary,
   },
   link: {
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
     textDecorationLine: 'underline',
   },
 });

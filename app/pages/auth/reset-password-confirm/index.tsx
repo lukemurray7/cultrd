@@ -3,6 +3,7 @@ import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ContinueButton } from '../../../components/ContinueButton';
+import { colors } from '../../../theme/colors';
 
 export default function ResetPasswordConfirmScreen() {
   return (
@@ -16,7 +17,7 @@ export default function ResetPasswordConfirmScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <Ionicons name="chevron-back" size={24} color="#000000" />
+          <Ionicons name="chevron-back" size={24} color={colors.text.black} />
         </Pressable>
 
         <Text style={styles.title}>Reset Password</Text>
@@ -38,7 +39,7 @@ export default function ResetPasswordConfirmScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -55,17 +56,17 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
     textAlign: 'center',
     marginBottom: 32,
   },
   message: {
     fontSize: 16,
-    color: '#666666',
+    color: colors.text.tertiary,
     textAlign: 'center',
     lineHeight: 24,
   },
   emailLink: {
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
   },
 });

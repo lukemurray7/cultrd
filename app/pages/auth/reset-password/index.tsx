@@ -7,6 +7,7 @@ import { supabase } from '../../../../lib/supabase';
 import { AlertDialog } from '../../../components/AlertDialog';
 import { ContinueButton } from '../../../components/ContinueButton';
 import { TextInput } from '../../../components/TextInput';
+import { colors } from '../../../theme/colors';
 
 export default function ResetPasswordScreen() {
   const [email, setEmail] = useState('');
@@ -50,7 +51,7 @@ export default function ResetPasswordScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <Ionicons name="chevron-back" size={24} color="#000000" />
+          <Ionicons name="chevron-back" size={24} color={colors.text.black} />
         </Pressable>
 
         <Text style={styles.title}>Reset Password</Text>
@@ -87,7 +88,7 @@ export default function ResetPasswordScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -104,7 +105,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
     textAlign: 'center',
     marginBottom: 40,
   },

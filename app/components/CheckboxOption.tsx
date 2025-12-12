@@ -1,5 +1,6 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { colors } from "../theme/colors";
 
 interface CheckboxOptionProps {
   label: string;
@@ -26,7 +27,7 @@ export function CheckboxOption({
           ]}
         >
           {selected && (
-            <Ionicons name="checkmark" size={16} color="#000000" />
+            <Ionicons name="checkmark" size={16} color={colors.text.black} />
           )}
         </View>
         <Text style={[styles.text, selected && styles.textSelected]}>
@@ -41,17 +42,17 @@ export default CheckboxOption;
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#E5E5E5",
+    borderColor: colors.border.lightGray,
     paddingVertical: 16,
     paddingHorizontal: 20,
     marginBottom: 12,
   },
   buttonSelected: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
+    backgroundColor: colors.success.lightGreen,
+    borderColor: colors.success.green,
   },
   content: {
     flexDirection: "row",
@@ -62,20 +63,20 @@ const styles = StyleSheet.create({
     height: 24,
     borderRadius: 6,
     borderWidth: 2,
-    borderColor: "#D1D5DB",
+    borderColor: colors.border.gray,
     marginRight: 12,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
   },
   checkboxSelected: {
-    backgroundColor: "#FFFFFF",
-    borderColor: "#22C55E",
+    backgroundColor: colors.background.white,
+    borderColor: colors.success.green,
   },
   text: {
     flex: 1,
     fontSize: 16,
-    color: "#000000",
+    color: colors.text.black,
     fontWeight: "400",
   },
   textSelected: {

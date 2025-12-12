@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { fonts } from "../theme/colors";
+import { colors, fonts } from "../theme/colors";
 
 interface ContinueButtonProps {
   onPress: () => void;
@@ -23,7 +23,9 @@ export function ContinueButton({
           <Text style={styles.disabledText}>{label}</Text>
         </View>
       ) : (
+        <View style={styles.button}>
           <Text style={styles.text}>{label}</Text>
+        </View>
       )}
     </Pressable>
   );
@@ -50,19 +52,18 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#E5E5E5",
+    backgroundColor: colors.background.lightGray,
   },
   text: {
-    color: "#FFFFFF",
+    color: colors.text.primary,
     fontSize: 16,
     fontWeight: "600",
     fontFamily: fonts.ubuntu.medium,
   },
   disabledText: {
-    color: "#666666",
+    color: colors.text.tertiary,
     fontSize: 16,
     fontWeight: "600",
     fontFamily: fonts.ubuntu.medium,
   },
 });
-

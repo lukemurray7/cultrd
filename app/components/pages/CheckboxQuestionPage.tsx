@@ -5,6 +5,7 @@ import { ProgressBar } from "../ProgressBar";
 import { CheckboxOption } from "../CheckboxOption";
 import { ContinueButton } from "../ContinueButton";
 import { router } from "expo-router";
+import { colors } from "../../theme/colors";
 
 interface CheckboxQuestionPageProps {
   title: string;
@@ -87,7 +88,7 @@ export default CheckboxQuestionPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -97,13 +98,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#000000",
+    color: colors.text.black,
     textAlign: "center",
     marginBottom: 12,
   },
   subtitle: {
     fontSize: 16,
-    color: "#666666",
+    color: colors.text.tertiary,
     textAlign: "center",
     marginBottom: 32,
   },

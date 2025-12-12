@@ -9,6 +9,7 @@ import {
     View,
 } from "react-native";
 import { ContinueButton } from "../../../components/ContinueButton";
+import { colors } from "../../../theme/colors";
 
 export default function OnboardingScreen() {
   return (
@@ -28,25 +29,25 @@ export default function OnboardingScreen() {
         <Ionicons
           name="flag"
           size={48}
-          color="#4A9EFF"
+          color={colors.accent.blueLight}
           style={styles.politicsIcon}
         />
         <Ionicons
           name="trending-up"
           size={48}
-          color="#6366F1"
+          color={colors.accent.purple}
           style={styles.economicsIcon}
         />
         <Ionicons
           name="musical-notes"
           size={32}
-          color="#4A9EFF"
+          color={colors.accent.blueLight}
           style={styles.cultureIcon}
         />
         <Ionicons
           name="time"
           size={32}
-          color="#6366F1"
+          color={colors.accent.purple}
           style={styles.historyIcon}
         />
       </View>
@@ -80,7 +81,7 @@ export default function OnboardingScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
     paddingTop: 60,
     paddingHorizontal: 20,
   },
@@ -97,7 +98,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "700",
-    color: "#000000",
+    color: colors.text.black,
     textAlign: "center",
   },
   iconLayout: {
@@ -133,7 +134,7 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    color: "#666666",
+    color: colors.text.tertiary,
     textAlign: "center",
     lineHeight: 24,
   },
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   loginLinkText: {
-    color: "#4A9EFF",
+    color: colors.accent.blueLight,
     fontSize: 16,
     fontWeight: "400",
   },

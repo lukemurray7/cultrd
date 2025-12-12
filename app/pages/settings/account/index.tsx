@@ -6,6 +6,7 @@ import appJson from '../../../../app.json';
 import { supabase } from '../../../../lib/supabase';
 import { AlertDialog } from '../../../components/AlertDialog';
 import { useAuth } from '../../../contexts/AuthContext';
+import { colors } from '../../../theme/colors';
 
 interface Profile {
   email: string;
@@ -367,7 +368,7 @@ function NotificationsUpdateModal({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -382,7 +383,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 16,
-    color: '#666666',
+    color: colors.text.tertiary,
   },
   backButton: {
     width: 40,
@@ -393,13 +394,13 @@ const styles = StyleSheet.create({
   },
   backIcon: {
     fontSize: 24,
-    color: '#000000',
+    color: colors.text.black,
     fontWeight: '600',
   },
   title: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#000000',
+    color: colors.text.black,
     marginBottom: 32,
   },
   section: {
@@ -415,16 +416,16 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 14,
-    color: '#666666',
+    color: colors.text.tertiary,
     marginBottom: 4,
   },
   value: {
     fontSize: 16,
-    color: '#000000',
+    color: colors.text.black,
   },
   passwordValue: {
     fontSize: 16,
-    color: '#000000',
+    color: colors.text.black,
     letterSpacing: 2,
   },
   editButton: {
@@ -434,7 +435,7 @@ const styles = StyleSheet.create({
   editButtonText: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
   },
   linksSection: {
     marginTop: 20,
@@ -442,17 +443,17 @@ const styles = StyleSheet.create({
   },
   link: {
     fontSize: 16,
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
     marginBottom: 16,
   },
   deleteLink: {
     fontSize: 16,
-    color: '#EF4444',
+    color: colors.error.red,
     marginBottom: 16,
   },
   version: {
     fontSize: 14,
-    color: '#666666',
+    color: colors.text.tertiary,
     textAlign: 'center',
     marginTop: 20,
   },
@@ -462,13 +463,13 @@ const styles = StyleSheet.create({
     paddingVertical: 16,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#4A9EFF',
+    borderColor: colors.accent.blueLight,
     alignItems: 'center',
   },
   logoutText: {
     fontSize: 16,
     fontWeight: '600',
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
   },
 });
 
@@ -485,7 +486,7 @@ const modalStyles = StyleSheet.create({
     padding: 20,
   },
   modal: {
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.background.white,
     borderRadius: 16,
     padding: 24,
     width: '100%',
@@ -494,7 +495,7 @@ const modalStyles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontWeight: '700',
-    color: '#000000',
+    color: colors.text.black,
     marginBottom: 24,
     textAlign: 'center',
   },
@@ -507,16 +508,16 @@ const modalStyles = StyleSheet.create({
     paddingHorizontal: 20,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#E5E5E5',
-    backgroundColor: '#FFFFFF',
+    borderColor: colors.border.lightGray,
+    backgroundColor: colors.background.white,
   },
   optionSelected: {
-    backgroundColor: '#DCFCE7',
-    borderColor: '#22C55E',
+    backgroundColor: colors.success.lightGreen,
+    borderColor: colors.success.green,
   },
   optionText: {
     fontSize: 16,
-    color: '#000000',
+    color: colors.text.black,
     textAlign: 'center',
   },
   optionTextSelected: {
@@ -528,6 +529,6 @@ const modalStyles = StyleSheet.create({
   },
   cancelText: {
     fontSize: 16,
-    color: '#666666',
+    color: colors.text.tertiary,
   },
 });

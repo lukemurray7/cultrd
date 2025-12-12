@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { colors } from "../theme/colors";
+import { colors } from "../../../theme/colors";
 
 interface FeedbackCardProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -43,5 +43,4 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
   },
 });
-
 

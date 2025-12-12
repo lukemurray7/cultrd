@@ -5,6 +5,7 @@ import { ProgressBar } from "../ProgressBar";
 import { OptionButton } from "../OptionButton";
 import { ContinueButton } from "../ContinueButton";
 import { router } from "expo-router";
+import { colors } from "../../theme/colors";
 
 interface ButtonQuestionPageProps {
   title: string;
@@ -65,7 +66,7 @@ export default ButtonQuestionPage;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#000000",
+    color: colors.text.black,
     textAlign: "center",
     marginBottom: 32,
   },

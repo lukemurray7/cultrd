@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { ProgressBar } from "../../../components/ProgressBar";
 import { ContinueButton } from "../../../components/ContinueButton";
 import { router } from "expo-router";
+import { colors } from "../../../theme/colors";
 
 export default function GoalSetScreen() {
   const handleContinue = () => {
@@ -62,7 +63,7 @@ export default function GoalSetScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -72,13 +73,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: "700",
-    color: "#000000",
+    color: colors.text.black,
     textAlign: "center",
     marginBottom: 24,
   },
   description: {
     fontSize: 18,
-    color: "#000000",
+    color: colors.text.black,
     lineHeight: 28,
     marginBottom: 40,
   },
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: "#000000",
+    backgroundColor: colors.text.black,
   },
   step1: {
     position: "absolute",
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: "#000000",
+    backgroundColor: colors.text.black,
     position: "absolute",
     right: 0,
     top: 140,
@@ -144,8 +145,8 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 25,
     borderWidth: 3,
-    borderColor: "#FFD700",
-    backgroundColor: "#FFFFFF",
+    borderColor: colors.accent.gold,
+    backgroundColor: colors.background.white,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -156,7 +157,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: "#22C55E",
+    backgroundColor: colors.success.green,
   },
   endIcon: {
     fontSize: 32,

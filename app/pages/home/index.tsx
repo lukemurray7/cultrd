@@ -6,10 +6,10 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomNavBar } from "../../components/BottomNavBar";
 import { Carousel } from "../../components/Carousel";
 import { CourseCard } from "../../components/CourseCard";
-import { ExploreTopics } from "../../components/ExploreTopics";
-import { FeedbackSection } from "../../components/FeedbackSection";
-import { StreakView } from "../../components/StreakView";
 import { colors } from "../../theme/colors";
+import { ExploreTopics } from "./components/ExploreTopics";
+import { FeedbackSection } from "./components/FeedbackSection";
+import { StreakView } from "./components/StreakView";
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();

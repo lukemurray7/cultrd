@@ -7,6 +7,7 @@ import { supabase } from '../../../../lib/supabase';
 import { AlertDialog } from '../../../components/AlertDialog';
 import { ContinueButton } from '../../../components/ContinueButton';
 import { TextInput } from '../../../components/TextInput';
+import { colors } from '../../../theme/colors';
 
 export default function CreateAccountEmailScreen() {
   const [email, setEmail] = useState('');
@@ -72,7 +73,7 @@ export default function CreateAccountEmailScreen() {
           style={styles.backButton}
           onPress={() => router.back()}
         >
-          <Ionicons name="chevron-back" size={24} color="#000000" />
+          <Ionicons name="chevron-back" size={24} color={colors.text.black} />
         </Pressable>
 
         <Text style={styles.title}>Create an Account</Text>
@@ -134,7 +135,7 @@ export default function CreateAccountEmailScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -151,13 +152,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '700',
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
     textAlign: 'center',
     marginBottom: 12,
   },
   subtitle: {
     fontSize: 16,
-    color: '#666666',
+    color: colors.text.tertiary,
     textAlign: 'center',
     marginBottom: 40,
   },
@@ -171,10 +172,10 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontSize: 14,
-    color: '#666666',
+    color: colors.text.tertiary,
   },
   link: {
-    color: '#4A9EFF',
+    color: colors.accent.blueLight,
     textDecorationLine: 'underline',
   },
 });

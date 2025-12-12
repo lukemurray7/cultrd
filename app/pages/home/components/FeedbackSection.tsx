@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import { colors } from "../theme/colors";
+import { colors } from "../../../theme/colors";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CONTAINER_WIDTH = SCREEN_WIDTH - 48;
@@ -8,10 +8,10 @@ const GAP = 8;
 const CARD_WIDTH = (CONTAINER_WIDTH - GAP) / 2;
 
 const feedbackOptions = [
-  { label: "Request a topic", icon: "add-circle" as const, color: "#6369D1" },
-  { label: "Feature request", icon: "bulb" as const, color: "#4ECDC4" },
-  { label: "Questions?", icon: "help-circle" as const, color: "#E83F6F" },
-  { label: "Rate app", icon: "star" as const, color: "#F39C12" },
+  { label: "Request a topic", icon: "add-circle" as const, color: colors.accent.blue },
+  { label: "Feature request", icon: "bulb" as const, color: colors.accent.teal },
+  { label: "Questions?", icon: "help-circle" as const, color: colors.accent.red },
+  { label: "Rate app", icon: "star" as const, color: colors.accent.orange },
 ];
 
 export function FeedbackSection() {

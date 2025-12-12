@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ContinueButton } from "../../../components/ContinueButton";
 import { ProgressBar } from "../../../components/ProgressBar";
+import { colors } from "../../../theme/colors";
 
 interface TimeOption {
   label: string;
@@ -80,7 +81,7 @@ export default function LearningTimeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
   },
   scrollContent: {
     flexGrow: 1,
@@ -90,13 +91,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#000000",
+    color: colors.text.black,
     textAlign: "center",
     marginBottom: 12,
   },
   subtitle: {
     fontSize: 16,
-    color: "#666666",
+    color: colors.text.tertiary,
     textAlign: "center",
     marginBottom: 32,
   },
@@ -105,32 +106,32 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   option: {
-    backgroundColor: "#FFFFFF",
+    backgroundColor: colors.background.white,
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: "#E5E5E5",
+    borderColor: colors.border.lightGray,
     paddingVertical: 20,
     paddingHorizontal: 20,
   },
   optionSelected: {
-    backgroundColor: "#DCFCE7",
-    borderColor: "#22C55E",
+    backgroundColor: colors.success.lightGreen,
+    borderColor: colors.success.green,
   },
   optionLabel: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#000000",
+    color: colors.text.black,
     marginBottom: 4,
   },
   optionLabelSelected: {
-    color: "#000000",
+    color: colors.text.black,
   },
   optionSubtitle: {
     fontSize: 14,
-    color: "#666666",
+    color: colors.text.tertiary,
   },
   optionSubtitleSelected: {
-    color: "#000000",
+    color: colors.text.black,
   },
 });
 
