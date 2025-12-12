@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomNavBar } from "../../components/BottomNavBar";
 import { Carousel } from "../../components/Carousel";
 import { CourseCard } from "../../components/CourseCard";
-import { colors } from "../../theme/colors";
+import { colors, spacing, typography } from "../../theme/colors";
 import { ExploreTopics } from "./components/ExploreTopics";
 import { FeedbackSection } from "./components/FeedbackSection";
 import { StreakView } from "./components/StreakView";
@@ -41,7 +41,7 @@ export default function HomeScreen() {
         style={styles.scrollView}
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: insets.bottom + 80, paddingTop: insets.top + 8 },
+          { paddingBottom: insets.bottom + spacing.xxxxxl, paddingTop: insets.top + spacing.sm },
         ]}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
@@ -83,17 +83,17 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    paddingBottom: 20,
+    paddingBottom: spacing.xl,
   },
   carouselContainer: {
-    marginTop: 32,
-    marginHorizontal: 24,
-    marginBottom: 16,
+    marginTop: spacing.xxxl,
+    marginHorizontal: spacing.xxl,
+    marginBottom: spacing.lg,
   },
   carouselTitle: {
-    fontSize: 20,
-    fontWeight: "700",
+    fontSize: typography.fontSize.xl,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.primary,
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
 });

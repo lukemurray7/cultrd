@@ -1,11 +1,11 @@
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import { colors } from "../../../theme/colors";
+import { colors, spacing, typography, borders } from "../../../theme/colors";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const CONTAINER_WIDTH = SCREEN_WIDTH - 48;
-const GAP = 8;
+const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.xxl * 2;
+const GAP = spacing.sm;
 const CARD_HEIGHT = 100;
 const TALL_CARD_HEIGHT = CARD_HEIGHT * 2 + GAP;
 const MEDIUM_CARD_WIDTH = (CONTAINER_WIDTH - GAP) / 2;
@@ -103,35 +103,35 @@ export default ExploreTopics;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 24,
-    marginTop: 32,
-    marginBottom: 24,
+    marginHorizontal: spacing.xxl,
+    marginTop: spacing.xxxl,
+    marginBottom: spacing.xxl,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: typography.fontSize.lg,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.primary,
-    marginBottom: 16,
+    marginBottom: spacing.lg,
   },
   grid: {
-    gap: 8,
+    gap: spacing.sm,
   },
   row: {
     flexDirection: "row",
-    gap: 8,
+    gap: spacing.sm,
   },
   column: {
-    gap: 8,
+    gap: spacing.sm,
   },
   card: {
-    borderRadius: 16,
-    padding: 16,
+    borderRadius: borders.radius.lg,
+    padding: spacing.lg,
     justifyContent: "center",
     alignItems: "flex-start",
   },
   cardText: {
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: typography.fontSize.lg,
+    fontWeight: typography.fontWeight.bold,
   },
 });
 

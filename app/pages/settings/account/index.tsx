@@ -6,7 +6,7 @@ import appJson from '../../../../app.json';
 import { supabase } from '../../../../lib/supabase';
 import { AlertDialog } from '../../../components/AlertDialog';
 import { useAuth } from '../../../contexts/AuthContext';
-import { colors } from '../../../theme/colors';
+import { colors, spacing, typography, borders } from '../../../theme/colors';
 
 interface Profile {
   email: string;
@@ -372,9 +372,9 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 60,
-    paddingBottom: 20,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxxl,
+    paddingBottom: spacing.xl,
   },
   loadingContainer: {
     flex: 1,
@@ -382,29 +382,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   loadingText: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.tertiary,
   },
   backButton: {
-    width: 40,
-    height: 40,
+    width: spacing.xxxxl,
+    height: spacing.xxxxl,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
   backIcon: {
-    fontSize: 24,
+    fontSize: typography.fontSize.xxl,
     color: colors.text.black,
-    fontWeight: '600',
+    fontWeight: typography.fontWeight.semibold,
   },
   title: {
-    fontSize: 32,
-    fontWeight: '700',
+    fontSize: typography.fontSize.titleLarge,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.black,
-    marginBottom: 32,
+    marginBottom: spacing.xxxl,
   },
   section: {
-    marginBottom: 32,
+    marginBottom: spacing.xxxl,
   },
   row: {
     flexDirection: 'row',
@@ -415,60 +415,60 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   label: {
-    fontSize: 14,
+    fontSize: typography.fontSize.sm,
     color: colors.text.tertiary,
-    marginBottom: 4,
+    marginBottom: spacing.xs,
   },
   value: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.black,
   },
   passwordValue: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.black,
     letterSpacing: 2,
   },
   editButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
   },
   editButtonText: {
-    fontSize: 14,
-    fontWeight: '600',
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.semibold,
     color: colors.accent.blueLight,
   },
   linksSection: {
-    marginTop: 20,
-    marginBottom: 20,
+    marginTop: spacing.xl,
+    marginBottom: spacing.xl,
   },
   link: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.accent.blueLight,
-    marginBottom: 16,
+    marginBottom: spacing.lg,
   },
   deleteLink: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.error.red,
-    marginBottom: 16,
+    marginBottom: spacing.lg,
   },
   version: {
-    fontSize: 14,
+    fontSize: typography.fontSize.sm,
     color: colors.text.tertiary,
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: spacing.xl,
   },
   logoutButton: {
-    marginHorizontal: 20,
-    marginBottom: 40,
-    paddingVertical: 16,
-    borderRadius: 12,
-    borderWidth: 1,
+    marginHorizontal: spacing.xl,
+    marginBottom: spacing.xxxxl,
+    paddingVertical: spacing.lg,
+    borderRadius: borders.radius.base,
+    borderWidth: borders.width.thin,
     borderColor: colors.accent.blueLight,
     alignItems: 'center',
   },
   logoutText: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
     color: colors.accent.blueLight,
   },
 });

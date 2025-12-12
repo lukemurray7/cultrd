@@ -1,8 +1,8 @@
-import { Pressable, StyleSheet, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../theme/colors";
+import { borders, colors, spacing } from "../theme/colors";
 
 interface ProgressBarProps {
   progress: number;
@@ -13,7 +13,7 @@ export function ProgressBar({ progress, showBack = true }: ProgressBarProps) {
   const insets = useSafeAreaInsets();
 
   return (
-    <View style={[styles.container, { paddingTop: insets.top + 8 }]}>
+    <View style={[styles.container, { paddingTop: insets.top + spacing.sm }]}>
       {showBack && (
         <Pressable
           onPress={() => router.back()}
@@ -35,23 +35,23 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 16,
-    paddingBottom: 16,
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.lg,
   },
   backButton: {
-    marginRight: 12,
+    marginRight: spacing.md,
   },
   progressBarContainer: {
     flex: 1,
-    height: 4,
+    height: spacing.xs,
     backgroundColor: colors.background.lightGray,
-    borderRadius: 2,
+    borderRadius: borders.radius.xs,
     overflow: "hidden",
   },
   progressBar: {
     height: "100%",
     backgroundColor: colors.success.green,
-    borderRadius: 2,
+    borderRadius: borders.radius.xs,
   },
 });
 

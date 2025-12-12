@@ -7,7 +7,7 @@ import { supabase } from '../../../../lib/supabase';
 import { AlertDialog } from '../../../components/AlertDialog';
 import { ContinueButton } from '../../../components/ContinueButton';
 import { TextInput } from '../../../components/TextInput';
-import { colors } from '../../../theme/colors';
+import { colors, spacing, typography } from '../../../theme/colors';
 export default function LoginScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -134,32 +134,32 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 60,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxxl,
   },
   backButton: {
-    width: 40,
-    height: 40,
+    width: spacing.xxxxl,
+    height: spacing.xxxxl,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
   title: {
-    fontSize: 32,
-    fontWeight: '700',
+    fontSize: typography.fontSize.titleLarge,
+    fontWeight: typography.fontWeight.bold,
     color: colors.accent.blueLight,
     textAlign: 'center',
-    marginBottom: 40,
+    marginBottom: spacing.xxxxl,
   },
   form: {
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
   forgotPassword: {
     alignItems: 'center',
-    marginTop: 8,
+    marginTop: spacing.sm,
   },
   forgotPasswordText: {
-    fontSize: 14,
+    fontSize: typography.fontSize.sm,
     color: colors.accent.blueLight,
     textDecorationLine: 'underline',
   },

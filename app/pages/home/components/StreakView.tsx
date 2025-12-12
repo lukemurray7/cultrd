@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
-import { colors } from "../../../theme/colors";
+import { colors, spacing, typography, borders } from "../../../theme/colors";
 
 interface StreakViewProps {
   currentStreak?: number;
@@ -56,19 +56,19 @@ export default StreakView;
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 24,
-    marginRight: 24,
-    borderRadius: 20,
+    marginLeft: spacing.xxl,
+    marginRight: spacing.xxl,
+    borderRadius: borders.radius.xl,
   },
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 24,
+    marginBottom: spacing.xxl,
   },
   title: {
-    fontSize: 26,
-    fontWeight: "700",
+    fontSize: typography.fontSize.xxxl,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.primary,
   },
   streakBadge: {
@@ -76,14 +76,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: colors.accent.red,
     color: colors.text.primary,
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-    gap: 4,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.md,
+    borderRadius: borders.radius.xl,
+    gap: spacing.xs,
   },
   streakNumber: {
-    fontSize: 16,
-    fontWeight: "700",
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.primary,
   },
   daysContainer: {
@@ -91,19 +91,19 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: colors.background.secondary,
-    paddingHorizontal: 16,
-    borderRadius: 16,
-    paddingTop: 16,
-    paddingBottom: 16,
+    paddingHorizontal: spacing.lg,
+    borderRadius: borders.radius.lg,
+    paddingTop: spacing.lg,
+    paddingBottom: spacing.lg,
   },
   dayItem: {
     alignItems: "center",
-    gap: 8,
+    gap: spacing.sm,
   },
   dayCircle: {
-    width: 32,
-    height: 32,
-    borderRadius: 24,
+    width: spacing.xxxl,
+    height: spacing.xxxl,
+    borderRadius: borders.radius.xxl,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -112,12 +112,12 @@ const styles = StyleSheet.create({
   },
   dayCircleInactive: {
     backgroundColor: colors.background.secondary,
-    borderWidth: 0.5,
+    borderWidth: borders.width.hairline,
     borderColor: colors.accent.red,
   },
   dayLabel: {
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.semibold,
     color: colors.text.primary,
   },
 });

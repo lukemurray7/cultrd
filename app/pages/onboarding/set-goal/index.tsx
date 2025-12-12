@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ContinueButton } from "../../../components/ContinueButton";
 import { ProgressBar } from "../../../components/ProgressBar";
-import { colors } from "../../../theme/colors";
+import { borders, colors, spacing, typography } from "../../../theme/colors";
 
 interface GoalOption {
   label: string;
@@ -98,33 +98,33 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 40,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxl,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "700",
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.black,
     textAlign: "center",
-    marginBottom: 8,
+    marginBottom: spacing.sm,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.tertiary,
     textAlign: "center",
-    marginBottom: 32,
+    marginBottom: spacing.xxxl,
   },
   optionsContainer: {
-    gap: 12,
-    marginBottom: 20,
+    gap: spacing.md,
+    marginBottom: spacing.xl,
   },
   option: {
     backgroundColor: colors.background.white,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderRadius: borders.radius.base,
+    borderWidth: borders.width.thin,
     borderColor: colors.border.lightGray,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.xl,
   },
   optionSelected: {
     backgroundColor: colors.success.lightGreen,
@@ -135,8 +135,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   optionLabel: {
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: typography.fontSize.lg,
+    fontWeight: typography.fontWeight.semibold,
     color: colors.text.black,
     flex: 1,
   },
@@ -144,13 +144,13 @@ const styles = StyleSheet.create({
     color: colors.text.black,
   },
   divider: {
-    width: 1,
-    height: 24,
+    width: borders.width.thin,
+    height: spacing.xxl,
     backgroundColor: colors.border.lightGray,
-    marginHorizontal: 16,
+    marginHorizontal: spacing.lg,
   },
   optionTime: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.tertiary,
   },
   optionTimeSelected: {
@@ -160,33 +160,33 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     backgroundColor: colors.accent.yellowLight,
-    borderRadius: 12,
-    padding: 16,
-    borderWidth: 1,
+    borderRadius: borders.radius.base,
+    padding: spacing.lg,
+    borderWidth: borders.width.thin,
     borderColor: colors.accent.yellowDark,
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
   infoIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: spacing.xxxxl,
+    height: spacing.xxxxl,
+    borderRadius: borders.radius.xl,
     backgroundColor: colors.background.white,
-    borderWidth: 2,
+    borderWidth: borders.width.medium,
     borderColor: colors.text.black,
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 12,
+    marginRight: spacing.md,
   },
   flameIcon: {
-    fontSize: 20,
+    fontSize: typography.fontSize.xl,
   },
   infoText: {
     flex: 1,
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.black,
   },
   infoBold: {
-    fontWeight: "700",
+    fontWeight: typography.fontWeight.bold,
   },
 });
 

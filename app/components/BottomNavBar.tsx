@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router, usePathname } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors } from "../theme/colors";
+import { colors, spacing, typography, borders } from "../theme/colors";
 
 interface NavItem {
   name: string;
@@ -66,9 +66,9 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     backgroundColor: colors.background.navBar,
-    borderTopWidth: 1,
+    borderTopWidth: borders.width.thin,
     borderTopColor: colors.border.light,
-    paddingTop: 12,
+    paddingTop: spacing.md,
     justifyContent: "space-around",
     alignItems: "center",
   },
@@ -78,10 +78,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   navLabel: {
-    fontSize: 12,
+    fontSize: typography.fontSize.xs,
     color: colors.text.secondary,
-    marginTop: 4,
-    fontWeight: "500",
+    marginTop: spacing.xs,
+    fontWeight: typography.fontWeight.medium,
   },
   navLabelActive: {
     color: colors.accent.blue,

@@ -1,11 +1,11 @@
-import { useState } from "react";
-import { StatusBar } from "expo-status-bar";
-import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { ProgressBar } from "../ProgressBar";
-import { OptionButton } from "../OptionButton";
-import { ContinueButton } from "../ContinueButton";
 import { router } from "expo-router";
-import { colors } from "../../theme/colors";
+import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { colors, spacing, typography } from "../../theme/colors";
+import { ContinueButton } from "../ContinueButton";
+import { OptionButton } from "../OptionButton";
+import { ProgressBar } from "../ProgressBar";
 
 interface ButtonQuestionPageProps {
   title: string;
@@ -70,18 +70,18 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 40,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxl,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "700",
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.black,
     textAlign: "center",
-    marginBottom: 32,
+    marginBottom: spacing.xxxl,
   },
   optionsContainer: {
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
 });
 

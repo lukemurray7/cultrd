@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { colors } from "../../../theme/colors";
+import { colors, spacing, typography, borders } from "../../../theme/colors";
 
 interface FeedbackCardProps {
   icon: keyof typeof Ionicons.glyphMap;
@@ -24,20 +24,20 @@ export default FeedbackCard;
 const styles = StyleSheet.create({
   card: {
     backgroundColor: colors.accent.blue,
-    borderRadius: 16,
-    padding: 20,
+    borderRadius: borders.radius.lg,
+    padding: spacing.xl,
     alignItems: "center",
     justifyContent: "center",
     flex: 1,
     minHeight: 120,
-    marginHorizontal: 6,
+    marginHorizontal: spacing.md,
   },
   iconContainer: {
-    marginBottom: 12,
+    marginBottom: spacing.md,
   },
   label: {
-    fontSize: 12,
-    fontWeight: "500",
+    fontSize: typography.fontSize.xs,
+    fontWeight: typography.fontWeight.medium,
     textAlign: "center",
     includeFontPadding: false,
     color: colors.text.primary,

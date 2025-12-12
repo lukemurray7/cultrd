@@ -3,7 +3,7 @@ import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { ContinueButton } from "../../../components/ContinueButton";
 import { ProgressBar } from "../../../components/ProgressBar";
-import { colors } from "../../../theme/colors";
+import { colors, spacing, typography } from "../../../theme/colors";
 
 export default function WelcomeScreen() {
   const handleContinue = () => {
@@ -34,11 +34,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: spacing.xl,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "700",
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.black,
     textAlign: "center",
     lineHeight: 36,

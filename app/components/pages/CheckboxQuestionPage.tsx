@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { ProgressBar } from "../ProgressBar";
+import { colors, spacing, typography } from "../../theme/colors";
 import { CheckboxOption } from "../CheckboxOption";
 import { ContinueButton } from "../ContinueButton";
-import { router } from "expo-router";
-import { colors } from "../../theme/colors";
+import { ProgressBar } from "../ProgressBar";
 
 interface CheckboxQuestionPageProps {
   title: string;
@@ -92,24 +92,24 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 40,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxl,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "700",
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.black,
     textAlign: "center",
-    marginBottom: 12,
+    marginBottom: spacing.md,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.tertiary,
     textAlign: "center",
-    marginBottom: 32,
+    marginBottom: spacing.xxxl,
   },
   optionsContainer: {
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
 });
 

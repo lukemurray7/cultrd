@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { colors } from '../../../theme/colors';
+import { colors, spacing, typography, borders } from '../../../theme/colors';
 
 export default function CreateAccountScreen() {
   const handleSocialLogin = (provider: 'apple' | 'google' | 'email') => {
@@ -78,42 +78,42 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 60,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxxl,
   },
   backButton: {
-    width: 40,
-    height: 40,
+    width: spacing.xxxxl,
+    height: spacing.xxxxl,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
   title: {
-    fontSize: 32,
-    fontWeight: '700',
+    fontSize: typography.fontSize.titleLarge,
+    fontWeight: typography.fontWeight.bold,
     color: colors.accent.blueLight,
     textAlign: 'center',
-    marginBottom: 12,
+    marginBottom: spacing.md,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.tertiary,
     textAlign: 'center',
-    marginBottom: 40,
+    marginBottom: spacing.xxxxl,
   },
   socialButtons: {
-    gap: 12,
-    marginBottom: 32,
+    gap: spacing.md,
+    marginBottom: spacing.xxxl,
   },
   socialButton: {
-    borderRadius: 12,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
+    borderRadius: borders.radius.base,
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.xl,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
-    gap: 12,
+    borderWidth: borders.width.thin,
+    gap: spacing.md,
   },
   appleButton: {
     backgroundColor: colors.background.black,
@@ -121,8 +121,8 @@ const styles = StyleSheet.create({
   },
   appleText: {
     color: colors.text.primary,
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
   },
   googleButton: {
     backgroundColor: colors.background.white,
@@ -130,8 +130,8 @@ const styles = StyleSheet.create({
   },
   googleText: {
     color: colors.text.black,
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
   },
   emailButton: {
     backgroundColor: colors.background.white,
@@ -139,16 +139,16 @@ const styles = StyleSheet.create({
   },
   emailText: {
     color: colors.text.black,
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
   },
   footer: {
-    paddingHorizontal: 20,
-    paddingBottom: 20,
+    paddingHorizontal: spacing.xl,
+    paddingBottom: spacing.xl,
     alignItems: 'center',
   },
   footerText: {
-    fontSize: 14,
+    fontSize: typography.fontSize.sm,
     color: colors.text.tertiary,
   },
   link: {

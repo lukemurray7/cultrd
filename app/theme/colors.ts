@@ -44,6 +44,60 @@ export const colors = {
   },
 };
 
+export const spacing = {
+  xs: 4,
+  sm: 8,
+  md: 12,
+  lg: 16,
+  xl: 20,
+  xxl: 24,
+  xxxl: 32,
+  xxxxl: 40,
+  xxxxxl: 50,
+  xxxxxxl: 60,
+};
+
+export const typography = {
+  fontSize: {
+    xs: 12,
+    sm: 14,
+    base: 16,
+    lg: 18,
+    xl: 20,
+    xxl: 24,
+    xxxl: 26,
+    title: 28,
+    titleLarge: 32,
+    display: 40,
+  },
+  fontWeight: {
+    regular: "400" as const,
+    medium: "500" as const,
+    semibold: "600" as const,
+    bold: "700" as const,
+  },
+};
+
+export const borders = {
+  width: {
+    hairline: 0.5,
+    thin: 1,
+    medium: 2,
+    thick: 3,
+  },
+  radius: {
+    none: 0,
+    xs: 2,
+    sm: 4,
+    md: 6,
+    base: 12,
+    lg: 16,
+    xl: 20,
+    xxl: 24,
+    circle: 100,
+  },
+};
+
 export const fonts = {
   ubuntu: {
     regular: "Ubuntu_400Regular",

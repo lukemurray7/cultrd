@@ -1,10 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import { colors } from "../../../theme/colors";
+import { colors, spacing, typography, borders } from "../../../theme/colors";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const CONTAINER_WIDTH = SCREEN_WIDTH - 48;
-const GAP = 8;
+const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.xxl * 2;
+const GAP = spacing.sm;
 const CARD_WIDTH = (CONTAINER_WIDTH - GAP) / 2;
 
 const feedbackOptions = [
@@ -45,35 +45,35 @@ export default FeedbackSection;
 
 const styles = StyleSheet.create({
   container: {
-    marginHorizontal: 24,
-    marginTop: 32,
-    marginBottom: 24,
+    marginHorizontal: spacing.xxl,
+    marginTop: spacing.xxxl,
+    marginBottom: spacing.xxl,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: typography.fontSize.lg,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.primary,
-    marginBottom: 16,
+    marginBottom: spacing.lg,
   },
   grid: {
     flexDirection: "row",
     flexWrap: "wrap",
-    gap: 8,
+    gap: spacing.sm,
   },
   card: {
-    borderRadius: 16,
-    padding: 20,
+    borderRadius: borders.radius.lg,
+    padding: spacing.xl,
     alignItems: "center",
     justifyContent: "center",
     width: CARD_WIDTH,
     minHeight: 120,
   },
   label: {
-    fontSize: 14,
-    fontWeight: "600",
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.semibold,
     textAlign: "center",
     color: colors.text.primary,
-    marginTop: 12,
+    marginTop: spacing.md,
   },
 });
 

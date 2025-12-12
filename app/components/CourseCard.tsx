@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { colors, fonts } from "../theme/colors";
+import { borders, colors, fonts, spacing, typography } from "../theme/colors";
 
 interface CourseCardProps {
   title: string;
@@ -56,43 +56,43 @@ export default CourseCard;
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 20,
+    borderRadius: borders.radius.xl,
     width: "100%",
     minHeight: 400,
     overflow: "hidden",
   },
   backgroundImage: {
     flex: 1,
-    borderRadius: 20,
+    borderRadius: borders.radius.xl,
   },
   imageStyle: {
-    borderRadius: 20,
+    borderRadius: borders.radius.xl,
   },
   gradientOverlay: {
     flex: 1,
     justifyContent: "flex-end",
-    padding: 16,
+    padding: spacing.lg,
   },
   bottomContent: {
-    gap: 16,
+    gap: spacing.lg,
   },
   title: {
-    fontSize: 18,
-    fontWeight: "700",
+    fontSize: typography.fontSize.lg,
+    fontWeight: typography.fontWeight.bold,
     fontFamily: fonts.ubuntu.bold,
     color: colors.text.primary,
   },
   ctaButton: {
     backgroundColor: colors.accent.blue,
-    borderRadius: 100,
+    borderRadius: borders.radius.circle,
     width: 110,
-    paddingVertical: 8,
+    paddingVertical: spacing.sm,
     alignItems: "center",
     justifyContent: "center",
   },
   ctaText: {
-    fontSize: 16,
-    fontWeight: "500",
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.medium,
     fontFamily: fonts.ubuntu.medium,
     color: colors.text.primary,
   },

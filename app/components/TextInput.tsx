@@ -1,5 +1,5 @@
 import { TextInput as RNTextInput, StyleSheet, Text, TextInputProps, View } from 'react-native';
-import { colors } from '../theme/colors';
+import { borders, colors, spacing, typography } from '../theme/colors';
 
 interface CustomTextInputProps extends TextInputProps {
   label?: string;
@@ -24,30 +24,30 @@ export default TextInput;
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
   label: {
-    fontSize: 14,
+    fontSize: typography.fontSize.sm,
     color: colors.text.tertiary,
-    marginBottom: 8,
-    fontWeight: '500',
+    marginBottom: spacing.sm,
+    fontWeight: typography.fontWeight.medium,
   },
   input: {
     backgroundColor: colors.background.white,
-    borderWidth: 1,
+    borderWidth: borders.width.thin,
     borderColor: colors.border.lightGray,
-    borderRadius: 12,
-    paddingVertical: 16,
-    paddingHorizontal: 16,
-    fontSize: 16,
+    borderRadius: borders.radius.base,
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.lg,
+    fontSize: typography.fontSize.base,
     color: colors.text.black,
   },
   inputError: {
     borderColor: colors.error.red,
   },
   errorText: {
-    fontSize: 12,
+    fontSize: typography.fontSize.xs,
     color: colors.error.red,
-    marginTop: 4,
+    marginTop: spacing.xs,
   },
 });

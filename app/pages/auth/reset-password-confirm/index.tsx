@@ -3,7 +3,7 @@ import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ContinueButton } from '../../../components/ContinueButton';
-import { colors } from '../../../theme/colors';
+import { colors, spacing, typography } from '../../../theme/colors';
 
 export default function ResetPasswordConfirmScreen() {
   return (
@@ -43,25 +43,25 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 60,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxxl,
   },
   backButton: {
-    width: 40,
-    height: 40,
+    width: spacing.xxxxl,
+    height: spacing.xxxxl,
     justifyContent: 'center',
     alignItems: 'flex-start',
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
   title: {
-    fontSize: 32,
-    fontWeight: '700',
+    fontSize: typography.fontSize.titleLarge,
+    fontWeight: typography.fontWeight.bold,
     color: colors.accent.blueLight,
     textAlign: 'center',
-    marginBottom: 32,
+    marginBottom: spacing.xxxl,
   },
   message: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.tertiary,
     textAlign: 'center',
     lineHeight: 24,

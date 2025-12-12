@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ContinueButton } from "../../../components/ContinueButton";
 import { ProgressBar } from "../../../components/ProgressBar";
-import { colors } from "../../../theme/colors";
+import { borders, colors, spacing, typography } from "../../../theme/colors";
 
 interface TimeOption {
   label: string;
@@ -34,7 +34,9 @@ export default function LearningTimeScreen() {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.title}>When will you fit learning into your day?</Text>
+        <Text style={styles.title}>
+          When will you fit learning into your day?
+        </Text>
         <Text style={styles.subtitle}>
           Picking a time helps to build a habit.
         </Text>
@@ -60,7 +62,8 @@ export default function LearningTimeScreen() {
                 <Text
                   style={[
                     styles.optionSubtitle,
-                    selectedTime === option.label && styles.optionSubtitleSelected,
+                    selectedTime === option.label &&
+                      styles.optionSubtitleSelected,
                   ]}
                 >
                   {option.subtitle}
@@ -70,10 +73,7 @@ export default function LearningTimeScreen() {
           ))}
         </View>
       </ScrollView>
-      <ContinueButton
-        onPress={handleContinue}
-        disabled={!selectedTime}
-      />
+      <ContinueButton onPress={handleContinue} disabled={!selectedTime} />
     </View>
   );
 }
@@ -85,53 +85,52 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 40,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxl,
   },
   title: {
-    fontSize: 28,
-    fontWeight: "700",
+    fontSize: typography.fontSize.title,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.black,
     textAlign: "center",
-    marginBottom: 12,
+    marginBottom: spacing.md,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.tertiary,
     textAlign: "center",
-    marginBottom: 32,
+    marginBottom: spacing.xxxl,
   },
   optionsContainer: {
-    gap: 12,
-    marginBottom: 20,
+    gap: spacing.md,
+    marginBottom: spacing.xl,
   },
   option: {
     backgroundColor: colors.background.white,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderRadius: borders.radius.base,
+    borderWidth: borders.width.thin,
     borderColor: colors.border.lightGray,
-    paddingVertical: 20,
-    paddingHorizontal: 20,
+    paddingVertical: spacing.xl,
+    paddingHorizontal: spacing.xl,
   },
   optionSelected: {
     backgroundColor: colors.success.lightGreen,
     borderColor: colors.success.green,
   },
   optionLabel: {
-    fontSize: 18,
-    fontWeight: "600",
+    fontSize: typography.fontSize.lg,
+    fontWeight: typography.fontWeight.semibold,
     color: colors.text.black,
-    marginBottom: 4,
+    marginBottom: spacing.xs,
   },
   optionLabelSelected: {
     color: colors.text.black,
   },
   optionSubtitle: {
-    fontSize: 14,
+    fontSize: typography.fontSize.sm,
     color: colors.text.tertiary,
   },
   optionSubtitleSelected: {
     color: colors.text.black,
   },
 });
-

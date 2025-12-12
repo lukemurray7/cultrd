@@ -1,12 +1,13 @@
 import { Dimensions, StyleSheet, View } from "react-native";
 import ReanimatedCarousel from "react-native-reanimated-carousel";
+import { spacing, borders } from "../theme/colors";
 
 interface CarouselProps {
   children: React.ReactNode[];
 }
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const CARD_WIDTH = (SCREEN_WIDTH - 24) * 0.90;
+const CARD_WIDTH = (SCREEN_WIDTH - spacing.xxl) * 0.90;
 
 export function Carousel({ children }: CarouselProps) {
   return (
@@ -33,18 +34,18 @@ export default Carousel;
 
 const styles = StyleSheet.create({
   container: {
-    marginLeft: 24,
+    marginLeft: spacing.xxl,
     alignItems: "center",
   },
   carousel: {
     width: SCREEN_WIDTH,
   },
   cardWrapper: {
-    paddingHorizontal: 4,
+    paddingHorizontal: spacing.xs,
   },
   gradient: {
     width: "100%",
     height: "100%",
-    borderRadius: 20,
+    borderRadius: borders.radius.xl,
   },
 });

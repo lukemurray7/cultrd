@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import { colors, fonts } from "../theme/colors";
+import { borders, colors, fonts, spacing, typography } from "../theme/colors";
 
 interface ContinueButtonProps {
   onPress: () => void;
@@ -35,35 +35,38 @@ export default ContinueButton;
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 12,
-    overflow: "hidden",
-    marginHorizontal: 20,
-    marginBottom: 50,
+    backgroundColor: colors.accent.blueLight,
+    borderRadius: borders.radius.base,
+    paddingVertical: spacing.sm,
+    paddingHorizontal: spacing.md,
+    textAlign: "center",
+    marginHorizontal: spacing.xl,
   },
   buttonDisabled: {
     opacity: 0.5,
   },
   gradient: {
-    paddingVertical: 16,
+    paddingVertical: spacing.lg,
     alignItems: "center",
     justifyContent: "center",
   },
   disabledButton: {
-    paddingVertical: 16,
+    paddingVertical: spacing.lg,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: colors.background.lightGray,
   },
   text: {
     color: colors.text.primary,
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
     fontFamily: fonts.ubuntu.medium,
+    textAlign: "center",
   },
   disabledText: {
     color: colors.text.tertiary,
-    fontSize: 16,
-    fontWeight: "600",
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
     fontFamily: fonts.ubuntu.medium,
   },
 });

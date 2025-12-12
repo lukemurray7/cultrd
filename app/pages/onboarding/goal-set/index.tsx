@@ -1,13 +1,13 @@
+import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { ProgressBar } from "../../../components/ProgressBar";
 import { ContinueButton } from "../../../components/ContinueButton";
-import { router } from "expo-router";
-import { colors } from "../../../theme/colors";
+import { ProgressBar } from "../../../components/ProgressBar";
+import { borders, colors, spacing, typography } from "../../../theme/colors";
 
 export default function GoalSetScreen() {
   const handleContinue = () => {
-    router.push("/pages/onboarding/personalizing");
+    router.push("/pages/onboarding/welcome");
   };
 
   return (
@@ -67,25 +67,25 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     flexGrow: 1,
-    paddingHorizontal: 20,
-    paddingTop: 40,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxl,
   },
   title: {
-    fontSize: 32,
-    fontWeight: "700",
+    fontSize: typography.fontSize.titleLarge,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.black,
     textAlign: "center",
-    marginBottom: 24,
+    marginBottom: spacing.xxl,
   },
   description: {
-    fontSize: 18,
+    fontSize: typography.fontSize.lg,
     color: colors.text.black,
     lineHeight: 28,
-    marginBottom: 40,
+    marginBottom: spacing.xxxxl,
   },
   pathContainer: {
     alignItems: "center",
-    marginBottom: 40,
+    marginBottom: spacing.xxxxl,
   },
   path: {
     width: "100%",
@@ -96,71 +96,71 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
   },
   startDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: spacing.sm,
+    height: spacing.sm,
+    borderRadius: borders.radius.xs,
     backgroundColor: colors.text.black,
   },
   step1: {
     position: "absolute",
     left: "15%",
-    top: 20,
+    top: spacing.xl,
   },
   step2: {
     position: "absolute",
     left: "30%",
-    top: 40,
+    top: spacing.xxxxl,
   },
   step3: {
     position: "absolute",
     left: "45%",
-    top: 60,
+    top: spacing.xxxxxl,
   },
   step4: {
     position: "absolute",
     left: "60%",
-    top: 80,
+    top: spacing.xxxxxl + spacing.sm,
   },
   step5: {
     position: "absolute",
     left: "75%",
-    top: 100,
+    top: spacing.xxxxxl + spacing.md,
   },
   endStep: {
     position: "absolute",
     right: 0,
-    top: 120,
+    top: spacing.xxxxxl + spacing.lg,
   },
   endDot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
+    width: spacing.sm,
+    height: spacing.sm,
+    borderRadius: borders.radius.xs,
     backgroundColor: colors.text.black,
     position: "absolute",
     right: 0,
-    top: 140,
+    top: spacing.xxxxxl + spacing.xl,
   },
   stepCircle: {
-    width: 50,
-    height: 50,
-    borderRadius: 25,
-    borderWidth: 3,
+    width: spacing.xxxxxl,
+    height: spacing.xxxxxl,
+    borderRadius: borders.radius.circle / 2,
+    borderWidth: borders.width.thick,
     borderColor: colors.accent.gold,
     backgroundColor: colors.background.white,
     justifyContent: "center",
     alignItems: "center",
   },
   stepIcon: {
-    fontSize: 24,
+    fontSize: typography.fontSize.xxl,
   },
   stepCircleFilled: {
-    width: 24,
-    height: 24,
-    borderRadius: 12,
+    width: spacing.xxl,
+    height: spacing.xxl,
+    borderRadius: borders.radius.base,
     backgroundColor: colors.success.green,
   },
   endIcon: {
-    fontSize: 32,
+    fontSize: typography.fontSize.titleLarge,
   },
 });
 

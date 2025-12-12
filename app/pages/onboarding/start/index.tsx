@@ -3,13 +3,13 @@ import { Image } from "expo-image";
 import { router } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import {
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from "react-native";
 import { ContinueButton } from "../../../components/ContinueButton";
-import { colors } from "../../../theme/colors";
+import { colors, spacing, typography } from "../../../theme/colors";
 
 export default function OnboardingScreen() {
   return (
@@ -82,73 +82,73 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background.white,
-    paddingTop: 60,
-    paddingHorizontal: 20,
+    paddingTop: spacing.xxxxxl,
+    paddingHorizontal: spacing.xl,
   },
   topSection: {
     alignItems: "center",
-    marginTop: 20,
-    marginBottom: 40,
+    marginTop: spacing.xl,
+    marginBottom: spacing.xxxxl,
   },
   icon: {
     width: 80,
     height: 80,
-    marginBottom: 24,
+    marginBottom: spacing.xxl,
   },
   title: {
-    fontSize: 32,
-    fontWeight: "700",
+    fontSize: typography.fontSize.titleLarge,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.black,
     textAlign: "center",
   },
   iconLayout: {
     height: 240,
     position: "relative",
-    marginBottom: 20,
+    marginBottom: spacing.xl,
   },
   politicsIcon: {
     position: "absolute",
-    left: 20,
+    left: spacing.xl,
     top: 0,
   },
   economicsIcon: {
     position: "absolute",
-    right: 20,
-    top: 60,
+    right: spacing.xl,
+    top: spacing.xxxxxl,
   },
   cultureIcon: {
     position: "absolute",
-    left: 40,
+    left: spacing.xxxxl,
     top: 120,
     opacity: 0.5,
   },
   historyIcon: {
     position: "absolute",
-    right: 40,
+    right: spacing.xxxxl,
     top: 180,
     opacity: 0.5,
   },
   contentSection: {
-    marginBottom: 32,
-    paddingHorizontal: 20,
+    marginBottom: spacing.xxxl,
+    paddingHorizontal: spacing.xl,
   },
   description: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.tertiary,
     textAlign: "center",
     lineHeight: 24,
   },
   actionsSection: {
-    marginBottom: 40,
+    marginBottom: spacing.xxxxl,
   },
   loginLink: {
     alignItems: "center",
-    marginTop: 16,
-    paddingVertical: 12,
+    marginTop: spacing.lg,
+    paddingVertical: spacing.md,
   },
   loginLinkText: {
     color: colors.accent.blueLight,
-    fontSize: 16,
-    fontWeight: "400",
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.regular,
   },
 });

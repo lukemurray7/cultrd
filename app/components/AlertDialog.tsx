@@ -1,5 +1,5 @@
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
-import { colors } from '../theme/colors';
+import { borders, colors, spacing, typography } from '../theme/colors';
 
 interface AlertDialogProps {
   visible: boolean;
@@ -44,36 +44,36 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    padding: spacing.xl,
   },
   dialog: {
     backgroundColor: colors.background.white,
-    borderRadius: 16,
-    padding: 24,
+    borderRadius: borders.radius.lg,
+    padding: spacing.xxl,
     width: '100%',
     maxWidth: 320,
   },
   title: {
-    fontSize: 20,
-    fontWeight: '700',
+    fontSize: typography.fontSize.xl,
+    fontWeight: typography.fontWeight.bold,
     color: colors.text.black,
-    marginBottom: 12,
+    marginBottom: spacing.md,
     textAlign: 'center',
   },
   message: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.tertiary,
-    marginBottom: 24,
+    marginBottom: spacing.xxl,
     textAlign: 'center',
     lineHeight: 22,
   },
   button: {
-    paddingVertical: 12,
+    paddingVertical: spacing.md,
     alignItems: 'center',
   },
   buttonText: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
     color: colors.accent.blueLight,
   },
 });

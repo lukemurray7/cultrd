@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { colors } from "../theme/colors";
+import { borders, colors, spacing, typography } from "../theme/colors";
 
 interface OptionButtonProps {
   label: string;
@@ -30,12 +30,12 @@ export default OptionButton;
 const styles = StyleSheet.create({
   button: {
     backgroundColor: colors.background.white,
-    borderRadius: 12,
-    borderWidth: 1,
+    borderRadius: borders.radius.base,
+    borderWidth: borders.width.thin,
     borderColor: colors.border.lightGray,
-    paddingVertical: 16,
-    paddingHorizontal: 20,
-    marginBottom: 12,
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.xl,
+    marginBottom: spacing.md,
     alignItems: "center",
   },
   buttonSelected: {
@@ -43,12 +43,12 @@ const styles = StyleSheet.create({
     borderColor: colors.success.green,
   },
   text: {
-    fontSize: 16,
+    fontSize: typography.fontSize.base,
     color: colors.text.black,
-    fontWeight: "400",
+    fontWeight: typography.fontWeight.regular,
   },
   textSelected: {
-    fontWeight: "500",
+    fontWeight: typography.fontWeight.medium,
   },
 });
 
