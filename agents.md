@@ -101,8 +101,6 @@ export default function TopicsScreen() {
 
 **Used by:** `topics`, `science-topics`, `philosophy-topics` pages
 
-**Used by:** `topics`, `science-topics`, `philosophy-topics` pages
-
 **Important:** When creating new onboarding question pages, check if they match these patterns and use the appropriate reusable component instead of building from scratch.
 
 ## Component Organization
@@ -133,14 +131,166 @@ Components that can be used across multiple pages should be placed in:
 
 ## Styling Patterns
 
-### Theme Usage
+### Theme System - CRITICAL RULE
 
-Always use colors and fonts from the theme file:
-- Import: `import { colors, fonts } from "../theme/colors";`
-- Use: `color: colors.text.primary`
-- Use: `fontFamily: fonts.ubuntu.medium`
+**NEVER use hardcoded values for colors, spacing, typography, borders, or border radius.** All styling values MUST come from the theme system.
 
-**Never hardcode colors or fonts** - always reference the theme.
+**Import pattern:**
+```typescript
+import { colors, fonts, spacing, typography, borders } from "../theme/colors";
+```
+
+### Theme Structure
+
+The theme file (`app/theme/colors.ts`) provides:
+
+#### Colors
+```typescript
+colors.background.primary
+colors.text.primary
+colors.accent.blue
+colors.success.green
+colors.error.red
+colors.border.lightGray
+// ... etc
+```
+
+#### Spacing
+All padding and margin values must use spacing tokens:
+```typescript
+spacing.xs      // 4px
+spacing.sm      // 8px
+spacing.md      // 12px
+spacing.lg      // 16px
+spacing.xl      // 20px
+spacing.xxl     // 24px
+spacing.xxxl    // 32px
+spacing.xxxxl   // 40px
+spacing.xxxxxl  // 50px
+spacing.xxxxxxl // 60px
+```
+
+**Example:**
+```typescript
+// ✅ CORRECT
+paddingHorizontal: spacing.xl,
+marginBottom: spacing.lg,
+padding: spacing.md,
+
+// ❌ WRONG - Never do this
+paddingHorizontal: 20,
+marginBottom: 16,
+padding: 12,
+```
+
+#### Typography
+
+**Font Sizes:**
+```typescript
+typography.fontSize.xs         // 12px
+typography.fontSize.sm         // 14px
+typography.fontSize.base      // 16px
+typography.fontSize.lg         // 18px
+typography.fontSize.xl         // 20px
+typography.fontSize.xxl        // 24px
+typography.fontSize.xxxl       // 26px
+typography.fontSize.title      // 28px
+typography.fontSize.titleLarge // 32px
+typography.fontSize.display    // 40px
+```
+
+**Font Weights:**
+```typescript
+typography.fontWeight.regular  // "400"
+typography.fontWeight.medium    // "500"
+typography.fontWeight.semibold  // "600"
+typography.fontWeight.bold      // "700"
+```
+
+**Example:**
+```typescript
+// ✅ CORRECT
+fontSize: typography.fontSize.base,
+fontWeight: typography.fontWeight.semibold,
+
+// ❌ WRONG - Never do this
+fontSize: 16,
+fontWeight: "600",
+```
+
+#### Borders
+
+**Border Widths:**
+```typescript
+borders.width.hairline  // 0.5px
+borders.width.thin      // 1px
+borders.width.medium    // 2px
+borders.width.thick     // 3px
+```
+
+**Border Radius:**
+```typescript
+borders.radius.none     // 0
+borders.radius.xs       // 2px
+borders.radius.sm       // 4px
+borders.radius.md       // 6px
+borders.radius.base     // 12px
+borders.radius.lg       // 16px
+borders.radius.xl       // 20px
+borders.radius.xxl      // 24px
+borders.radius.circle   // 100px
+```
+
+**Example:**
+```typescript
+// ✅ CORRECT
+borderWidth: borders.width.thin,
+borderRadius: borders.radius.base,
+
+// ❌ WRONG - Never do this
+borderWidth: 1,
+borderRadius: 12,
+```
+
+#### Fonts
+```typescript
+fonts.ubuntu.regular  // "Ubuntu_400Regular"
+fonts.ubuntu.medium   // "Ubuntu_500Medium"
+fonts.ubuntu.bold     // "Ubuntu_700Bold"
+```
+
+### Complete Style Example
+
+```typescript
+import { colors, spacing, typography, borders } from "../theme/colors";
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.background.white,
+    paddingHorizontal: spacing.xl,
+    paddingTop: spacing.xxxxxl,
+  },
+  title: {
+    fontSize: typography.fontSize.titleLarge,
+    fontWeight: typography.fontWeight.bold,
+    color: colors.text.black,
+    marginBottom: spacing.xxxl,
+  },
+  button: {
+    paddingVertical: spacing.lg,
+    paddingHorizontal: spacing.xl,
+    borderRadius: borders.radius.base,
+    borderWidth: borders.width.thin,
+    borderColor: colors.border.lightGray,
+  },
+  buttonText: {
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.semibold,
+    color: colors.text.primary,
+  },
+});
+```
 
 ### StyleSheet Pattern
 
@@ -150,25 +300,22 @@ Always use colors and fonts from the theme file:
    ```typescript
    style={[styles.base, condition && styles.conditional]}
    ```
-
-### Common Border Radius Values
-
-- Small elements: `12`
-- Cards/buttons: `16`
-- Large cards: `20`
-- Circular elements: `100` or `24` (for small circles)
+4. **Always import theme values** at the top of the file
 
 ### Responsive Design
 
-For responsive layouts, use `Dimensions.get("window")`:
+For responsive layouts, use `Dimensions.get("window")` with theme spacing:
 ```typescript
 import { Dimensions } from "react-native";
+import { spacing } from "../theme/colors";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const CONTAINER_WIDTH = SCREEN_WIDTH - 48; // Account for margins
-const GAP = 8;
+const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.xxl * 2; // Account for margins
+const GAP = spacing.sm;
 const CARD_WIDTH = (CONTAINER_WIDTH - GAP) / 2;
 ```
+
+**Note:** Even in calculations, prefer theme spacing values over hardcoded numbers.
 
 ## TypeScript Patterns
 
