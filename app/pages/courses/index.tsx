@@ -1,15 +1,29 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
+import { ScrollView } from "react-native-gesture-handler";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomNavBar } from "../../components/BottomNavBar";
 import { colors } from "../../theme/colors";
+import { TopNav } from "./components/TopNav";
 
 export default function CoursesScreen() {
+  const insets = useSafeAreaInsets();
+
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
-      <View style={styles.content}>
-        <Text style={styles.title}>Courses</Text>
+      <View style={[styles.topNavContainer, { paddingTop: insets.top }]}>
+        <TopNav />
       </View>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: insets.bottom + 80 },
+        ]}
+        showsVerticalScrollIndicator={false}
+      >
+      </ScrollView>
       <BottomNavBar />
     </View>
   );
@@ -20,17 +34,14 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: colors.background.primary,
   },
-  content: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+  topNavContainer: {
+    backgroundColor: colors.background.primary,
+    zIndex: 10,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "700",
-    color: colors.text.primary,
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    paddingTop: 0,
   },
 });
-
-
-

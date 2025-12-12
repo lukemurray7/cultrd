@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import { colors, spacing, typography, borders } from "../../../theme/colors";
+import { borders, colors, spacing, typography } from "../../../theme/colors";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.xxl * 2;
@@ -11,14 +12,24 @@ const TALL_CARD_HEIGHT = CARD_HEIGHT * 2 + GAP;
 const MEDIUM_CARD_WIDTH = (CONTAINER_WIDTH - GAP) / 2;
 const LARGE_CARD_WIDTH = CONTAINER_WIDTH;
 
+const topicImages: Record<string, any> = {
+  "history-icon.png": require("../../../../assets/images/econ-icon.png"),
+  "econ-icon.png": require("../../../../assets/images/econ-icon.png"),
+  "philosophy-icon.png": require("../../../../assets/images/econ-icon.png"),
+  "culture-icon.png": require("../../../../assets/images/econ-icon.png"),
+  "art-icon.png": require("../../../../assets/images/econ-icon.png"),
+  "politics-icon.png": require("../../../../assets/images/econ-icon.png"),
+  "science-icon.png": require("../../../../assets/images/econ-icon.png"),
+};
+
 const topics = [
-  { name: "History", size: "large", color: colors.accent.blue },
-  { name: "Economics", size: "medium", color: colors.accent.yellow },
-  { name: "Philosophy", size: "medium", color: colors.accent.red },
-  { name: "Culture", size: "medium", color: colors.accent.teal },
-  { name: "Art & Music", size: "tall", color: colors.accent.purpleDark },
-  { name: "Politics", size: "large", color: colors.accent.orange },
-  { name: "Science", size: "medium", color: colors.accent.green },
+  { name: "History", size: "large", color: colors.accent.blue, bgImage: 'history-icon.png' },
+  { name: "Economics", size: "medium", color: colors.accent.yellow, bgImage: 'econ-icon.png' },
+  { name: "Philosophy", size: "medium", color: colors.accent.red, bgImage: 'philosophy-icon.png' },
+  { name: "Culture", size: "medium", color: colors.accent.teal, bgImage: 'culture-icon.png' },
+  { name: "Art & Music", size: "tall", color: colors.accent.purpleDark, bgImage: 'art-icon.png' },
+  { name: "Politics", size: "large", color: colors.accent.orange, bgImage: 'politics-icon.png' },
+  { name: "Science", size: "medium", color: colors.accent.green, bgImage: 'science-icon.png' },
 ];
 
 export function ExploreTopics() {
@@ -39,14 +50,8 @@ export function ExploreTopics() {
     }
   };
 
-  const getTextColor = (bgColor: string) => {
-    const lightColors = [colors.accent.yellow, colors.accent.orange];
-    return lightColors.includes(bgColor) ? colors.text.black : colors.text.primary;
-  };
-
   const renderCard = (topic: typeof topics[0]) => {
     const cardStyle = getCardStyle(topic.size);
-    const textColor = getTextColor(topic.color);
 
     return (
       <Pressable
@@ -56,12 +61,17 @@ export function ExploreTopics() {
           {
             width: cardStyle.width,
             height: cardStyle.height,
-            backgroundColor: topic.color,
+            borderColor: topic.color,
           },
         ]}
         onPress={handleTopicPress}
       >
-        <Text style={[styles.cardText, { color: textColor }]}>
+        <Image
+          source={topicImages[topic.bgImage]}
+          style={styles.cardImage}
+          contentFit="contain"
+        />
+        <Text style={styles.cardText}>
           {topic.name}
         </Text>
       </Pressable>
@@ -126,12 +136,19 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: borders.radius.lg,
     padding: spacing.lg,
-    justifyContent: "center",
-    alignItems: "flex-start",
+    borderWidth: 2,
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  cardImage: {
+    width: "100%",
+    flex: 1,
+    marginBottom: spacing.sm,
   },
   cardText: {
     fontSize: typography.fontSize.lg,
     fontWeight: typography.fontWeight.bold,
+    color: colors.text.primary,
   },
 });
 
