@@ -2,7 +2,7 @@ import { router, type Href } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import { colors, spacing, typography } from "../../theme/colors";
+import { colors, spacing, typography } from "../../../theme/colors";
 import { CheckboxOption } from "../CheckboxOption";
 import { ContinueButton } from "../ContinueButton";
 import { ProgressBar } from "../ProgressBar";

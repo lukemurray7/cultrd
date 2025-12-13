@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text } from "react-native";
-import { borders, colors, spacing, typography } from "../theme/colors";
+import { borders, colors, spacing, typography } from "../../theme/colors";
 
 interface OptionButtonProps {
   label: string;

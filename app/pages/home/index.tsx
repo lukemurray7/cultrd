@@ -6,7 +6,7 @@ import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomNavBar } from "../../components/BottomNavBar";
 import { Carousel } from "../../components/Carousel";
 import { CourseCard } from "../../components/CourseCard";
-import { colors, spacing, typography } from "../../theme/colors";
+import { colors, spacing, typography } from "../../../theme/colors";
 import { ExploreTopics } from "./components/ExploreTopics";
 import { FeedbackSection } from "./components/FeedbackSection";
 import { StreakView } from "./components/StreakView";

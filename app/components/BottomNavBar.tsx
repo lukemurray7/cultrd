@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router, usePathname } from "expo-router";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { colors, spacing, typography, borders } from "../theme/colors";
+import { colors, spacing, typography, borders } from "../../theme/colors";
 
 interface NavItem {
   name: string;

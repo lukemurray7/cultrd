@@ -3,8 +3,8 @@ import { Image } from "expo-image";
 import { router } from "expo-router";
 import { ActivityIndicator, Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import { useTopics } from "../../../../lib/queries/topics";
-import { borders, colors, spacing, typography } from "../../../theme/colors";
-import { topicImages } from "../../../utils/topicImages";
+import { borders, colors, spacing, typography } from "../../../../theme/colors";
+import { topicImages } from "../../../../utils/topicImages";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.xxl * 2;

@@ -2,7 +2,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { colors, spacing, typography, borders } from '../../../theme/colors';
+import { colors, spacing, typography, borders } from '../../../../theme/colors';
 
 export default function CreateAccountScreen() {
   const handleSocialLogin = (provider: 'apple' | 'google' | 'email') => {

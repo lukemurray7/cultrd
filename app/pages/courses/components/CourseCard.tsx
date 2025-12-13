@@ -1,6 +1,6 @@
 import { Image } from "expo-image";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import { borders, colors, spacing, typography } from "../../../theme/colors";
+import { borders, colors, spacing, typography } from "../../../../theme/colors";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CARD_WIDTH = (SCREEN_WIDTH - spacing.lg * 3) / 2;

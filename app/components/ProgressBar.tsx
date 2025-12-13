@@ -2,7 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { Pressable, StyleSheet, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { borders, colors, spacing } from "../theme/colors";
+import { borders, colors, spacing } from "../../theme/colors";
 
 interface ProgressBarProps {
   progress: number;

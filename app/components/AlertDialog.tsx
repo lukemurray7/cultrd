@@ -1,5 +1,5 @@
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
-import { borders, colors, spacing, typography } from '../theme/colors';
+import { borders, colors, spacing, typography } from '../../theme/colors';
 
 interface AlertDialogProps {
   visible: boolean;

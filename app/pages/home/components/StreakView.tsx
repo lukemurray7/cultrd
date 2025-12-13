@@ -1,6 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
 import { StyleSheet, Text, View } from "react-native";
-import { colors, spacing, typography, borders } from "../../../theme/colors";
+import { colors, spacing, typography, borders } from "../../../../theme/colors";
 
 interface StreakViewProps {
   currentStreak?: number;

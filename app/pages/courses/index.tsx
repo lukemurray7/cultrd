@@ -3,8 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import { ActivityIndicator, Dimensions, ScrollView, SectionList, StyleSheet, Text, View, ViewToken } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCourses, type Course, type Topic } from "../../../lib/queries/courses";
+import { colors, spacing, typography } from "../../../theme/colors";
 import { BottomNavBar } from "../../components/BottomNavBar";
-import { colors, spacing, typography } from "../../theme/colors";
 import { CourseCard } from "./components/CourseCard";
 import { TopNav } from "./components/TopNav";
 

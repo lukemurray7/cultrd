@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet, View } from "react-native";
 import ReanimatedCarousel from "react-native-reanimated-carousel";
-import { spacing, borders } from "../theme/colors";
+import { spacing, borders } from "../../theme/colors";
 
 interface CarouselProps {
   children: React.ReactNode[];

@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 import { supabase } from "../../../lib/supabase";
 import { useAuth } from "../../contexts/AuthContext";
-import { colors } from "../../theme/colors";
+import { colors } from "../../../theme/colors";
 
 export default function SplashScreen() {
   const router = useRouter();

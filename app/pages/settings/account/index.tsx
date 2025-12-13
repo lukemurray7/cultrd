@@ -7,8 +7,8 @@ import { Alert, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View }
 import appJson from '../../../../app.json';
 import { useProfile } from '../../../../lib/queries/profiles';
 import { supabase } from '../../../../lib/supabase';
+import { borders, colors, spacing, typography } from '../../../../theme/colors';
 import { useAuth } from '../../../contexts/AuthContext';
-import { borders, colors, spacing, typography } from '../../../theme/colors';
 
 export default function AccountSettingsScreen() {
   const { user, signOut } = useAuth();
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: typography.fontSize.sm,
-    color: colors.text.tertiary,
+    color: colors.text.secondary,
     marginBottom: spacing.xs,
   },
   value: {
@@ -311,13 +311,13 @@ const styles = StyleSheet.create({
   },
   version: {
     fontSize: typography.fontSize.sm,
-    color: colors.text.tertiary,
+    color: colors.text.secondary,
     textAlign: 'center',
     marginTop: spacing.xl,
   },
   contactText: {
     fontSize: typography.fontSize.sm,
-    color: colors.text.tertiary,
+    color: colors.text.secondary,
     textAlign: 'center',
     marginTop: spacing.md,
   },
@@ -329,7 +329,7 @@ const styles = StyleSheet.create({
     marginBottom: spacing.xxxxl,
     paddingVertical: spacing.lg,
     borderRadius: borders.radius.base,
-    borderWidth: borders.width.thin,
+    borderWidth: borders.width.medium,
     borderColor: colors.accent.blueLight,
     alignItems: 'center',
   },

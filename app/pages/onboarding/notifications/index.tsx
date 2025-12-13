@@ -4,7 +4,7 @@ import { router, type Href } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ProgressBar } from "../../../components/ProgressBar";
-import { borders, colors, spacing, typography } from "../../../theme/colors";
+import { borders, colors, spacing, typography } from "../../../../theme/colors";
 
 export default function NotificationsScreen() {
   const handleEnable = async () => {

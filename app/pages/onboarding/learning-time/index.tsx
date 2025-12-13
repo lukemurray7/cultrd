@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ContinueButton } from "../../../components/ContinueButton";
 import { ProgressBar } from "../../../components/ProgressBar";
-import { borders, colors, spacing, typography } from "../../../theme/colors";
+import { borders, colors, spacing, typography } from "../../../../theme/colors";
 
 interface TimeOption {
   label: string;

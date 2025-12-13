@@ -1,5 +1,5 @@
 import { TextInput as RNTextInput, StyleSheet, Text, TextInputProps, View } from 'react-native';
-import { borders, colors, spacing, typography } from '../theme/colors';
+import { borders, colors, spacing, typography } from '../../theme/colors';
 
 interface CustomTextInputProps extends TextInputProps {
   label?: string;

@@ -105,3 +105,4 @@ export const fonts = {
     bold: "Ubuntu_700Bold",
   },
 };
+

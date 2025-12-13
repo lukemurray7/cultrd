@@ -1,7 +1,7 @@
 import { StatusBar } from "expo-status-bar";
 import { StyleSheet, Text, View } from "react-native";
 import { BottomNavBar } from "../../components/BottomNavBar";
-import { colors } from "../../theme/colors";
+import { colors } from "../../../theme/colors";
 
 export default function LibraryScreen() {
   return (
@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
   },
 });
+
 
 
 

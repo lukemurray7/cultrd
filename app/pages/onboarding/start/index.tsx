@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 import { ContinueButton } from "../../../components/ContinueButton";
-import { colors, spacing, typography } from "../../../theme/colors";
+import { colors, spacing, typography } from "../../../../theme/colors";
 
 export default function OnboardingScreen() {
   return (

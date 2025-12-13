@@ -6,7 +6,7 @@ import {
   Text,
   View,
 } from "react-native";
-import { borders, colors, fonts, spacing, typography } from "../theme/colors";
+import { borders, colors, fonts, spacing, typography } from "../../theme/colors";
 
 interface CourseCardProps {
   title: string;

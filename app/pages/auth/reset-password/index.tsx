@@ -7,7 +7,7 @@ import { supabase } from '../../../../lib/supabase';
 import { AlertDialog } from '../../../components/AlertDialog';
 import { ContinueButton } from '../../../components/ContinueButton';
 import { TextInput } from '../../../components/TextInput';
-import { colors, spacing, typography } from '../../../theme/colors';
+import { colors, spacing, typography } from '../../../../theme/colors';
 
 export default function ResetPasswordScreen() {
   const [email, setEmail] = useState('');

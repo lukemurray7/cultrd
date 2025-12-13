@@ -2,8 +2,8 @@ import { Image } from "expo-image";
 import { forwardRef, useImperativeHandle, useRef } from "react";
 import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useTopics } from "../../../../lib/queries/topics";
-import { borders, colors, spacing, typography } from "../../../theme/colors";
-import { topicImages } from "../../../utils/topicImages";
+import { borders, colors, spacing, typography } from "../../../../theme/colors";
+import { topicImages } from "../../../../utils/topicImages";
 
 interface TopNavProps {
   selectedTopic: string;
