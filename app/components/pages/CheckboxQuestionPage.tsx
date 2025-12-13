@@ -1,4 +1,4 @@
-import { router } from "expo-router";
+import { router, type Href } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useState } from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
@@ -50,7 +50,7 @@ export function CheckboxQuestionPage({
       if (onContinue) {
         onContinue(selectedOptions);
       }
-      router.push(nextRoute);
+      router.push(nextRoute as Href);
     }
   };
 

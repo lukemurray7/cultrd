@@ -17,7 +17,6 @@ export function CheckboxOption({
     <Pressable
       onPress={onPress}
       style={[styles.button, selected && styles.buttonSelected]}
-      activeOpacity={0.7}
     >
       <View style={styles.content}>
         <View

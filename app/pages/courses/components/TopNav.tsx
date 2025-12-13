@@ -1,18 +1,9 @@
 import { Image } from "expo-image";
 import { forwardRef, useImperativeHandle, useRef } from "react";
-import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { useTopics } from "../../../../lib/queries/topics";
 import { borders, colors, spacing, typography } from "../../../theme/colors";
 import { topicImages } from "../../../utils/topicImages";
-
-export const topics = [
-  { name: "History", bgImage: "history", color: colors.accent.blue },
-  { name: "Economics", bgImage: "economics", color: colors.accent.yellow },
-  { name: "Philosophy", bgImage: "philosophy", color: colors.accent.red },
-  { name: "Culture", bgImage: "culture", color: colors.accent.teal },
-  { name: "Art & Music", bgImage: "art", color: colors.accent.red },
-  { name: "Politics", bgImage: "politics", color: colors.accent.blue },
-  { name: "Science", bgImage: "science", color: colors.accent.green },
-];
 
 interface TopNavProps {
   selectedTopic: string;
@@ -22,12 +13,34 @@ interface TopNavProps {
 export const TopNav = forwardRef<ScrollView, TopNavProps>(
   ({ selectedTopic, onTopicPress }, ref) => {
     const scrollViewRef = useRef<ScrollView>(null);
+    const { data: topicsData = [], isLoading } = useTopics();
 
     useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
 
     const handleTopicPress = (topicName: string) => {
       onTopicPress?.(topicName);
     };
+
+    const topics = topicsData.map((topic) => {
+      const bgImage = topic.slug in topicImages ? topic.slug : "history";
+      const color = topic.color || colors.accent.blue;
+      return {
+        name: topic.name,
+        bgImage,
+        color,
+      };
+    });
+
+    if (isLoading) {
+      return (
+        <View style={styles.container}>
+          <Text style={styles.title}>Explore All Our Topics</Text>
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="small" color={colors.accent.blue} />
+          </View>
+        </View>
+      );
+    }
 
     return (
       <View style={styles.container}>
@@ -142,5 +155,10 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     paddingHorizontal: spacing.lg,
     paddingBottom: spacing.md,
+  },
+  loadingContainer: {
+    paddingVertical: spacing.md,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });

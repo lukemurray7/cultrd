@@ -7,15 +7,15 @@ const CARD_WIDTH = (SCREEN_WIDTH - spacing.lg * 3) / 2;
 
 interface CourseCardProps {
   title: string;
-  imageSource?: any;
+  imageUrl?: string;
   onPress?: () => void;
 }
 
-export function CourseCard({ title, imageSource, onPress }: CourseCardProps) {
+export function CourseCard({ title, imageUrl, onPress }: CourseCardProps) {
   return (
     <Pressable style={styles.card} onPress={onPress}>
       <Image
-        source={imageSource || require("../../../../assets/images/onboarding/test_image2.png")}
+        source={imageUrl ? { uri: imageUrl } : require("../../../../assets/images/onboarding/test_image2.png")}
         style={styles.image}
         contentFit="cover"
       />

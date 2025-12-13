@@ -49,7 +49,7 @@ export default function GoalSetScreen() {
               <View style={styles.stepCircleFilled} />
             </View>
             <View style={styles.endStep}>
-              <View style={styles.endIcon}>📍</View>
+              <Text style={styles.endIcon}>📍</Text>
             </View>
             <View style={styles.endDot} />
           </View>

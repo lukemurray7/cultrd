@@ -1,33 +1,14 @@
 import { StatusBar } from "expo-status-bar";
-import { useRef, useState } from "react";
-import { Dimensions, ScrollView, SectionList, StyleSheet, Text, View, ViewToken } from "react-native";
+import { useEffect, useRef, useState } from "react";
+import { ActivityIndicator, Dimensions, ScrollView, SectionList, StyleSheet, Text, View, ViewToken } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useCourses, type Course, type Topic } from "../../../lib/queries/courses";
 import { BottomNavBar } from "../../components/BottomNavBar";
 import { colors, spacing, typography } from "../../theme/colors";
-import { testImage1 } from "../../utils/topicImages";
 import { CourseCard } from "./components/CourseCard";
-import { TopNav, topics } from "./components/TopNav";
+import { TopNav } from "./components/TopNav";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
-
-interface Course {
-  id: string;
-  title: string;
-  imageSource?: any;
-}
-
-interface Subtopic {
-  id: string;
-  title: string;
-  subtitle: string;
-  courses: Course[];
-}
-
-interface Topic {
-  id: string;
-  title: string;
-  subtopics: Subtopic[];
-}
 
 interface SubtopicSection {
   id: string;
@@ -38,276 +19,6 @@ interface SubtopicSection {
   data: Course[][];
 }
 
-const generateCourses = (count: number, startId: number, topicName: string): Course[] => {
-  const courseTitles: Record<string, string[]> = {
-    history: [
-      "Ancient Civilizations",
-      "World War II: A Comprehensive Study",
-      "The Renaissance Era",
-      "Medieval Europe",
-      "Ancient Egypt",
-      "The Industrial Revolution",
-      "Cold War History",
-      "The Roman Empire",
-    ],
-    economics: [
-      "Macroeconomics Fundamentals",
-      "Microeconomics Principles",
-      "Global Markets and Trade",
-      "Economic Policy",
-      "Financial Markets",
-      "Behavioral Economics",
-      "Development Economics",
-      "International Trade",
-    ],
-    philosophy: [
-      "Essential Philosophy: Theories and Thinkers",
-      "Ethics and Moral Philosophy",
-      "Eastern Philosophy Traditions",
-      "Existentialism",
-      "Stoicism",
-      "Political Philosophy",
-      "Philosophy of Mind",
-      "Metaphysics",
-    ],
-    culture: [
-      "World Cultures and Traditions",
-      "Cultural Anthropology",
-      "Modern Cultural Movements",
-      "Indigenous Cultures",
-      "Urban Culture",
-      "Food Culture",
-      "Religious Traditions",
-      "Festivals Around the World",
-    ],
-    art: [
-      "History of Classical Music",
-      "Modern Art Movements",
-      "Jazz and Blues History",
-      "Rap Music Evolution",
-      "Painting Styles Through History",
-      "Sculpture and Architecture",
-      "Digital Art",
-      "Opera and Theater",
-    ],
-    politics: [
-      "Political Systems Around the World",
-      "Democracy and Governance",
-      "International Relations",
-      "UK Political History",
-      "US Leaders and Presidents",
-      "China and Asia Politics",
-      "European Union",
-      "Middle East Politics",
-    ],
-    science: [
-      "The Science Behind Andrew Huberman's Morning Routine",
-      "Quantum Physics Explained",
-      "Climate Science and Sustainability",
-      "Neuroscience Basics",
-      "Astrophysics",
-      "Biology and Evolution",
-      "Chemistry Fundamentals",
-      "Environmental Science",
-    ],
-  };
-
-  const titles = courseTitles[topicName.toLowerCase()] || [];
-  return Array.from({ length: count }, (_, i) => ({
-    id: `${startId + i}`,
-    title: titles[i % titles.length] || `${topicName} Course ${i + 1}`,
-    imageSource: testImage1,
-  }));
-};
-
-const mockTopics: Topic[] = [
-  {
-    id: "history",
-    title: "History",
-    subtopics: [
-      {
-        id: "history-1",
-        title: "Ancient Civilizations",
-        subtitle: "Explore the foundations of human civilization",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 1, "history"),
-      },
-      {
-        id: "history-2",
-        title: "World Wars",
-        subtitle: "Understanding the conflicts that shaped the modern world",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 10, "history"),
-      },
-      {
-        id: "history-3",
-        title: "European History",
-        subtitle: "From the Renaissance to modern Europe",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 20, "history"),
-      },
-    ],
-  },
-  {
-    id: "economics",
-    title: "Economics",
-    subtopics: [
-      {
-        id: "economics-1",
-        title: "Macroeconomics",
-        subtitle: "Understanding economies at the national level",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 30, "economics"),
-      },
-      {
-        id: "economics-2",
-        title: "Microeconomics",
-        subtitle: "Individual and business economic decisions",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 40, "economics"),
-      },
-      {
-        id: "economics-3",
-        title: "Global Markets",
-        subtitle: "International trade and finance",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 50, "economics"),
-      },
-    ],
-  },
-  {
-    id: "philosophy",
-    title: "Philosophy",
-    subtopics: [
-      {
-        id: "philosophy-1",
-        title: "Western Philosophy",
-        subtitle: "From ancient Greece to modern thinkers",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 60, "philosophy"),
-      },
-      {
-        id: "philosophy-2",
-        title: "Eastern Philosophy",
-        subtitle: "Buddhist, Taoist, and Confucian traditions",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 70, "philosophy"),
-      },
-      {
-        id: "philosophy-3",
-        title: "Ethics",
-        subtitle: "Moral philosophy and ethical reasoning",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 80, "philosophy"),
-      },
-    ],
-  },
-  {
-    id: "culture",
-    title: "Culture",
-    subtopics: [
-      {
-        id: "culture-1",
-        title: "World Traditions",
-        subtitle: "Cultural practices from around the globe",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 90, "culture"),
-      },
-      {
-        id: "culture-2",
-        title: "Modern Culture",
-        subtitle: "Contemporary cultural movements and trends",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 100, "culture"),
-      },
-      {
-        id: "culture-3",
-        title: "Anthropology",
-        subtitle: "The study of human societies and cultures",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 110, "culture"),
-      },
-    ],
-  },
-  {
-    id: "art",
-    title: "Art & Music",
-    subtopics: [
-      {
-        id: "art-1",
-        title: "Rap Music",
-        subtitle: "The evolution and impact of hip-hop culture",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 120, "art"),
-      },
-      {
-        id: "art-2",
-        title: "Painting Styles",
-        subtitle: "From classical to contemporary painting techniques",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 130, "art"),
-      },
-      {
-        id: "art-3",
-        title: "Classical Music",
-        subtitle: "Masterpieces and composers through the ages",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 140, "art"),
-      },
-      {
-        id: "art-4",
-        title: "Jazz and Blues",
-        subtitle: "The roots of American music",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 150, "art"),
-      },
-    ],
-  },
-  {
-    id: "politics",
-    title: "Politics",
-    subtopics: [
-      {
-        id: "politics-1",
-        title: "UK Political History",
-        subtitle: "From monarchy to modern democracy",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 160, "politics"),
-      },
-      {
-        id: "politics-2",
-        title: "US Leaders",
-        subtitle: "Presidents and their impact on American history",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 170, "politics"),
-      },
-      {
-        id: "politics-3",
-        title: "China and Asia",
-        subtitle: "Political systems and leaders across Asia",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 180, "politics"),
-      },
-      {
-        id: "politics-4",
-        title: "International Relations",
-        subtitle: "Global politics and diplomacy",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 190, "politics"),
-      },
-    ],
-  },
-  {
-    id: "science",
-    title: "Science",
-    subtopics: [
-      {
-        id: "science-1",
-        title: "Neuroscience",
-        subtitle: "Understanding the brain and nervous system",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 200, "science"),
-      },
-      {
-        id: "science-2",
-        title: "Physics",
-        subtitle: "From quantum mechanics to astrophysics",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 210, "science"),
-      },
-      {
-        id: "science-3",
-        title: "Climate Science",
-        subtitle: "Environmental science and sustainability",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 220, "science"),
-      },
-      {
-        id: "science-4",
-        title: "Biology",
-        subtitle: "Life sciences and evolution",
-        courses: generateCourses(Math.floor(Math.random() * 5) + 1, 230, "science"),
-      },
-    ],
-  },
-];
 
 export default function CoursesScreen() {
   const insets = useSafeAreaInsets();
@@ -315,6 +26,15 @@ export default function CoursesScreen() {
   const [selectedTopic, setSelectedTopic] = useState("History");
   const selectedTopicRef = useRef("History");
   const topNavScrollRef = useRef<ScrollView>(null);
+  
+  const { data: topicsData = [], isLoading, error } = useCourses();
+
+  useEffect(() => {
+    if (topicsData.length > 0 && selectedTopicRef.current === "History") {
+      setSelectedTopic(topicsData[0].title);
+      selectedTopicRef.current = topicsData[0].title;
+    }
+  }, [topicsData]);
 
   const flattenTopicsToSections = (topics: Topic[]): SubtopicSection[] => {
     const sections: SubtopicSection[] = [];
@@ -341,7 +61,7 @@ export default function CoursesScreen() {
     return sections;
   };
 
-  const sections = flattenTopicsToSections(mockTopics);
+  const sections = flattenTopicsToSections(topicsData);
 
   const scrollToTopic = (topicName: string) => {
     setSelectedTopic(topicName);
@@ -380,7 +100,7 @@ export default function CoursesScreen() {
             setSelectedTopic(newTopic);
             selectedTopicRef.current = newTopic;
 
-            const topicIndex = topics.findIndex((topic) => topic.name === newTopic);
+            const topicIndex = topicsData.findIndex((topic) => topic.title === newTopic);
             if (topicIndex !== -1 && topNavScrollRef.current) {
               const buttonWidth = 80;
               const gap = spacing.xl;
@@ -424,13 +144,31 @@ export default function CoursesScreen() {
           <CourseCard
             key={course.id}
             title={course.title}
-            imageSource={course.imageSource}
+            imageUrl={course.image_url}
           />
         ))}
         {item.length === 1 && <View style={{ width: (SCREEN_WIDTH - spacing.lg * 3) / 2 }} />}
       </View>
     );
   };
+
+  if (isLoading) {
+    return (
+      <View style={[styles.container, styles.centerContent]}>
+        <StatusBar style="light" />
+        <ActivityIndicator size="large" color={colors.accent.blue} />
+      </View>
+    );
+  }
+
+  if (error) {
+    return (
+      <View style={[styles.container, styles.centerContent]}>
+        <StatusBar style="light" />
+        <Text style={styles.errorText}>{error.message || "Failed to load courses"}</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -501,5 +239,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: spacing.lg,
     gap: spacing.md,
     marginBottom: spacing.xl,
+  },
+  centerContent: {
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorText: {
+    fontSize: typography.fontSize.base,
+    color: colors.error.red,
+    textAlign: "center",
+    paddingHorizontal: spacing.lg,
   },
 });

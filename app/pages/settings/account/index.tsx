@@ -107,10 +107,8 @@ export default function AccountSettingsScreen() {
 
               if (deleteError) {
                 console.error('Error deleting profile:', deleteError);
+                throw deleteError;
               }
-
-              const { error: authError } = await supabase.auth.deleteUser();
-              if (authError) throw authError;
 
               await signOut();
               router.replace('/pages/auth/login');

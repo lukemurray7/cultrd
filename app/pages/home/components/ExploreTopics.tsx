@@ -1,7 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { router } from "expo-router";
-import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { ActivityIndicator, Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { useTopics } from "../../../../lib/queries/topics";
 import { borders, colors, spacing, typography } from "../../../theme/colors";
 import { topicImages } from "../../../utils/topicImages";
 
@@ -13,132 +14,181 @@ const TALL_CARD_HEIGHT = CARD_HEIGHT * 2 + GAP;
 const MEDIUM_CARD_WIDTH = (CONTAINER_WIDTH - GAP) / 2;
 const LARGE_CARD_WIDTH = CONTAINER_WIDTH;
 
-const topics = [
-  { name: "History", size: "large", color: colors.accent.blue, bgImage: 'history' },
-  { name: "Economics", size: "medium", color: colors.accent.yellow, bgImage: 'economics' },
-  { name: "Philosophy", size: "medium", color: colors.accent.red, bgImage: 'philosophy' },
-  { name: "Culture", size: "medium", color: colors.accent.teal, bgImage: 'culture' },
-  { name: "Art & Music", size: "tall", color: colors.accent.red, bgImage: 'art' },
-  { name: "Politics", size: "large", color: colors.accent.blue, bgImage: 'politics' },
-  { name: "Science", size: "medium", color: colors.accent.green, bgImage: 'science' },
-];
-
 export function ExploreTopics() {
+  const { data: topicsData = [], isLoading } = useTopics();
+
   const handleTopicPress = () => {
     router.push("/pages/courses");
   };
 
-  const renderHistoryCard = () => (
-    <Pressable
-      style={[styles.cardHistory]}
-      onPress={handleTopicPress}
-    >
-      <Image
-        source={topicImages["history"]}
-        style={styles.cardHistoryImage}
-        contentFit="contain"
-      />
-      <Text style={styles.cardHistoryText}>
-        {topics[0].name}
-      </Text>
-    </Pressable>
-  );
+  const getTopicBySlug = (slug: string) => {
+    return topicsData.find((topic) => topic.slug === slug);
+  };
 
-  const renderEconomicsCard = () => (
-    <Pressable
-      style={[styles.cardEconomics]}
-      onPress={handleTopicPress}
-    >
-      <Image
-        source={topicImages["economics"]}
-        style={styles.cardEconomicsImage}
-        contentFit="contain"
-      />
-      <Text style={styles.cardEconomicsText}>
-        {topics[1].name}
-      </Text>
-    </Pressable>
-  );
+  const renderHistoryCard = () => {
+    const topic = getTopicBySlug("history");
+    if (!topic) return null;
+    const bgImage = topic.slug in topicImages ? topic.slug : "history";
+    return (
+      <Pressable
+        style={[styles.cardHistory]}
+        onPress={handleTopicPress}
+      >
+        <Image
+          source={topicImages[bgImage]}
+          style={styles.cardHistoryImage}
+          contentFit="contain"
+        />
+        <Text style={styles.cardHistoryText}>
+          {topic.name}
+        </Text>
+      </Pressable>
+    );
+  };
 
-  const renderPhilosophyCard = () => (
-    <Pressable
-      style={[styles.cardPhilosophy]}
-      onPress={handleTopicPress}
-    >
-      <Image
-        source={topicImages["philosophy"]}
-        style={styles.cardPhilosophyImage}
-        contentFit="contain"
-      />
-      <Text style={styles.cardPhilosophyText}>
-        {topics[2].name}
-      </Text>
-    </Pressable>
-  );
+  const renderEconomicsCard = () => {
+    const topic = getTopicBySlug("economics");
+    if (!topic) return null;
+    const bgImage = topic.slug in topicImages ? topic.slug : "economics";
+    return (
+      <Pressable
+        style={[styles.cardEconomics]}
+        onPress={handleTopicPress}
+      >
+        <Image
+          source={topicImages[bgImage]}
+          style={styles.cardEconomicsImage}
+          contentFit="contain"
+        />
+        <Text style={styles.cardEconomicsText}>
+          {topic.name}
+        </Text>
+      </Pressable>
+    );
+  };
 
-  const renderCultureCard = () => (
-    <Pressable
-      style={[styles.cardCulture]}
-      onPress={handleTopicPress}
-    >
-      <Image
-        source={topicImages["culture"]}
-        style={styles.cardCultureImage}
-        contentFit="contain"
-      />
-      <Text style={styles.cardCultureText}>
-        {topics[3].name}
-      </Text>
-    </Pressable>
-  );
+  const renderPhilosophyCard = () => {
+    const topic = getTopicBySlug("philosophy");
+    if (!topic) return null;
+    const bgImage = topic.slug in topicImages ? topic.slug : "philosophy";
+    return (
+      <Pressable
+        style={[styles.cardPhilosophy]}
+        onPress={handleTopicPress}
+      >
+        <Image
+          source={topicImages[bgImage]}
+          style={styles.cardPhilosophyImage}
+          contentFit="contain"
+        />
+        <Text style={styles.cardPhilosophyText}>
+          {topic.name}
+        </Text>
+      </Pressable>
+    );
+  };
 
-  const renderArtCard = () => (
-    <Pressable
-      style={[styles.cardArt]}
-      onPress={handleTopicPress}
-    >
-      <Image
-        source={topicImages["art"]}
-        style={styles.cardArtImage}
-        contentFit="contain"
-      />
-      <Text style={styles.cardArtText}>
-        {topics[4].name}
-      </Text>
-    </Pressable>
-  );
+  const renderCultureCard = () => {
+    const topic = getTopicBySlug("culture");
+    if (!topic) return null;
+    const bgImage = topic.slug in topicImages ? topic.slug : "culture";
+    return (
+      <Pressable
+        style={[styles.cardCulture]}
+        onPress={handleTopicPress}
+      >
+        <Image
+          source={topicImages[bgImage]}
+          style={styles.cardCultureImage}
+          contentFit="contain"
+        />
+        <Text style={styles.cardCultureText}>
+          {topic.name}
+        </Text>
+      </Pressable>
+    );
+  };
 
-  const renderPoliticsCard = () => (
-    <Pressable
-      style={[styles.cardPolitics]}
-      onPress={handleTopicPress}
-    >
-      <Text style={styles.cardPoliticsText}>
-        {topics[5].name}
-      </Text>
-      <Image
-        source={topicImages["politics"]}
-        style={styles.cardPoliticsImage}
-        contentFit="contain"
-      />
-    </Pressable>
-  );
+  const renderArtCard = () => {
+    const topic = getTopicBySlug("art");
+    if (!topic) return null;
+    const bgImage = topic.slug in topicImages ? topic.slug : "art";
+    return (
+      <Pressable
+        style={[styles.cardArt]}
+        onPress={handleTopicPress}
+      >
+        <Image
+          source={topicImages[bgImage]}
+          style={styles.cardArtImage}
+          contentFit="contain"
+        />
+        <Text style={styles.cardArtText}>
+          {topic.name}
+        </Text>
+      </Pressable>
+    );
+  };
 
-  const renderScienceCard = () => (
-    <Pressable
-      style={[styles.cardScience]}
-      onPress={handleTopicPress}
-    >
-      <Image
-        source={topicImages["science"]}
-        style={styles.cardScienceImage}
-        contentFit="contain"
-      />
-      <Text style={styles.cardScienceText}>
-        {topics[6].name}
-      </Text>
-    </Pressable>
-  );
+  const renderPoliticsCard = () => {
+    const topic = getTopicBySlug("politics");
+    if (!topic) return null;
+    const bgImage = topic.slug in topicImages ? topic.slug : "politics";
+    return (
+      <Pressable
+        style={[styles.cardPolitics]}
+        onPress={handleTopicPress}
+      >
+        <Text style={styles.cardPoliticsText}>
+          {topic.name}
+        </Text>
+        <Image
+          source={topicImages[bgImage]}
+          style={styles.cardPoliticsImage}
+          contentFit="contain"
+        />
+      </Pressable>
+    );
+  };
+
+  const renderScienceCard = () => {
+    const topic = getTopicBySlug("science");
+    if (!topic) return null;
+    const bgImage = topic.slug in topicImages ? topic.slug : "science";
+    return (
+      <Pressable
+        style={[styles.cardScience]}
+        onPress={handleTopicPress}
+      >
+        <Image
+          source={topicImages[bgImage]}
+          style={styles.cardScienceImage}
+          contentFit="contain"
+        />
+        <Text style={styles.cardScienceText}>
+          {topic.name}
+        </Text>
+      </Pressable>
+    );
+  };
+
+  if (isLoading) {
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>
+          Explore All Topics{" "}
+          <Ionicons
+            name="arrow-forward"
+            size={18}
+            color={colors.text.primary}
+          />
+        </Text>
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="small" color={colors.accent.blue} />
+        </View>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
@@ -343,6 +393,11 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.bold,
     color: colors.text.primary,
+  },
+  loadingContainer: {
+    paddingVertical: spacing.xl,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

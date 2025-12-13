@@ -16,7 +16,6 @@ export function OptionButton({
     <Pressable
       onPress={onPress}
       style={[styles.button, selected && styles.buttonSelected]}
-      activeOpacity={0.7}
     >
       <Text style={[styles.text, selected && styles.textSelected]}>
         {label}

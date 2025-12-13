@@ -1,6 +1,6 @@
 import { LinearGradient } from "expo-linear-gradient";
 import * as Notifications from "expo-notifications";
-import { router } from "expo-router";
+import { router, type Href } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { ProgressBar } from "../../../components/ProgressBar";
@@ -9,11 +9,11 @@ import { borders, colors, spacing, typography } from "../../../theme/colors";
 export default function NotificationsScreen() {
   const handleEnable = async () => {
     await Notifications.requestPermissionsAsync();
-    router.push("/pages/onboarding/create-account");
+    router.push("/pages/onboarding/create-account" as Href);
   };
 
   const handleNotNow = async () => {
-    router.push("/pages/onboarding/create-account");
+    router.push("/pages/onboarding/create-account" as Href);
   };
 
   return (
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   heartIcon: {
-    fontSize: typography.fontSize.xxxxl,
+    fontSize: typography.fontSize.xxxl,
   },
   hand: {
     position: "absolute",
