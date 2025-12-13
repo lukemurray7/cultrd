@@ -15,7 +15,7 @@ const navItems: NavItem[] = [
   { name: "Home", iconOutline: "home-outline", iconFilled: "home", route: "/pages/home" },
   { name: "Courses", iconOutline: "book-outline", iconFilled: "book", route: "/pages/courses" },
   { name: "Library", iconOutline: "bookmark-outline", iconFilled: "bookmark", route: "/pages/library" },
-  { name: "Settings", iconOutline: "settings-outline", iconFilled: "settings", route: "/pages/settings/account" },
+  { name: "Awards", iconOutline: "medal-outline", iconFilled: "medal", route: "/pages/awards" },
 ];
 
 export function BottomNavBar() {

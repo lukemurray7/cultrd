@@ -1,5 +1,6 @@
 import { Ionicons } from "@expo/vector-icons";
-import { StyleSheet, Text, View } from "react-native";
+import { router } from "expo-router";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { colors, spacing, typography, borders } from "../../../../theme/colors";
 
 interface StreakViewProps {
@@ -17,13 +18,25 @@ export function StreakView({
     <View style={styles.container}>
       <View style={styles.header}>
         <Text style={styles.title}>Good Morning</Text>
-        <View style={styles.streakBadge}>
-          <Text style={styles.streakNumber}>{currentStreak}</Text>
-          <Ionicons
-            name="flame-outline"
-            size={16}
-            color={colors.text.primary}
-          />
+        <View style={styles.rightContainer}>
+          <View style={styles.streakBadge}>
+            <Text style={styles.streakNumber}>{currentStreak}</Text>
+            <Ionicons
+              name="flame-outline"
+              size={16}
+              color={colors.text.primary}
+            />
+          </View>
+          <Pressable
+            style={styles.settingsButton}
+            onPress={() => router.push("/pages/settings/account")}
+          >
+            <Ionicons
+              name="settings-outline"
+              size={24}
+              color={colors.text.primary}
+            />
+          </Pressable>
         </View>
       </View>
       <View style={styles.daysContainer}>
@@ -65,6 +78,14 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: spacing.xxl,
+  },
+  rightContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: spacing.md,
+  },
+  settingsButton: {
+    padding: spacing.xs,
   },
   title: {
     fontSize: typography.fontSize.xxxl,

@@ -4,7 +4,9 @@ import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
 import { Alert, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import appJson from '../../../../app.json';
+import { BottomNavBar } from '../../../components/BottomNavBar';
 import { useProfile } from '../../../../lib/queries/profiles';
 import { supabase } from '../../../../lib/supabase';
 import { borders, colors, spacing, typography } from '../../../../theme/colors';
@@ -14,6 +16,7 @@ export default function AccountSettingsScreen() {
   const { user, signOut } = useAuth();
   const { data: profile, isLoading } = useProfile(user?.id ?? null);
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     checkNotificationPermissions();
@@ -101,7 +104,10 @@ export default function AccountSettingsScreen() {
     <View style={styles.container}>
       <StatusBar style="light" />
       <ScrollView
-        contentContainerStyle={styles.scrollContent}
+        contentContainerStyle={[
+          styles.scrollContent,
+          { paddingBottom: insets.bottom + spacing.xxxxxl }
+        ]}
         showsVerticalScrollIndicator={false}
       >
         {canGoBack && (
@@ -214,6 +220,7 @@ export default function AccountSettingsScreen() {
       <Pressable style={styles.logoutButton} onPress={handleLogOut}>
         <Text style={styles.logoutText}>Log Out</Text>
       </Pressable>
+      <BottomNavBar />
     </View>
   );
 }

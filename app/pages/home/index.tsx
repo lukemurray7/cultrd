@@ -3,13 +3,13 @@ import { useRef } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { colors, spacing, typography } from "../../../theme/colors";
 import { BottomNavBar } from "../../components/BottomNavBar";
 import { Carousel } from "../../components/Carousel";
 import { CourseCard } from "../../components/CourseCard";
-import { colors, spacing, typography } from "../../../theme/colors";
 import { ExploreTopics } from "./components/ExploreTopics";
 import { FeedbackSection } from "./components/FeedbackSection";
-import { StreakView } from "./components/StreakView";
+import { TopNavHeader } from "./components/TopNavHeader";
 
 export default function HomeScreen() {
   const insets = useSafeAreaInsets();
@@ -36,17 +36,19 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <StatusBar style="light" />
+      <View style={[styles.topNav, { paddingTop: insets.top }]}>
+        <TopNavHeader currentStreak={1} />
+      </View>
       <ScrollView
         ref={scrollViewRef}
         style={styles.scrollView}
         contentContainerStyle={[
           styles.scrollContent,
-          { paddingBottom: insets.bottom + spacing.xxxxxl, paddingTop: insets.top + spacing.sm },
+          { paddingBottom: insets.bottom + spacing.xxxxxl, paddingTop: spacing.sm },
         ]}
         showsVerticalScrollIndicator={false}
         nestedScrollEnabled={true}
       >
-        <StreakView currentStreak={1} activeDayIndex={0} />
         <View style={styles.carouselContainer}>
           <Text style={styles.carouselTitle}>Your Learning Paths</Text>
           <Carousel>
@@ -77,6 +79,9 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: colors.background.primary,
+  },
+  topNav: {
     backgroundColor: colors.background.primary,
   },
   scrollView: {

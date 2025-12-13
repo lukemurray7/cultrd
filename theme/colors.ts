@@ -2,7 +2,7 @@ export const colors = {
   background: {
     primary: "#000000",
     secondary: "#232323",
-    navBar: "#395B50",
+    navBar: "#181A20",
     white: "#FFFFFF",
     lightGray: "#E5E5E5",
     beige: "#F5F5DC",
