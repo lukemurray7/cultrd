@@ -1,16 +1,17 @@
-import { Ionicons } from "@expo/vector-icons";
+import { Image } from "expo-image";
 import { useState } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { borders, colors, spacing, typography } from "../../../theme/colors";
+import { topicImages } from "../../../utils/topicImages";
 
 const topics = [
-  { name: "History", icon: "time" as const },
-  { name: "Economics", icon: "trending-up" as const },
-  { name: "Philosophy", icon: "book" as const },
-  { name: "Culture", icon: "musical-notes" as const },
-  { name: "Art & Music", icon: "color-palette" as const },
-  { name: "Politics", icon: "flag" as const },
-  { name: "Science", icon: "flask" as const },
+  { name: "History", bgImage: "history", color: colors.accent.blue },
+  { name: "Economics", bgImage: "economics", color: colors.accent.yellow },
+  { name: "Philosophy", bgImage: "philosophy", color: colors.accent.red },
+  { name: "Culture", bgImage: "culture", color: colors.accent.teal },
+  { name: "Art & Music", bgImage: "art", color: colors.accent.red },
+  { name: "Politics", bgImage: "politics", color: colors.accent.blue },
+  { name: "Science", bgImage: "science", color: colors.accent.green },
 ];
 
 export function TopNav() {
@@ -18,6 +19,7 @@ export function TopNav() {
 
   return (
     <View style={styles.container}>
+      <Text style={styles.title}>Explore All Our Topics</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -25,6 +27,7 @@ export function TopNav() {
       >
         {topics.map((topic) => {
           const isSelected = selectedTopic === topic.name;
+          const topicColor = topic.color;
           return (
             <Pressable
               key={topic.name}
@@ -35,24 +38,31 @@ export function TopNav() {
                 style={[
                   styles.iconContainer,
                   {
-                    borderColor: isSelected
-                      ? colors.accent.yellow
-                      : colors.border.gray,
-                    backgroundColor: isSelected
-                      ? colors.accent.teal
-                      : "",
+                    borderWidth: isSelected ? 4 : borders.width.medium,
+                    borderColor: isSelected ? topicColor : colors.border.light,
+                    backgroundColor: "transparent",
                   },
                 ]}
               >
-                <Ionicons
-                  name={topic.icon}
-                  size={40}
-                  color={colors.text.primary}
+                <Image
+                  source={topicImages[topic.bgImage]}
+                  style={styles.iconImage}
+                  contentFit="contain"
                 />
               </View>
-              <Text style={[styles.label, isSelected && styles.labelSelected]}>
-                {topic.name}
-              </Text>
+              <View style={styles.labelContainer}>
+                <Text style={[styles.label, isSelected && styles.labelSelected]}>
+                  {topic.name}
+                </Text>
+                {isSelected && (
+                  <View
+                    style={[
+                      styles.underline,
+                      { backgroundColor: topicColor },
+                    ]}
+                  />
+                )}
+              </View>
             </Pressable>
           );
         })}
@@ -75,30 +85,46 @@ const styles = StyleSheet.create({
   button: {
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: borders.radius.sm,
-    backgroundColor: colors.background.primary,
   },
   iconContainer: {
     marginTop: spacing.md,
-    marginBottom: spacing.md,
-    borderWidth: borders.width.thick,
+    marginBottom: spacing.sm,
     alignItems: "center",
+    justifyContent: "center",
     width: 80,
     height: 60,
-    borderRadius: borders.radius.xl,
+    borderRadius: borders.radius.lg,
     padding: spacing.xs,
+  },
+  iconImage: {
+    width: 40,
+    height: 40,
   },
   label: {
     fontSize: typography.fontSize.sm,
     fontWeight: typography.fontWeight.regular,
     color: colors.text.primary,
-    paddingBottom: spacing.md,
+    paddingBottom: spacing.sm,
     width: 80,
     textAlign: "center",
   },
   labelSelected: {
     fontWeight: typography.fontWeight.medium,
-    borderBottomWidth: borders.width.thick,
-    borderBottomColor: colors.accent.yellow,
+  },
+  labelContainer: {
+    alignItems: "center",
+    width: 80,
+  },
+  underline: {
+    height: 2,
+    width: 60,
+    marginTop: spacing.xs,
+  },
+  title: {
+    fontSize: typography.fontSize.xl,
+    fontWeight: typography.fontWeight.bold,
+    color: colors.text.primary,
+    paddingHorizontal: spacing.lg,
+    paddingBottom: spacing.md,
   },
 });

@@ -3,6 +3,7 @@ import { Image } from "expo-image";
 import { router } from "expo-router";
 import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 import { borders, colors, spacing, typography } from "../../../theme/colors";
+import { topicImages } from "../../../utils/topicImages";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.xxl * 2;
@@ -11,16 +12,6 @@ const CARD_HEIGHT = 100;
 const TALL_CARD_HEIGHT = CARD_HEIGHT * 2 + GAP;
 const MEDIUM_CARD_WIDTH = (CONTAINER_WIDTH - GAP) / 2;
 const LARGE_CARD_WIDTH = CONTAINER_WIDTH;
-
-const topicImages: Record<string, any> = {
-  "history": require("../../../../assets/images/history.png"),
-  "economics": require("../../../../assets/images/economics.png"),
-  "philosophy": require("../../../../assets/images/philosophy.png"),
-  "culture": require("../../../../assets/images/culture.png"),
-  "art": require("../../../../assets/images/music.png"),
-  "politics": require("../../../../assets/images/politics.png"),
-  "science": require("../../../../assets/images/science.png"),
-};
 
 const topics = [
   { name: "History", size: "large", color: colors.accent.blue, bgImage: 'history' },

@@ -1,0 +1,49 @@
+import { Image } from "expo-image";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { borders, colors, spacing, typography } from "../../../theme/colors";
+
+const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const CARD_WIDTH = (SCREEN_WIDTH - spacing.lg * 3) / 2;
+
+interface CourseCardProps {
+  title: string;
+  imageSource?: any;
+  onPress?: () => void;
+}
+
+export function CourseCard({ title, imageSource, onPress }: CourseCardProps) {
+  return (
+    <Pressable style={styles.card} onPress={onPress}>
+      <Image
+        source={imageSource || require("../../../../assets/images/onboarding/test_image2.png")}
+        style={styles.image}
+        contentFit="cover"
+      />
+      <Text style={styles.title} numberOfLines={2}>
+        {title}
+      </Text>
+    </Pressable>
+  );
+}
+
+export default CourseCard;
+
+const styles = StyleSheet.create({
+  card: {
+    width: CARD_WIDTH,
+    marginBottom: spacing.lg,
+  },
+  image: {
+    width: "100%",
+    height: 250,
+    borderRadius: borders.radius.lg,
+    marginBottom: spacing.md,
+  },
+  title: {
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.bold,
+    color: colors.text.primary,
+    paddingHorizontal: spacing.xs,
+  },
+});
+
