@@ -1,17 +1,13 @@
 import { Ionicons } from "@expo/vector-icons";
-import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
-import { colors, spacing, typography, borders } from "../../../theme/colors";
-
-const { width: SCREEN_WIDTH } = Dimensions.get("window");
-const CONTAINER_WIDTH = SCREEN_WIDTH - spacing.xxl * 2;
-const GAP = spacing.sm;
-const CARD_WIDTH = (CONTAINER_WIDTH - GAP) / 2;
+import { Pressable, StyleSheet, Text, View } from "react-native";
+import { borders, colors, spacing, typography } from "../../../theme/colors";
 
 const feedbackOptions = [
-  { label: "Request a topic", icon: "add-circle" as const, color: colors.accent.blue },
-  { label: "Feature request", icon: "bulb" as const, color: colors.accent.teal },
-  { label: "Questions?", icon: "help-circle" as const, color: colors.accent.red },
-  { label: "Rate app", icon: "star" as const, color: colors.accent.orange },
+  { label: "Rate us", icon: "star-outline" as const },
+  { label: "Feedback - we're listening", icon: "chatbubble-outline" as const },
+  { label: "Request Topic or Course", icon: "add-circle-outline" as const },
+  { label: "Have A Question?", icon: "help-circle-outline" as const },
+  { label: "Share with a Friend", icon: "share-outline" as const },
 ];
 
 export function FeedbackSection() {
@@ -21,17 +17,18 @@ export function FeedbackSection() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Can we help?</Text>
-      <View style={styles.grid}>
+      <View style={styles.list}>
         {feedbackOptions.map((option, index) => (
           <Pressable
             key={index}
-            style={[styles.card, { backgroundColor: option.color }]}
+            style={styles.card}
             onPress={handlePress}
           >
             <Ionicons
               name={option.icon}
-              size={32}
-              color={colors.text.primary}
+              size={24}
+              color={colors.accent.purple}
+              style={styles.icon}
             />
             <Text style={styles.label}>{option.label}</Text>
           </Pressable>
@@ -55,25 +52,28 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     marginBottom: spacing.lg,
   },
-  grid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+  list: {
     gap: spacing.sm,
   },
   card: {
-    borderRadius: borders.radius.lg,
-    padding: spacing.xl,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    width: CARD_WIDTH,
-    minHeight: 120,
+    borderRadius: borders.radius.base,
+    padding: spacing.lg,
+    backgroundColor: colors.background.secondary,
+  },
+  icon: {
+    marginRight: spacing.md,
   },
   label: {
-    fontSize: typography.fontSize.sm,
-    fontWeight: typography.fontWeight.semibold,
-    textAlign: "center",
+    flex: 1,
+    fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.medium,
     color: colors.text.primary,
-    marginTop: spacing.md,
+  },
+  secondaryText: {
+    fontSize: typography.fontSize.sm,
+    color: colors.text.secondary,
   },
 });
 

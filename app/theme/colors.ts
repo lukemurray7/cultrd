@@ -1,7 +1,7 @@
 export const colors = {
   background: {
-    primary: "#1F2F16",
-    secondary: "#395B50",
+    primary: "#000000",
+    secondary: "#232323",
     navBar: "#395B50",
     white: "#FFFFFF",
     lightGray: "#E5E5E5",
