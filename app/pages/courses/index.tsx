@@ -1,6 +1,6 @@
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useRef, useState } from "react";
-import { ActivityIndicator, Dimensions, ScrollView, SectionList, StyleSheet, Text, View, ViewToken } from "react-native";
+import { ActivityIndicator, Dimensions, Pressable, ScrollView, SectionList, StyleSheet, Text, View, ViewToken } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useCourses, type Course, type Topic } from "../../../lib/queries/courses";
 import { colors, spacing, typography } from "../../../theme/colors";
@@ -9,6 +9,7 @@ import { CourseCard } from "./components/CourseCard";
 import { TopNav } from "./components/TopNav";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
+const CARD_WIDTH = (SCREEN_WIDTH - spacing.lg * 3) / 2;
 
 interface SubtopicSection {
   id: string;
@@ -145,18 +146,36 @@ export default function CoursesScreen() {
     );
   };
 
-  const renderCourseRow = ({ item }: { item: Course[] }) => {
+  const renderCourseRow = ({ item, section, index }: { item: Course[]; section: SubtopicSection; index: number }) => {
+    const isLastRow = index === section.data.length - 1;
+    
     return (
-      <View style={styles.row}>
-        {item.map((course) => (
-          <CourseCard
-            key={course.id}
-            title={course.title}
-            imageUrl={course.image_url}
-          />
-        ))}
-        {item.length === 1 && <View style={{ width: (SCREEN_WIDTH - spacing.lg * 3) / 2 }} />}
-      </View>
+      <>
+        <View style={styles.row}>
+          {item.map((course) => (
+            <CourseCard
+              key={course.id}
+              title={course.title}
+              imageUrl={course.image_url}
+            />
+          ))}
+          {item.length === 1 && isLastRow ? (
+            <Pressable style={styles.suggestCard}>
+              <Text style={styles.suggestCardText}>Suggest a course</Text>
+            </Pressable>
+          ) : item.length === 1 ? (
+            <View style={{ width: CARD_WIDTH }} />
+          ) : null}
+        </View>
+        {item.length === 2 && isLastRow && (
+          <View style={styles.row}>
+            <Pressable style={styles.suggestCard}>
+              <Text style={styles.suggestCardText}>Suggest a course</Text>
+            </Pressable>
+            <View style={{ width: CARD_WIDTH }} />
+          </View>
+        )}
+      </>
     );
   };
 
@@ -210,7 +229,7 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background.primary,
   },
   topNavContainer: {
-    backgroundColor: colors.background.primary,
+    backgroundColor: colors.background.navBar,
     zIndex: 10,
   },
   scrollContent: {
@@ -257,5 +276,22 @@ const styles = StyleSheet.create({
     color: colors.error.red,
     textAlign: "center",
     paddingHorizontal: spacing.lg,
+  },
+  suggestCard: {
+    width: CARD_WIDTH,
+    height: 250,
+    borderRadius: 16,
+    borderWidth: 3,
+    borderColor: colors.border.gray,
+    borderStyle: "dashed",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.background.secondary,
+  },
+  suggestCardText: {
+    fontSize: typography.fontSize.sm,
+    fontWeight: typography.fontWeight.bold,
+    color: colors.text.secondary,
+    textAlign: "center",
   },
 });

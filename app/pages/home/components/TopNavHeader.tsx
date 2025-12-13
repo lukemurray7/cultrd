@@ -46,6 +46,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     paddingHorizontal: spacing.xxl,
     paddingTop: spacing.sm,
+    backgroundColor: colors.background.navBar,
   },
   rightContainer: {
     flexDirection: "row",

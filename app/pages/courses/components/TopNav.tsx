@@ -104,7 +104,7 @@ export default TopNav;
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.background.primary,
+    backgroundColor: colors.background.navBar,
     paddingVertical: spacing.md,
   },
   scrollContent: {

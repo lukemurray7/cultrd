@@ -40,6 +40,7 @@ export const colors = {
   border: {
     light: "#444444",
     gray: "#D1D5DB",
+    darkGray: "#444444",
     lightGray: "#E5E5E5",
   },
 };

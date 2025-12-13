@@ -17,12 +17,20 @@ const LARGE_CARD_WIDTH = CONTAINER_WIDTH;
 export function ExploreTopics() {
   const { data: topicsData = [], isLoading } = useTopics();
 
-  const handleTopicPress = () => {
-    router.push("/pages/courses");
-  };
-
   const getTopicBySlug = (slug: string) => {
     return topicsData.find((topic) => topic.slug === slug);
+  };
+
+  const getTopicId = (slug: string) => {
+    const topicListItem = topicsData.find((topic) => topic.slug === slug);
+    return topicListItem?.id || null;
+  };
+
+  const handleTopicPress = (slug: string) => {
+    const topicId = getTopicId(slug);
+    if (topicId) {
+      router.push(`/pages/topics/${topicId}`);
+    }
   };
 
   const renderHistoryCard = () => {
@@ -32,7 +40,7 @@ export function ExploreTopics() {
     return (
       <Pressable
         style={[styles.cardHistory]}
-        onPress={handleTopicPress}
+        onPress={() => handleTopicPress("history")}
       >
         <Image
           source={topicImages[bgImage]}
@@ -53,7 +61,7 @@ export function ExploreTopics() {
     return (
       <Pressable
         style={[styles.cardEconomics]}
-        onPress={handleTopicPress}
+        onPress={() => handleTopicPress("economics")}
       >
         <Image
           source={topicImages[bgImage]}
@@ -74,7 +82,7 @@ export function ExploreTopics() {
     return (
       <Pressable
         style={[styles.cardPhilosophy]}
-        onPress={handleTopicPress}
+        onPress={() => handleTopicPress("philosophy")}
       >
         <Image
           source={topicImages[bgImage]}
@@ -95,7 +103,7 @@ export function ExploreTopics() {
     return (
       <Pressable
         style={[styles.cardCulture]}
-        onPress={handleTopicPress}
+        onPress={() => handleTopicPress("culture")}
       >
         <Image
           source={topicImages[bgImage]}
@@ -116,7 +124,7 @@ export function ExploreTopics() {
     return (
       <Pressable
         style={[styles.cardArt]}
-        onPress={handleTopicPress}
+        onPress={() => handleTopicPress("art")}
       >
         <Image
           source={topicImages[bgImage]}
@@ -137,7 +145,7 @@ export function ExploreTopics() {
     return (
       <Pressable
         style={[styles.cardPolitics]}
-        onPress={handleTopicPress}
+        onPress={() => handleTopicPress("politics")}
       >
         <Text style={styles.cardPoliticsText}>
           {topic.name}
@@ -158,7 +166,7 @@ export function ExploreTopics() {
     return (
       <Pressable
         style={[styles.cardScience]}
-        onPress={handleTopicPress}
+        onPress={() => handleTopicPress("science")}
       >
         <Image
           source={topicImages[bgImage]}

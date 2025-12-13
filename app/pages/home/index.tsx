@@ -82,7 +82,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.background.primary,
   },
   topNav: {
-    backgroundColor: colors.background.primary,
+    backgroundColor: colors.background.navBar,
+    paddingBottom: spacing.lg,
   },
   scrollView: {
     flex: 1,

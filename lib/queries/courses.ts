@@ -97,3 +97,106 @@ export const useCourses = () => {
     },
   });
 };
+
+export const useSubtopic = (subtopicId: string | undefined) => {
+  return useQuery({
+    queryKey: ['subtopic', subtopicId],
+    queryFn: async (): Promise<Subtopic | null> => {
+      if (!subtopicId) return null;
+
+      const { data, error } = await supabase
+        .from("subtopics")
+        .select(
+          `
+          id,
+          title,
+          subtitle,
+          display_order,
+          courses (
+            id,
+            title,
+            image_url,
+            display_order
+          )
+        `
+        )
+        .eq("id", subtopicId)
+        .single();
+
+      if (error) throw error;
+      if (!data) return null;
+
+      const subtopic = data as SupabaseSubtopic;
+      return {
+        id: subtopic.id,
+        title: subtopic.title,
+        subtitle: subtopic.subtitle,
+        courses: (subtopic.courses || [])
+          .sort((a: SupabaseCourse, b: SupabaseCourse) => a.display_order - b.display_order)
+          .map((course: SupabaseCourse) => ({
+            id: course.id,
+            title: course.title,
+            image_url: course.image_url,
+          })),
+      };
+    },
+    enabled: !!subtopicId,
+  });
+};
+
+export const useTopic = (topicId: string | undefined) => {
+  return useQuery({
+    queryKey: ['topic', topicId],
+    queryFn: async (): Promise<Topic | null> => {
+      if (!topicId) return null;
+
+      const { data, error } = await supabase
+        .from("topics")
+        .select(
+          `
+          id,
+          name,
+          slug,
+          subtopics (
+            id,
+            title,
+            subtitle,
+            display_order,
+            courses (
+              id,
+              title,
+              image_url,
+              display_order
+            )
+          )
+        `
+        )
+        .eq("id", topicId)
+        .single();
+
+      if (error) throw error;
+      if (!data) return null;
+
+      const topic = data as SupabaseTopic;
+      return {
+        id: topic.id,
+        title: topic.name,
+        subtopics: (topic.subtopics || [])
+          .sort((a: SupabaseSubtopic, b: SupabaseSubtopic) => a.display_order - b.display_order)
+          .map((subtopic: SupabaseSubtopic) => ({
+            id: subtopic.id,
+            title: subtopic.title,
+            subtitle: subtopic.subtitle,
+            courses: (subtopic.courses || [])
+              .sort((a: SupabaseCourse, b: SupabaseCourse) => a.display_order - b.display_order)
+              .map((course: SupabaseCourse) => ({
+                id: course.id,
+                title: course.title,
+                image_url: course.image_url,
+              })),
+          })),
+      };
+    },
+    enabled: !!topicId,
+  });
+};

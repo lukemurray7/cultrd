@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Pressable, StyleSheet, Text } from "react-native";
 import { borders, colors, spacing, typography } from "../../../../theme/colors";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
@@ -38,6 +38,8 @@ const styles = StyleSheet.create({
     height: 250,
     borderRadius: borders.radius.lg,
     marginBottom: spacing.md,
+    borderWidth: borders.width.thick,
+    borderColor: colors.border.gray,
   },
   title: {
     fontSize: typography.fontSize.sm,

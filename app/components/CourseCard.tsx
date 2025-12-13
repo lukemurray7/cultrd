@@ -60,6 +60,8 @@ const styles = StyleSheet.create({
     width: "100%",
     minHeight: 400,
     overflow: "hidden",
+    borderWidth: borders.width.medium,
+    borderColor: colors.border.darkGray,
   },
   backgroundImage: {
     flex: 1,

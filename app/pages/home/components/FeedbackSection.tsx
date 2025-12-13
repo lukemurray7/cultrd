@@ -61,6 +61,8 @@ const styles = StyleSheet.create({
     borderRadius: borders.radius.base,
     padding: spacing.lg,
     backgroundColor: colors.background.secondary,
+    borderWidth: borders.width.medium,
+    borderColor: colors.border.darkGray,
   },
   icon: {
     marginRight: spacing.md,
