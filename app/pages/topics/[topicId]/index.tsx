@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
   suggestCard: {
     width: CARD_WIDTH,
-    height: 250,
+    height: 200,
     borderRadius: 16,
     borderWidth: 3,
     borderColor: colors.border.gray,
