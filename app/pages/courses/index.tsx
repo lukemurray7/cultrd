@@ -1,4 +1,5 @@
 import { StatusBar } from "expo-status-bar";
+import { useRef } from "react";
 import { Dimensions, SectionList, StyleSheet, Text, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomNavBar } from "../../components/BottomNavBar";
@@ -310,6 +311,7 @@ const mockTopics: Topic[] = [
 
 export default function CoursesScreen() {
   const insets = useSafeAreaInsets();
+  const sectionListRef = useRef<SectionList<Course[], SubtopicSection>>(null);
 
   const flattenTopicsToSections = (topics: Topic[]): SubtopicSection[] => {
     const sections: SubtopicSection[] = [];
@@ -337,6 +339,19 @@ export default function CoursesScreen() {
   };
 
   const sections = flattenTopicsToSections(mockTopics);
+
+  const scrollToTopic = (topicName: string) => {
+    const sectionIndex = sections.findIndex(
+      (section) => section.topicTitle === topicName
+    );
+    if (sectionIndex !== -1 && sectionListRef.current) {
+      sectionListRef.current.scrollToLocation({
+        sectionIndex,
+        itemIndex: 0,
+        viewOffset: 0,
+      });
+    }
+  };
 
   const renderSectionHeader = ({ section }: { section: SubtopicSection }) => {
     return (
@@ -373,9 +388,10 @@ export default function CoursesScreen() {
     <View style={styles.container}>
       <StatusBar style="light" />
       <View style={[styles.topNavContainer, { paddingTop: insets.top }]}>
-        <TopNav />
+        <TopNav onTopicPress={scrollToTopic} />
       </View>
-      <SectionList
+      <SectionList<Course[], SubtopicSection>
+        ref={sectionListRef}
         sections={sections}
         renderItem={renderCourseRow}
         renderSectionHeader={renderSectionHeader}

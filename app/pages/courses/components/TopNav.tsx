@@ -14,8 +14,17 @@ const topics = [
   { name: "Science", bgImage: "science", color: colors.accent.green },
 ];
 
-export function TopNav() {
+interface TopNavProps {
+  onTopicPress?: (topicName: string) => void;
+}
+
+export function TopNav({ onTopicPress }: TopNavProps) {
   const [selectedTopic, setSelectedTopic] = useState(topics[0].name);
+
+  const handleTopicPress = (topicName: string) => {
+    setSelectedTopic(topicName);
+    onTopicPress?.(topicName);
+  };
 
   return (
     <View style={styles.container}>
@@ -32,7 +41,7 @@ export function TopNav() {
             <Pressable
               key={topic.name}
               style={[styles.button]}
-              onPress={() => setSelectedTopic(topic.name)}
+              onPress={() => handleTopicPress(topic.name)}
             >
               <View
                 style={[
