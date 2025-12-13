@@ -22,7 +22,7 @@ export function CourseCard({
   return (
     <Pressable style={styles.card} onPress={onPress}>
       <ImageBackground
-        source={require(`../../assets/images/onboarding/test_image2.png`)}
+        source={{ uri: "https://etmdylaxhgtxqbtyzstr.supabase.co/storage/v1/object/public/course-images/courses/test_image2.png" }}
         style={styles.backgroundImage}
         imageStyle={styles.imageStyle}
       >

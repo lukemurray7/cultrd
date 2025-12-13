@@ -15,7 +15,7 @@ export function CourseCard({ title, imageUrl, onPress }: CourseCardProps) {
   return (
     <Pressable style={styles.card} onPress={onPress}>
       <Image
-        source={imageUrl ? { uri: imageUrl } : require("../../../../assets/images/onboarding/test_image2.png")}
+        source={imageUrl ? { uri: imageUrl } : { uri: "https://etmdylaxhgtxqbtyzstr.supabase.co/storage/v1/object/public/course-images/courses/test_image2.png" }}
         style={styles.image}
         contentFit="cover"
       />
