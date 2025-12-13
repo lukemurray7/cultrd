@@ -1,10 +1,10 @@
 import { Image } from "expo-image";
-import { useState } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { borders, colors, spacing, typography } from "../../../theme/colors";
 import { topicImages } from "../../../utils/topicImages";
 
-const topics = [
+export const topics = [
   { name: "History", bgImage: "history", color: colors.accent.blue },
   { name: "Economics", bgImage: "economics", color: colors.accent.yellow },
   { name: "Philosophy", bgImage: "philosophy", color: colors.accent.red },
@@ -15,25 +15,29 @@ const topics = [
 ];
 
 interface TopNavProps {
+  selectedTopic: string;
   onTopicPress?: (topicName: string) => void;
 }
 
-export function TopNav({ onTopicPress }: TopNavProps) {
-  const [selectedTopic, setSelectedTopic] = useState(topics[0].name);
+export const TopNav = forwardRef<ScrollView, TopNavProps>(
+  ({ selectedTopic, onTopicPress }, ref) => {
+    const scrollViewRef = useRef<ScrollView>(null);
 
-  const handleTopicPress = (topicName: string) => {
-    setSelectedTopic(topicName);
-    onTopicPress?.(topicName);
-  };
+    useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
 
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Explore All Our Topics</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={styles.scrollContent}
-      >
+    const handleTopicPress = (topicName: string) => {
+      onTopicPress?.(topicName);
+    };
+
+    return (
+      <View style={styles.container}>
+        <Text style={styles.title}>Explore All Our Topics</Text>
+        <ScrollView
+          ref={scrollViewRef}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+        >
         {topics.map((topic) => {
           const isSelected = selectedTopic === topic.name;
           const topicColor = topic.color;
@@ -75,10 +79,13 @@ export function TopNav({ onTopicPress }: TopNavProps) {
             </Pressable>
           );
         })}
-      </ScrollView>
-    </View>
-  );
-}
+        </ScrollView>
+      </View>
+    );
+  }
+);
+
+TopNav.displayName = "TopNav";
 
 export default TopNav;
 

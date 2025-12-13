@@ -1,12 +1,12 @@
 import { StatusBar } from "expo-status-bar";
-import { useRef } from "react";
-import { Dimensions, SectionList, StyleSheet, Text, View } from "react-native";
+import { useRef, useState } from "react";
+import { Dimensions, ScrollView, SectionList, StyleSheet, Text, View, ViewToken } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BottomNavBar } from "../../components/BottomNavBar";
 import { colors, spacing, typography } from "../../theme/colors";
 import { testImage1 } from "../../utils/topicImages";
 import { CourseCard } from "./components/CourseCard";
-import { TopNav } from "./components/TopNav";
+import { TopNav, topics } from "./components/TopNav";
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
@@ -312,6 +312,9 @@ const mockTopics: Topic[] = [
 export default function CoursesScreen() {
   const insets = useSafeAreaInsets();
   const sectionListRef = useRef<SectionList<Course[], SubtopicSection>>(null);
+  const [selectedTopic, setSelectedTopic] = useState("History");
+  const selectedTopicRef = useRef("History");
+  const topNavScrollRef = useRef<ScrollView>(null);
 
   const flattenTopicsToSections = (topics: Topic[]): SubtopicSection[] => {
     const sections: SubtopicSection[] = [];
@@ -341,6 +344,8 @@ export default function CoursesScreen() {
   const sections = flattenTopicsToSections(mockTopics);
 
   const scrollToTopic = (topicName: string) => {
+    setSelectedTopic(topicName);
+    selectedTopicRef.current = topicName;
     const sectionIndex = sections.findIndex(
       (section) => section.topicTitle === topicName
     );
@@ -352,6 +357,49 @@ export default function CoursesScreen() {
       });
     }
   };
+
+  const onViewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+      if (viewableItems.length > 0) {
+        const visibleSections = viewableItems
+          .map((item) => {
+            const section = item.section as SubtopicSection | undefined;
+            if (!section) return null;
+            const sectionIndex = sections.findIndex((s) => s.id === section.id);
+            return { section, index: sectionIndex };
+          })
+          .filter((item): item is { section: SubtopicSection; index: number } => item !== null);
+
+        if (visibleSections.length > 0) {
+          const firstVisibleSection = visibleSections.reduce((earliest, current) =>
+            current.index < earliest.index ? current : earliest
+          ).section;
+
+          if (firstVisibleSection.topicTitle !== selectedTopicRef.current) {
+            const newTopic = firstVisibleSection.topicTitle;
+            setSelectedTopic(newTopic);
+            selectedTopicRef.current = newTopic;
+
+            const topicIndex = topics.findIndex((topic) => topic.name === newTopic);
+            if (topicIndex !== -1 && topNavScrollRef.current) {
+              const buttonWidth = 80;
+              const gap = spacing.xl;
+              const scrollPosition = topicIndex * (buttonWidth + gap) - spacing.lg;
+              topNavScrollRef.current.scrollTo({
+                x: Math.max(0, scrollPosition),
+                animated: true,
+              });
+            }
+          }
+        }
+      }
+    }
+  ).current;
+
+  const viewabilityConfig = useRef({
+    itemVisiblePercentThreshold: 10,
+    minimumViewTime: 100,
+  }).current;
 
   const renderSectionHeader = ({ section }: { section: SubtopicSection }) => {
     return (
@@ -388,7 +436,7 @@ export default function CoursesScreen() {
     <View style={styles.container}>
       <StatusBar style="light" />
       <View style={[styles.topNavContainer, { paddingTop: insets.top }]}>
-        <TopNav onTopicPress={scrollToTopic} />
+        <TopNav ref={topNavScrollRef} selectedTopic={selectedTopic} onTopicPress={scrollToTopic} />
       </View>
       <SectionList<Course[], SubtopicSection>
         ref={sectionListRef}
@@ -402,6 +450,8 @@ export default function CoursesScreen() {
         ]}
         showsVerticalScrollIndicator={false}
         stickySectionHeadersEnabled={false}
+        onViewableItemsChanged={onViewableItemsChanged}
+        viewabilityConfig={viewabilityConfig}
       />
       <BottomNavBar />
     </View>
