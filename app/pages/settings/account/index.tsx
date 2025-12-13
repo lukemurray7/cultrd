@@ -1,90 +1,43 @@
+import { Ionicons } from '@expo/vector-icons';
+import * as Notifications from 'expo-notifications';
 import { router } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { useEffect, useState } from 'react';
-import { Alert, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Alert, Linking, Pressable, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import appJson from '../../../../app.json';
+import { useProfile } from '../../../../lib/queries/profiles';
 import { supabase } from '../../../../lib/supabase';
-import { AlertDialog } from '../../../components/AlertDialog';
 import { useAuth } from '../../../contexts/AuthContext';
-import { colors, spacing, typography, borders } from '../../../theme/colors';
-
-interface Profile {
-  email: string;
-  daily_reading_goal_minutes: number;
-  goal_notifications_enabled: boolean;
-}
+import { borders, colors, spacing, typography } from '../../../theme/colors';
 
 export default function AccountSettingsScreen() {
   const { user, signOut } = useAuth();
-  const [profile, setProfile] = useState<Profile | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [showGoalModal, setShowGoalModal] = useState(false);
-  const [showNotificationsModal, setShowNotificationsModal] = useState(false);
-  const [deleteDialog, setDeleteDialog] = useState(false);
+  const { data: profile, isLoading } = useProfile(user?.id ?? null);
+  const [notificationsEnabled, setNotificationsEnabled] = useState(false);
 
   useEffect(() => {
-    loadProfile();
-  }, [user]);
+    checkNotificationPermissions();
+  }, []);
 
-  const loadProfile = async () => {
-    if (!user) return;
+  const checkNotificationPermissions = async () => {
+    const { status } = await Notifications.getPermissionsAsync();
+    setNotificationsEnabled(status === 'granted');
+  };
 
-    try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('email, daily_reading_goal_minutes, goal_notifications_enabled')
-        .eq('id', user.id)
-        .single();
-
-      if (error) throw error;
-      if (data) {
-        setProfile(data);
+  const handleToggleNotifications = async (value: boolean) => {
+    if (value) {
+      const { status } = await Notifications.requestPermissionsAsync();
+      setNotificationsEnabled(status === 'granted');
+      if (status !== 'granted') {
+        Alert.alert('Permission Denied', 'Notification permissions were denied. You can enable them in your device settings.');
       }
-    } catch (error) {
-      console.error('Error loading profile:', error);
-    } finally {
-      setLoading(false);
+    } else {
+      setNotificationsEnabled(false);
     }
   };
 
   const handleResetPassword = () => {
     router.push('/pages/auth/reset-password');
-  };
-
-  const handleUpdateGoal = async (minutes: number) => {
-    if (!user) return;
-
-    try {
-      const { error } = await supabase
-        .from('profiles')
-        .update({ daily_reading_goal_minutes: minutes })
-        .eq('id', user.id);
-
-      if (error) throw error;
-      setProfile((prev) => prev ? { ...prev, daily_reading_goal_minutes: minutes } : null);
-      setShowGoalModal(false);
-    } catch (error) {
-      console.error('Error updating goal:', error);
-      Alert.alert('Error', 'Failed to update reading goal.');
-    }
-  };
-
-  const handleUpdateNotifications = async (enabled: boolean) => {
-    if (!user) return;
-
-    try {
-      const { error } = await supabase
-        .from('profiles')
-        .update({ goal_notifications_enabled: enabled })
-        .eq('id', user.id);
-
-      if (error) throw error;
-      setProfile((prev) => prev ? { ...prev, goal_notifications_enabled: enabled } : null);
-      setShowNotificationsModal(false);
-    } catch (error) {
-      console.error('Error updating notifications:', error);
-      Alert.alert('Error', 'Failed to update notifications.');
-    }
   };
 
   const handleDeleteAccount = async () => {
@@ -114,7 +67,7 @@ export default function AccountSettingsScreen() {
               router.replace('/pages/auth/login');
             } catch (error) {
               console.error('Error deleting account:', error);
-              Alert.alert('Error', 'Failed to delete account. Please contact support at info@imprintapp.com');
+              Alert.alert('Error', 'Failed to delete account. Please contact support at info@culturedapp.com');
             }
           },
         },
@@ -127,10 +80,16 @@ export default function AccountSettingsScreen() {
     router.replace('/pages/auth/login');
   };
 
-  if (loading || !profile) {
+  const handleContactEmail = () => {
+    Linking.openURL('mailto:info@culturedapp.com');
+  };
+
+  const canGoBack = router.canGoBack();
+
+  if (isLoading || !profile) {
     return (
       <View style={styles.container}>
-        <StatusBar style="dark" />
+        <StatusBar style="light" />
         <View style={styles.loadingContainer}>
           <Text style={styles.loadingText}>Loading...</Text>
         </View>
@@ -140,17 +99,19 @@ export default function AccountSettingsScreen() {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
+      <StatusBar style="light" />
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <Pressable
-          style={styles.backButton}
-          onPress={() => router.back()}
-        >
-          <Text style={styles.backIcon}>{'<'}</Text>
-        </Pressable>
+        {canGoBack && (
+          <Pressable
+            style={styles.backButton}
+            onPress={() => router.back()}
+          >
+            <Ionicons name="chevron-back" size={24} color={colors.text.primary} />
+          </Pressable>
+        )}
 
         <Text style={styles.title}>Account Details</Text>
 
@@ -187,178 +148,72 @@ export default function AccountSettingsScreen() {
         <View style={styles.section}>
           <View style={styles.row}>
             <View style={styles.labelContainer}>
-              <Text style={styles.label}>Daily Reading Goal</Text>
-              <Text style={styles.value}>{profile.daily_reading_goal_minutes} min / day</Text>
+              <Text style={styles.label}>Allow Notifications</Text>
             </View>
-            <Pressable
-              style={styles.editButton}
-              onPress={() => setShowGoalModal(true)}
-            >
-              <Text style={styles.editButtonText}>UPDATE</Text>
-            </Pressable>
+            <Switch
+              value={notificationsEnabled}
+              onValueChange={handleToggleNotifications}
+              trackColor={{ false: colors.border.light, true: colors.accent.blueLight }}
+              thumbColor={colors.background.white}
+            />
           </View>
         </View>
 
-        <View style={styles.section}>
-          <View style={styles.row}>
-            <View style={styles.labelContainer}>
-              <Text style={styles.label}>Goal Notifications</Text>
-              <Text style={styles.value}>{profile.goal_notifications_enabled ? 'ON' : 'OFF'}</Text>
-            </View>
-            <Pressable
-              style={styles.editButton}
-              onPress={() => setShowNotificationsModal(true)}
-            >
-              <Text style={styles.editButtonText}>UPDATE</Text>
-            </Pressable>
-          </View>
-        </View>
+        <View style={styles.buttonsSection}>
+          <Pressable
+            style={styles.buttonCard}
+            onPress={() => Alert.alert('Info', 'Restore Purchase functionality coming soon.')}
+          >
+            <Ionicons
+              name="refresh-outline"
+              size={24}
+              color={colors.accent.purple}
+              style={styles.buttonIcon}
+            />
+            <Text style={styles.buttonLabel}>Restore Purchase</Text>
+          </Pressable>
 
-        <View style={styles.linksSection}>
-          <Pressable onPress={() => Alert.alert('Info', 'Restore Purchase functionality coming soon.')}>
-            <Text style={styles.link}>Restore Purchase</Text>
+          <Pressable
+            style={styles.buttonCard}
+            onPress={() => Alert.alert('Info', 'Manage Subscriptions functionality coming soon.')}
+          >
+            <Ionicons
+              name="card-outline"
+              size={24}
+              color={colors.accent.purple}
+              style={styles.buttonIcon}
+            />
+            <Text style={styles.buttonLabel}>Manage Subscriptions</Text>
           </Pressable>
-          <Pressable onPress={() => Alert.alert('Info', 'Manage Subscriptions functionality coming soon.')}>
-            <Text style={styles.link}>Manage Subscriptions</Text>
-          </Pressable>
-          <Pressable onPress={() => setDeleteDialog(true)}>
-            <Text style={styles.deleteLink}>Delete Account</Text>
+
+          <Pressable
+            style={styles.buttonCard}
+            onPress={handleDeleteAccount}
+          >
+            <Ionicons
+              name="trash-outline"
+              size={24}
+              color={colors.error.red}
+              style={styles.buttonIcon}
+            />
+            <Text style={[styles.buttonLabel, styles.deleteButtonLabel]}>Delete Account</Text>
           </Pressable>
         </View>
 
         <Text style={styles.version}>Version {appJson.expo.version}</Text>
+
+        <Text style={styles.contactText}>
+          Contact{' '}
+          <Text style={styles.contactEmail} onPress={handleContactEmail}>
+            info@culturedapp.com
+          </Text>
+          {' '}for any issues you are having!
+        </Text>
       </ScrollView>
 
       <Pressable style={styles.logoutButton} onPress={handleLogOut}>
         <Text style={styles.logoutText}>Log Out</Text>
       </Pressable>
-
-      {showGoalModal && (
-        <GoalUpdateModal
-          currentMinutes={profile.daily_reading_goal_minutes}
-          onUpdate={handleUpdateGoal}
-          onClose={() => setShowGoalModal(false)}
-        />
-      )}
-
-      {showNotificationsModal && (
-        <NotificationsUpdateModal
-          currentEnabled={profile.goal_notifications_enabled}
-          onUpdate={handleUpdateNotifications}
-          onClose={() => setShowNotificationsModal(false)}
-        />
-      )}
-
-      <AlertDialog
-        visible={deleteDialog}
-        title="Delete Account"
-        message="Are you sure you want to delete your account? This action cannot be undone."
-        buttonText="Cancel"
-        onClose={() => setDeleteDialog(false)}
-      />
-    </View>
-  );
-}
-
-function GoalUpdateModal({
-  currentMinutes,
-  onUpdate,
-  onClose,
-}: {
-  currentMinutes: number;
-  onUpdate: (minutes: number) => void;
-  onClose: () => void;
-}) {
-  const options = [
-    { label: 'Quick', minutes: 2 },
-    { label: 'Regular', minutes: 5 },
-    { label: 'Advanced', minutes: 10 },
-  ];
-
-  return (
-    <View style={modalStyles.overlay}>
-      <View style={modalStyles.modal}>
-        <Text style={modalStyles.title}>Update Daily Reading Goal</Text>
-        <View style={modalStyles.options}>
-          {options.map((option) => (
-            <Pressable
-              key={option.minutes}
-              style={[
-                modalStyles.option,
-                currentMinutes === option.minutes && modalStyles.optionSelected,
-              ]}
-              onPress={() => onUpdate(option.minutes)}
-            >
-              <Text
-                style={[
-                  modalStyles.optionText,
-                  currentMinutes === option.minutes && modalStyles.optionTextSelected,
-                ]}
-              >
-                {option.label} ({option.minutes} min / day)
-              </Text>
-            </Pressable>
-          ))}
-        </View>
-        <Pressable style={modalStyles.cancelButton} onPress={onClose}>
-          <Text style={modalStyles.cancelText}>Cancel</Text>
-        </Pressable>
-      </View>
-    </View>
-  );
-}
-
-function NotificationsUpdateModal({
-  currentEnabled,
-  onUpdate,
-  onClose,
-}: {
-  currentEnabled: boolean;
-  onUpdate: (enabled: boolean) => void;
-  onClose: () => void;
-}) {
-  return (
-    <View style={modalStyles.overlay}>
-      <View style={modalStyles.modal}>
-        <Text style={modalStyles.title}>Update Goal Notifications</Text>
-        <View style={modalStyles.options}>
-          <Pressable
-            style={[
-              modalStyles.option,
-              currentEnabled && modalStyles.optionSelected,
-            ]}
-            onPress={() => onUpdate(true)}
-          >
-            <Text
-              style={[
-                modalStyles.optionText,
-                currentEnabled && modalStyles.optionTextSelected,
-              ]}
-            >
-              ON
-            </Text>
-          </Pressable>
-          <Pressable
-            style={[
-              modalStyles.option,
-              !currentEnabled && modalStyles.optionSelected,
-            ]}
-            onPress={() => onUpdate(false)}
-          >
-            <Text
-              style={[
-                modalStyles.optionText,
-                !currentEnabled && modalStyles.optionTextSelected,
-              ]}
-            >
-              OFF
-            </Text>
-          </Pressable>
-        </View>
-        <Pressable style={modalStyles.cancelButton} onPress={onClose}>
-          <Text style={modalStyles.cancelText}>Cancel</Text>
-        </Pressable>
-      </View>
     </View>
   );
 }
@@ -366,7 +221,7 @@ function NotificationsUpdateModal({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: colors.background.white,
+    backgroundColor: colors.background.primary,
   },
   scrollContent: {
     flexGrow: 1,
@@ -381,7 +236,7 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: typography.fontSize.base,
-    color: colors.text.tertiary,
+    color: colors.text.primary,
   },
   backButton: {
     width: spacing.xxxxl,
@@ -390,15 +245,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     marginBottom: spacing.xl,
   },
-  backIcon: {
-    fontSize: typography.fontSize.xxl,
-    color: colors.text.black,
-    fontWeight: typography.fontWeight.semibold,
-  },
   title: {
     fontSize: typography.fontSize.titleLarge,
     fontWeight: typography.fontWeight.bold,
-    color: colors.text.black,
+    color: colors.text.primary,
     marginBottom: spacing.xxxl,
   },
   section: {
@@ -419,11 +269,11 @@ const styles = StyleSheet.create({
   },
   value: {
     fontSize: typography.fontSize.base,
-    color: colors.text.black,
+    color: colors.text.primary,
   },
   passwordValue: {
     fontSize: typography.fontSize.base,
-    color: colors.text.black,
+    color: colors.text.primary,
     letterSpacing: 2,
   },
   editButton: {
@@ -435,25 +285,44 @@ const styles = StyleSheet.create({
     fontWeight: typography.fontWeight.semibold,
     color: colors.accent.blueLight,
   },
-  linksSection: {
+  buttonsSection: {
     marginTop: spacing.xl,
     marginBottom: spacing.xl,
+    gap: spacing.sm,
   },
-  link: {
-    fontSize: typography.fontSize.base,
-    color: colors.accent.blueLight,
-    marginBottom: spacing.lg,
+  buttonCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderRadius: borders.radius.base,
+    padding: spacing.lg,
+    backgroundColor: colors.background.secondary,
   },
-  deleteLink: {
+  buttonIcon: {
+    marginRight: spacing.md,
+  },
+  buttonLabel: {
+    flex: 1,
     fontSize: typography.fontSize.base,
+    fontWeight: typography.fontWeight.medium,
+    color: colors.text.primary,
+  },
+  deleteButtonLabel: {
     color: colors.error.red,
-    marginBottom: spacing.lg,
   },
   version: {
     fontSize: typography.fontSize.sm,
     color: colors.text.tertiary,
     textAlign: 'center',
     marginTop: spacing.xl,
+  },
+  contactText: {
+    fontSize: typography.fontSize.sm,
+    color: colors.text.tertiary,
+    textAlign: 'center',
+    marginTop: spacing.md,
+  },
+  contactEmail: {
+    color: colors.accent.blueLight,
   },
   logoutButton: {
     marginHorizontal: spacing.xl,
@@ -468,65 +337,5 @@ const styles = StyleSheet.create({
     fontSize: typography.fontSize.base,
     fontWeight: typography.fontWeight.semibold,
     color: colors.accent.blueLight,
-  },
-});
-
-const modalStyles = StyleSheet.create({
-  overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-  },
-  modal: {
-    backgroundColor: colors.background.white,
-    borderRadius: 16,
-    padding: 24,
-    width: '100%',
-    maxWidth: 320,
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: '700',
-    color: colors.text.black,
-    marginBottom: 24,
-    textAlign: 'center',
-  },
-  options: {
-    gap: 12,
-    marginBottom: 20,
-  },
-  option: {
-    paddingVertical: 16,
-    paddingHorizontal: 20,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: colors.border.lightGray,
-    backgroundColor: colors.background.white,
-  },
-  optionSelected: {
-    backgroundColor: colors.success.lightGreen,
-    borderColor: colors.success.green,
-  },
-  optionText: {
-    fontSize: 16,
-    color: colors.text.black,
-    textAlign: 'center',
-  },
-  optionTextSelected: {
-    fontWeight: '600',
-  },
-  cancelButton: {
-    paddingVertical: 12,
-    alignItems: 'center',
-  },
-  cancelText: {
-    fontSize: 16,
-    color: colors.text.tertiary,
   },
 });

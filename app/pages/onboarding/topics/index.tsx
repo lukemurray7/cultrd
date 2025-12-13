@@ -14,7 +14,7 @@ export default function TopicsScreen() {
         "Culture",
       ]}
       progress={42}
-      nextRoute="/pages/onboarding/set-goal"
+      nextRoute="/pages/onboarding/learning-time"
       maxSelections={5}
     />
   );

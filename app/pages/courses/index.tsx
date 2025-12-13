@@ -26,6 +26,7 @@ export default function CoursesScreen() {
   const [selectedTopic, setSelectedTopic] = useState("History");
   const selectedTopicRef = useRef("History");
   const topNavScrollRef = useRef<ScrollView>(null);
+  const isProgrammaticScrollRef = useRef(false);
   
   const { data: topicsData = [], isLoading, error } = useCourses();
 
@@ -66,6 +67,7 @@ export default function CoursesScreen() {
   const scrollToTopic = (topicName: string) => {
     setSelectedTopic(topicName);
     selectedTopicRef.current = topicName;
+    isProgrammaticScrollRef.current = true;
     const sectionIndex = sections.findIndex(
       (section) => section.topicTitle === topicName
     );
@@ -76,10 +78,16 @@ export default function CoursesScreen() {
         viewOffset: 0,
       });
     }
+    setTimeout(() => {
+      isProgrammaticScrollRef.current = false;
+    }, 500);
   };
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+      if (isProgrammaticScrollRef.current) {
+        return;
+      }
       if (viewableItems.length > 0) {
         const visibleSections = viewableItems
           .map((item) => {
