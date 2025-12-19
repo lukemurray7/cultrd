@@ -57,6 +57,46 @@ The theme system provides the following token categories:
 
 ## Component Library Structure
 
+### Base Components
+
+Base components are wrapper components around React Native primitives that provide theme-aware styling. These should be used instead of raw React Native components in screen pages.
+
+#### Available Base Components
+
+- **Box** - Wrapper for `View` with theme-aware spacing, background, borders, and layout props
+- **Text** - Wrapper for `Text` with theme-aware typography
+- **Pressable** - Wrapper for `Pressable` with theme-aware styling
+- **ScrollView** - Wrapper for `ScrollView` with theme-aware styling
+- **SafeAreaView** - Wrapper for `SafeAreaView` with theme-aware background
+
+#### Usage Rules
+
+- ✅ **DO**: Use base components (`Box`, `Text`, `Pressable`, etc.) in screen pages
+- ✅ **DO**: Use theme props (e.g., `p={4}`, `bg="surface"`, `size="lg"`) instead of inline styles
+- ❌ **DON'T**: Import raw React Native components (`View`, `Text`, etc.) in screen pages
+- ❌ **DON'T**: Use inline styles with hardcoded values in screen pages
+- ✅ **DO**: Use raw React Native components only within base components or other shared components
+
+#### Box Component Example
+
+```typescript
+import { Box } from "../../../ui/components/Box";
+
+<Box p={4} bg="surface" border borderRadius="md" row between>
+  <Text size="lg" weight="bold">Title</Text>
+</Box>
+```
+
+#### Text Component Example
+
+```typescript
+import { Text } from "../../../ui/components/Text";
+
+<Text size="md" weight="semibold" variant="secondary">
+  Content
+</Text>
+```
+
 ### Shared Components
 
 All reusable, shared components must live in `ui/components/`.
@@ -80,7 +120,7 @@ ui/components/
 
 Example structure:
 ```typescript
-import { useTheme } from "@/theme/ThemeProvider";
+import { useTheme } from "../../theme/ThemeProvider";
 import { View, Text } from "react-native";
 
 export const ComponentName = ({ ...props }) => {
@@ -145,10 +185,79 @@ When creating a new component, follow these steps:
    - Create `index.tsx`, and `index.stories.tsx` files
 
 3. **Implement the component** (`index.tsx`)
-   - Import `useTheme` from `@/theme/ThemeProvider`
+   - Import `useTheme` using relative imports (see Import Guidelines below)
    - Use theme tokens for all styling
    - Implement component logic and JSX
    - Add proper TypeScript types
+
+## Import Guidelines
+
+### Relative Imports Only
+
+All imports must use relative paths. Never use `@/` path aliases.
+
+- ✅ **DO**: Use relative imports like `../../theme/ThemeProvider`
+- ❌ **DON'T**: Use path aliases like `@/theme/ThemeProvider`
+
+### Examples
+
+From `ui/components/SearchBar/index.tsx`:
+```typescript
+import { useTheme } from "../../../theme/ThemeProvider";
+```
+
+From `ui/pages/home/components/HomeHeader/index.tsx`:
+```typescript
+import { useTheme } from "../../../../../theme/ThemeProvider";
+import { useUser } from "../../../../../lib/queries/courses";
+```
+
+## App Folder Structure
+
+### Page Organization
+
+All pages in the `/app` directory must be organized in their own folders. Each page should have its own folder with an `index.tsx` file.
+
+### Structure Pattern
+
+```
+app/
+  └── (tabs)/
+      ├── _layout.tsx
+      ├── index.tsx          # Redirects to default route (home)
+      ├── home/
+      │   └── index.tsx
+      ├── explore/
+      │   └── index.tsx
+      ├── library/
+      │   └── index.tsx
+      └── profile/
+          └── index.tsx
+```
+
+### Default Route
+
+The `(tabs)/index.tsx` file should redirect to the default tab (typically `home`):
+
+```typescript
+import { Redirect } from "expo-router";
+
+export default function Index() {
+  return <Redirect href="/home" />;
+}
+```
+
+Additionally, set `initialRouteName="home"` in the `Tabs` component in `_layout.tsx` to ensure the home tab is selected by default.
+
+### Rules
+
+- ✅ **DO**: Create a folder for each page/screen
+- ✅ **DO**: Place the page component in `[pageName]/index.tsx`
+- ✅ **DO**: Use folder names that match the route name
+- ✅ **DO**: Create `index.tsx` in `(tabs)/` to redirect to the default route
+- ✅ **DO**: Set `initialRouteName` in `Tabs` component to specify default tab
+- ❌ **DON'T**: Place page component files directly in `(tabs)/` (except `index.tsx` for redirect)
+- ❌ **DON'T**: Use `@/` imports in app folder files
 
 ## Mock Data Development
 
@@ -223,7 +332,7 @@ Each query file should contain domain-specific query hooks. For example, `lib/qu
 Example query file structure:
 ```typescript
 import { useQuery } from "@tanstack/react-query";
-import { Course } from "@/types/courses";
+import { Course } from "../../types/courses";
 
 export const useCourses = () => {
   return useQuery<Course[]>({
@@ -254,7 +363,7 @@ Each mutation file should contain domain-specific mutation hooks. For example, `
 Example mutation file structure:
 ```typescript
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CreateCourseRequest, Course } from "@/types/courses";
+import { CreateCourseRequest, Course } from "../../types/courses";
 
 export const useCreateCourse = () => {
   const queryClient = useQueryClient();
@@ -328,10 +437,10 @@ export interface CourseListResponse {
 
 ### Type Usage
 
-Import types from the `/types` folder in your queries, mutations, and components:
+Import types from the `/types` folder using relative imports:
 
 ```typescript
-import { Course, CreateCourseRequest } from "@/types/courses";
+import { Course, CreateCourseRequest } from "../../types/courses";
 ```
 
 ### Type Definition Rules
@@ -377,7 +486,7 @@ import { Course, CreateCourseRequest } from "@/types/courses";
 
 ### Theme Hook Usage
 ```typescript
-import { useTheme } from "@/theme/ThemeProvider";
+import { useTheme } from "../../theme/ThemeProvider";
 
 const theme = useTheme();
 // Access: theme.colors, theme.spacing, theme.radii, theme.typography
@@ -400,7 +509,7 @@ ComponentName/
 ### Query Hook Template
 ```typescript
 import { useQuery } from "@tanstack/react-query";
-import { DataType } from "@/types/domain";
+import { DataType } from "../../types/domain";
 
 export const useData = () => {
   return useQuery<DataType[]>({
@@ -416,7 +525,7 @@ export const useData = () => {
 ### Mutation Hook Template
 ```typescript
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { CreateRequest, DataType } from "@/types/domain";
+import { CreateRequest, DataType } from "../../types/domain";
 
 export const useCreateData = () => {
   const queryClient = useQueryClient();

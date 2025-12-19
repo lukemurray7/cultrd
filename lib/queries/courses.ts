@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
-import { FeaturedCourse, Course, User } from "@/types/courses";
-import { mockFeaturedCourse, mockTrendingCourses, mockRecommendedCourses, mockUser } from "__mocks__/courses";
+import { mockFeaturedCourse, mockRecommendedCourses, mockTrendingCourses, mockUser } from "../../__mocks__/courses";
+import { Course, FeaturedCourse, User } from "../../types/courses";
 
 export const useFeaturedCourse = () => {
   return useQuery<FeaturedCourse>({

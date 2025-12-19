@@ -1,22 +1,68 @@
+import { MaterialIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
 import React from 'react';
+import { useTheme } from '../../theme/ThemeProvider';
 
 export default function TabLayout() {
+  const theme = useTheme();
+
   return (
     <Tabs
+      initialRouteName="home/index"
       screenOptions={{
         headerShown: false,
+        tabBarActiveTintColor: theme.colors.brand.primary,
+        tabBarInactiveTintColor: theme.colors.text.secondary,
+        tabBarStyle: {
+          backgroundColor: `${theme.colors.bg.canvas}CC`,
+          borderTopColor: theme.colors.border,
+          borderTopWidth: 1,
+        },
+        tabBarLabelStyle: {
+          fontSize: 10,
+          fontWeight: theme.typography.weight.medium,
+        },
       }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
+          href: null,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="home/index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="home" size={size || 26} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="explore/index"
         options={{
           title: 'Explore',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="explore" size={size || 26} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="library/index"
+        options={{
+          title: 'Library',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="bookmarks" size={size || 26} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile/index"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="person" size={size || 26} color={color} />
+          ),
         }}
       />
     </Tabs>

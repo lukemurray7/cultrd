@@ -1,4 +1,4 @@
-import { Course, FeaturedCourse, User, Category } from "@/types/courses";
+import { Category, Course, FeaturedCourse, User } from "../types/courses";
 
 export const mockUser: User = {
   name: "Alex",
