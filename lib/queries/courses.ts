@@ -30,3 +30,14 @@ export const useUser = () => {
   });
 };
 
+export const useCoursesByTopic = (topicId: string) => {
+  return useQuery({
+    queryKey: ["courses-by-topic", topicId],
+    queryFn: async () => {
+      const { mockCoursesByTopic } = await import("../../__mocks__/courses");
+      const topicData = mockCoursesByTopic.find((t) => t.topicId === topicId);
+      return topicData || null;
+    },
+  });
+};
+

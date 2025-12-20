@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { ScrollView } from "react-native";
 import Animated, {
   interpolateColor,
@@ -118,9 +118,13 @@ const TopicPill = ({ topic, isSelected, onPress, topicColor }: TopicPillProps) =
   );
 };
 
-export const CoursesHeader = () => {
+interface CoursesHeaderProps {
+  selectedTopic: string;
+  onTopicChange: (topicId: string) => void;
+}
+
+export const CoursesHeader = ({ selectedTopic, onTopicChange }: CoursesHeaderProps) => {
   const theme = useTheme();
-  const [selectedTopic, setSelectedTopic] = useState<string>("history");
 
   return (
     <Box>
@@ -152,7 +156,7 @@ export const CoursesHeader = () => {
               key={topic.id}
               topic={topic}
               isSelected={isSelected}
-              onPress={() => setSelectedTopic(topic.id)}
+              onPress={() => onTopicChange(topic.id)}
               topicColor={topicColor}
             />
           );
