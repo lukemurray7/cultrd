@@ -23,7 +23,7 @@ export default function RootLayout() {
           }}
         >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-          <Stack.Screen name="course/[id]" options={{ headerShown: false }} />
+          <Stack.Screen name="course/[id]/index" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />
       </ThemeProvider>

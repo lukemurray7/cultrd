@@ -1,4 +1,4 @@
-import { Category, Course, FeaturedCourse, User } from "../types/courses";
+import { Category, Chapter, Course, FeaturedCourse, User } from "../types/courses";
 
 export const mockUser: User = {
   name: "Alex",
@@ -16,6 +16,14 @@ export const mockFeaturedCourse: FeaturedCourse = {
   duration: 0,
   progress: 35,
   timeRemaining: 5,
+  totalChapters: 5,
+  chapters: [
+    { id: "1-1", title: "The Renaissance Boom", duration: 5 },
+    { id: "1-2", title: "The Modern Auction House", duration: 7 },
+    { id: "1-3", title: "NFTs and the Future", duration: 6 },
+    { id: "1-4", title: "Wealth and Happiness", duration: 8 },
+    { id: "1-5", title: "Building Long-term Wealth", duration: 9 },
+  ],
 };
 
 export const mockTrendingCourses: Course[] = [
@@ -27,6 +35,17 @@ export const mockTrendingCourses: Course[] = [
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWDW5nCrCmmujKugk70eawdAt0y_8VcSPpvEMjsT9oo_EgkmIm2dHvFae58t365G0jBv8_Zn-HhYXxWOX1cHGPHPrZmv4UFF2AD6O2S-R3AVF8RW179bRThrHAX3zhxduFZFI9fRqXHbDQzO9kFzzkD4p8LzZvt6k3HgIF6UrC7wgsFhdPv3kuWkbR3d9Hhb6nHblfw8-xHlbR9NIO-S704_NGEFyX1XEuzvn1hwUYxxdYjzp2gTzBz_rLLBAVsVB8kghSycDv7d5E",
     duration: 0,
     lessons: 8,
+    totalChapters: 8,
+    chapters: [
+      { id: "2-1", title: "Introduction to Modern Art", duration: 6 },
+      { id: "2-2", title: "Impressionism and Post-Impressionism", duration: 7 },
+      { id: "2-3", title: "Cubism and Abstraction", duration: 8 },
+      { id: "2-4", title: "Surrealism and Dada", duration: 6 },
+      { id: "2-5", title: "Abstract Expressionism", duration: 7 },
+      { id: "2-6", title: "Pop Art Movement", duration: 5 },
+      { id: "2-7", title: "Minimalism and Conceptual Art", duration: 6 },
+      { id: "2-8", title: "Contemporary Art Today", duration: 7 },
+    ],
   },
   {
     id: "3",
@@ -36,6 +55,21 @@ export const mockTrendingCourses: Course[] = [
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBPMFHpQQ93RNsLXJo8ZWjqovXj29idGeOok4fLC4Ma-rMFA2BrDqDE4HDMdcCyu189rtus9hQ6TIKfLFFk8v7k3rL6TAaNzVjZEcXnlGP1kvmwbJ0BKTv1v4ZKgfkoFzEogHK2xqP0KznNuPCkzOTVTyEVKODApG1E5ujM74485EyTWTBlJP9gLFqa9TVLOzPOiWdwRbQja3UAPdRAjaCxtm6t4GBGlEjfRhl2R4sE7vOU1L7aII5bTP9AO3jQ7pks1ApmAn8plpv9",
     duration: 0,
     lessons: 12,
+    totalChapters: 12,
+    chapters: [
+      { id: "3-1", title: "Origins of the Cold War", duration: 8 },
+      { id: "3-2", title: "The Iron Curtain", duration: 6 },
+      { id: "3-3", title: "The Berlin Blockade", duration: 7 },
+      { id: "3-4", title: "Korean War", duration: 8 },
+      { id: "3-5", title: "The Space Race", duration: 7 },
+      { id: "3-6", title: "Cuban Missile Crisis", duration: 9 },
+      { id: "3-7", title: "Vietnam War", duration: 10 },
+      { id: "3-8", title: "Détente and Arms Control", duration: 7 },
+      { id: "3-9", title: "Soviet Invasion of Afghanistan", duration: 6 },
+      { id: "3-10", title: "Reagan and the Second Cold War", duration: 8 },
+      { id: "3-11", title: "Fall of the Berlin Wall", duration: 7 },
+      { id: "3-12", title: "Collapse of the Soviet Union", duration: 9 },
+    ],
   },
   {
     id: "4",
@@ -45,6 +79,15 @@ export const mockTrendingCourses: Course[] = [
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuAJwpEhNwM3-Jd0v-rVvTyRGrmCaSBIQMuWv926Bxlynio57bB_MzdUr50iFz4XeNoA3eL01ryAcylUxfVIarxCZYr2oUicaFy_VBU0QDiqGM4Z5oXrK6Z_O7zrE3D9h8f8MJ4_OL53BG4Z1HYwTmLjgXTvG398a_tExUCXRtSGJyG1nDbp12HeJ6Wcj40mEfB8yvYjcyFhc422PrQ_cqZkQUY6vjVy8Wl8oZrM6GtTKD22QEk1l8ny8cbc12v7MmB-lJjBsZCdu8nf",
     duration: 0,
     lessons: 6,
+    totalChapters: 6,
+    chapters: [
+      { id: "4-1", title: "Understanding Supply", duration: 5 },
+      { id: "4-2", title: "Understanding Demand", duration: 5 },
+      { id: "4-3", title: "Market Equilibrium", duration: 6 },
+      { id: "4-4", title: "Price Elasticity", duration: 7 },
+      { id: "4-5", title: "Shifts in Supply and Demand", duration: 6 },
+      { id: "4-6", title: "Real-World Applications", duration: 7 },
+    ],
   },
 ];
 
@@ -56,6 +99,14 @@ export const mockRecommendedCourses: Course[] = [
     category: "Philosophy",
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDSJl-qLvznExOX21MrEsIkM6uZ19Q1J8-nBbxbtP36M5Unbo2MrtYx2gEA2n1MU9WebfwWHphpmuYaG3knKlXJZEybV55wha4Ngu78_EpMvgYGi04Z6YRsSazwx9CGEhi8ua5HctpsScER2UXzRWI0d_ZlgHvpqCc4HmDyGvlWfOvGYMTNe5818HUFAaisE6H3WLqffPsnFKLpIYsBfLaZQJ9gXSx0-H8gZZeJ8YFssRtPHpBYnoLlcdwOocqkw4tHFu-sEdFdB4eY",
     duration: 15,
+    totalChapters: 5,
+    chapters: [
+      { id: "5-1", title: "Introduction to Stoicism", duration: 3 },
+      { id: "5-2", title: "The Dichotomy of Control", duration: 3 },
+      { id: "5-3", title: "Managing Negative Emotions", duration: 3 },
+      { id: "5-4", title: "Virtue and Character", duration: 3 },
+      { id: "5-5", title: "Applying Stoicism Today", duration: 3 },
+    ],
   },
   {
     id: "6",
@@ -64,6 +115,13 @@ export const mockRecommendedCourses: Course[] = [
     category: "Science",
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDl9AkFDrPkVu9kE_S5sqhtazV1tqSZqKcHJTnvyf0FCpHEwvKB_RbGqkMK7ZD5NPTitC-FeYpPD1QxFTv5nqLy8cXMAAN1hKnlehklelrEF49TQNM3sfQ_vy8BgN34x-_8Dmbk6_uHPD5QViL_pv7qlAuxC4CC7P4SjppnOp9OxXi-s75-QUpEuHMapfH_aoKChKlSqQtomm6VlHGTtQ_z9GgmJkWsqvUV5yLfjYVXQaqO1PeSlGtpTYYwO-u8n39vxYo9IIfZ4ndK",
     duration: 8,
+    totalChapters: 4,
+    chapters: [
+      { id: "6-1", title: "What is CRISPR?", duration: 2 },
+      { id: "6-2", title: "How Gene Editing Works", duration: 2 },
+      { id: "6-3", title: "Medical Applications", duration: 2 },
+      { id: "6-4", title: "Ethical Considerations", duration: 2 },
+    ],
   },
 ];
 
@@ -1045,6 +1103,16 @@ export const mockLibraryCourses: Course[] = [
     currentChapter: 4,
     totalChapters: 8,
     progress: 50,
+    chapters: [
+      { id: "lib-1-1", title: "The Rise of Fascism", duration: 6 },
+      { id: "lib-1-2", title: "Invasion of Poland", duration: 5 },
+      { id: "lib-1-3", title: "The Battle of Britain", duration: 6 },
+      { id: "lib-1-4", title: "Operation Barbarossa", duration: 7 },
+      { id: "lib-1-5", title: "Pearl Harbor and US Entry", duration: 5 },
+      { id: "lib-1-6", title: "The Holocaust", duration: 6 },
+      { id: "lib-1-7", title: "D-Day and Liberation", duration: 5 },
+      { id: "lib-1-8", title: "The Atomic Bomb", duration: 5 },
+    ],
   },
   {
     id: "lib-2",
@@ -1057,6 +1125,14 @@ export const mockLibraryCourses: Course[] = [
     currentChapter: 2,
     totalChapters: 6,
     progress: 33,
+    chapters: [
+      { id: "lib-2-1", title: "Introduction to Economic Policy", duration: 5 },
+      { id: "lib-2-2", title: "Fiscal Policy", duration: 5 },
+      { id: "lib-2-3", title: "Monetary Policy", duration: 5 },
+      { id: "lib-2-4", title: "Trade Policy", duration: 5 },
+      { id: "lib-2-5", title: "Regulatory Policy", duration: 5 },
+      { id: "lib-2-6", title: "Policy Implementation", duration: 5 },
+    ],
   },
   {
     id: "lib-3",
@@ -1069,6 +1145,15 @@ export const mockLibraryCourses: Course[] = [
     currentChapter: 1,
     totalChapters: 7,
     progress: 14,
+    chapters: [
+      { id: "lib-3-1", title: "Introduction to Financial Markets", duration: 5 },
+      { id: "lib-3-2", title: "Stock Markets", duration: 5 },
+      { id: "lib-3-3", title: "Bond Markets", duration: 5 },
+      { id: "lib-3-4", title: "Derivatives and Futures", duration: 5 },
+      { id: "lib-3-5", title: "Foreign Exchange Markets", duration: 5 },
+      { id: "lib-3-6", title: "Market Analysis", duration: 5 },
+      { id: "lib-3-7", title: "Trading Strategies", duration: 5 },
+    ],
   },
   {
     id: "lib-4",
@@ -1081,6 +1166,18 @@ export const mockLibraryCourses: Course[] = [
     currentChapter: 10,
     totalChapters: 10,
     progress: 100,
+    chapters: [
+      { id: "lib-4-1", title: "Pre-Socratic Philosophers", duration: 4 },
+      { id: "lib-4-2", title: "Socrates and the Socratic Method", duration: 4 },
+      { id: "lib-4-3", title: "Plato's Theory of Forms", duration: 4 },
+      { id: "lib-4-4", title: "Aristotle's Ethics", duration: 4 },
+      { id: "lib-4-5", title: "Stoicism", duration: 4 },
+      { id: "lib-4-6", title: "Epicureanism", duration: 4 },
+      { id: "lib-4-7", title: "Skepticism", duration: 4 },
+      { id: "lib-4-8", title: "Neoplatonism", duration: 4 },
+      { id: "lib-4-9", title: "Roman Philosophy", duration: 4 },
+      { id: "lib-4-10", title: "Legacy of Ancient Philosophy", duration: 4 },
+    ],
   },
   {
     id: "lib-5",
@@ -1093,6 +1190,13 @@ export const mockLibraryCourses: Course[] = [
     currentChapter: 5,
     totalChapters: 5,
     progress: 100,
+    chapters: [
+      { id: "lib-5-1", title: "Impressionism", duration: 5 },
+      { id: "lib-5-2", title: "Cubism", duration: 5 },
+      { id: "lib-5-3", title: "Surrealism", duration: 5 },
+      { id: "lib-5-4", title: "Abstract Expressionism", duration: 5 },
+      { id: "lib-5-5", title: "Pop Art", duration: 5 },
+    ],
   },
 ];
 

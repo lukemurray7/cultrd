@@ -104,6 +104,11 @@ export const Box = ({
     if (bg === "primary" || bg === "surface" || bg === "surfaceLight") {
       return theme.colors.bg[bg];
     }
+
+    if (bg === "brand.primary") return theme.colors.brand.primary;
+    if (bg === "brand.accent") return theme.colors.brand.accent;
+    if (bg === "brand.danger") return theme.colors.brand.danger;
+    if (bg === "brand.success") return theme.colors.brand.success;
     return bg;
   };
 

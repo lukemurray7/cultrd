@@ -1,22 +1,24 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
-import { useLocalSearchParams, useRouter } from "expo-router";
-import { ScrollView, useWindowDimensions } from "react-native";
+import { useLocalSearchParams } from "expo-router";
 import { useCourse } from "../../../lib/queries/courses";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { Box } from "../../../ui/components/Box";
-import { Pressable } from "../../../ui/components/Pressable";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
+import { ScrollView } from "../../../ui/components/ScrollView";
 import { StatusBar } from "../../../ui/components/StatusBar";
 import { Text } from "../../../ui/components/Text";
+import { ChaptersList } from "../../../ui/pages/course/components/ChaptersList";
+import { CourseHeader } from "../../../ui/pages/course/components/CourseHeader";
 
 export default function CourseDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
-  const router = useRouter();
-  const theme = useTheme();
   const { data: course, isLoading } = useCourse(id || "");
-  const { height } = useWindowDimensions();
+  const theme = useTheme();
+  
+  const hasProgress = course?.currentChapter !== undefined && course?.totalChapters !== undefined;
+  const progressPercentage = hasProgress && course?.totalChapters
+    ? Math.round(((course.currentChapter || 0) / course.totalChapters) * 100)
+    : course?.progress || 0;
 
   if (isLoading || !course) {
     return (
@@ -26,126 +28,104 @@ export default function CourseDetailScreen() {
     );
   }
 
-  const imageHeight = height * 0.6;
-
   return (
     <>
-      <StatusBar barStyle="light-content" />
+      <StatusBar />
       <SafeAreaView bg="primary" flex>
         <Box flex>
-          <Box
-            position="absolute"
-            top={0}
-            left={0}
-            right={0}
-            zIndex={10}
-            style={{
-              paddingTop: theme.spacing[4],
-              paddingBottom: theme.spacing[2],
-              paddingHorizontal: theme.spacing[4],
-              backgroundColor: `${theme.colors.bg.primary}95`,
-            }}
-          >
-            <Box
-              row
-              between
-              center
-            >
-              <Pressable
-                onPress={() => router.back()}
-                center
-                style={{
-                  width: 48,
-                  height: 48,
-                }}
-              >
-                <MaterialIcons name="arrow-back" size={24} color={theme.colors.text.white} />
-              </Pressable>
-              <Box row gap={4}>
-                <Pressable
-                  center
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 20,
-                  }}
-                >
-                  <MaterialIcons name="share" size={24} color={theme.colors.text.white} />
-                </Pressable>
-                <Pressable
-                  center
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 20,
-                  }}
-                >
-                  <MaterialIcons name="bookmark-border" size={24} color={theme.colors.text.white} />
-                </Pressable>
-              </Box>
-            </Box>
-          </Box>
+          <CourseHeader />
 
-          <ScrollView showsVerticalScrollIndicator={false}>
-            <Box position="relative" width="100%" height={imageHeight} overflow="hidden">
-              <Image
-                source={{ uri: course.imageUrl }}
-                style={{ width: "100%", height: "100%" }}
-                contentFit="cover"
-                contentPosition="center"
-              />
-              <LinearGradient
-                colors={[
-                  "transparent",
-                  `${theme.colors.bg.primary}99`,
-                  theme.colors.bg.primary,
-                ]}
-                locations={[0, 0.6, 1]}
-                style={{
-                  position: "absolute",
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  top: 0,
-                }}
-              />
+          <ScrollView mt={4}>
+            <Box row center shadow="sm" mx={3}>
               <Box
-                position="absolute"
-                bottom={0}
-                left={0}
-                right={0}
-                style={{
-                  padding: theme.spacing[6],
-                  paddingBottom: theme.spacing[8],
-                }}
+                width="100%"
+                height={300}
+                overflow="hidden"
+                borderRadiusTopLeft="xl"
+                borderRadiusTopRight="xl"
+                border
               >
-                <Text
-                  size="2xl"
-                  weight="bold"
-                  style={{
-                    color: theme.colors.text.white,
-                    marginBottom: theme.spacing[2],
-                  }}
-                >
-                  {course.title}
-                </Text>
-                <Text
-                  size="lg"
-                  weight="medium"
-                  style={{
-                    color: theme.colors.text.white,
-                    opacity: 0.9,
-                  }}
-                  numberOfLines={2}
-                >
-                  {course.description}
-                </Text>
+                <Image
+                  source={{ uri: course.imageUrl }}
+                  style={{ width: "100%", height: "100%" }}
+                  contentFit="cover"
+                  contentPosition="center"
+                />
               </Box>
             </Box>
+            <Box
+              px={4}
+              py={4}
+              gap={3}
+              bg="surfaceLight"
+              mx={3}
+              border
+              shadow="sm"
+              borderRadiusBottomLeft="xl"
+              borderRadiusBottomRight="xl"
+            >
+              <Text size="xl" weight="bold">
+                {course.title}
+              </Text>
+              <Text size="md" variant="secondary">
+                {course.description}
+              </Text>
+              {progressPercentage > 0 && (
+                <Box gap={2}>
+                  <Box row between center>
+                    <Text size="sm" variant="secondary">
+                      Progress
+                    </Text>
+                    <Text size="sm" weight="semibold">
+                      {progressPercentage}%
+                    </Text>
+                  </Box>
+                  <Box
+                    width="100%"
+                    height={6}
+                    borderRadius="pill"
+                    overflow="hidden"
+                    style={{
+                      backgroundColor: `${theme.colors.text.muted}40`,
+                    }}
+                  >
+                    <Box
+                      height="100%"
+                      width={`${progressPercentage}%`}
+                      style={{
+                        backgroundColor: theme.colors.brand.primary,
+                      }}
+                      borderRadius="pill"
+                    />
+                  </Box>
+                </Box>
+              )}
+            </Box>
+            <Box px={4} pt={6} row between center>
+              <Text size="lg" weight="bold">
+                Chapters
+              </Text>
+              <Text size="xs" variant="secondary" letterSpacing={0.5}>
+                {course.totalChapters ||
+                  course.lessons ||
+                  course.chapters?.length ||
+                  0}{" "}
+                Chapters •{" "}
+                {course.chapters
+                  ? course.chapters.reduce((sum, ch) => sum + ch.duration, 0)
+                  : course.duration}{" "}
+                minutes
+              </Text>
+            </Box>
+            {course.chapters && course.chapters.length > 0 && (
+              <ChaptersList
+                chapters={course.chapters}
+                currentChapter={course.currentChapter}
+              />
+            )}
           </ScrollView>
         </Box>
       </SafeAreaView>
     </>
   );
 }
-

@@ -1,5 +1,11 @@
 export type Category = "For You" | "Culture" | "Art" | "Economics" | "Politics" | "History" | "Philosophy" | "Science";
 
+export interface Chapter {
+  id: string;
+  title: string;
+  duration: number;
+}
+
 export interface Course {
   id: string;
   title: string;
@@ -11,6 +17,7 @@ export interface Course {
   progress?: number;
   currentChapter?: number;
   totalChapters?: number;
+  chapters?: Chapter[];
 }
 
 export interface FeaturedCourse extends Course {

@@ -4,6 +4,9 @@ export const colorSchemes = {
       primary: "hsl(264, 0%, 10%)",
       surface: "hsl(264, 0%, 20%)",
       surfaceLight: "hsl(264, 0%, 30%)",
+      inverseSurface: "hsl(264, 20%, 95%)",
+      inverseSurfaceLight: "hsl(264, 0%, 96%)",
+      inverseSurfaceLighter: "hsl(264, 0%, 100%)",
     },
     text: {
       primary: "hsl(264, 0%, 96%)",
@@ -11,6 +14,7 @@ export const colorSchemes = {
       muted: "hsl(264, 0%, 70%)",
       white: "#FFFFFF",
       black: "#000000",
+      inversePrimary: "hsl(264, 0%, 10%)",
     },
     brand: {
       primary: "#6369D1",
@@ -34,6 +38,9 @@ export const colorSchemes = {
       primary: "hsl(264, 20%, 95%)",
       surface: "hsl(264, 0%, 96%)",
       surfaceLight: "hsl(264, 0%, 100%)",
+      inverseSurface: "hsl(264, 0%, 10%)",
+      inverseSurfaceLight: "hsl(264, 0%, 20%)",
+      inverseSurfaceLighter: "hsl(264, 0%, 30%)",
     },
     text: {
       primary: "hsl(264, 0%, 10%)",
@@ -41,6 +48,7 @@ export const colorSchemes = {
       muted: "hsl(264, 0%, 50%)",
       white: "#FFFFFF",
       black: "#000000",
+      inversePrimary: "hsl(264, 0%, 100%)",
     },
     brand: {
       primary: "#6369D1",
