@@ -39,11 +39,11 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore/index"
+        name="courses/index"
         options={{
-          title: 'Explore',
+          title: 'Courses',
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="explore" size={size || 26} color={color} />
+            <MaterialIcons name="menu-book" size={size || 26} color={color} />
           ),
         }}
       />
