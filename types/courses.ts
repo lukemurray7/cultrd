@@ -9,6 +9,8 @@ export interface Course {
   duration: number;
   lessons?: number;
   progress?: number;
+  currentChapter?: number;
+  totalChapters?: number;
 }
 
 export interface FeaturedCourse extends Course {

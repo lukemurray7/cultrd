@@ -83,3 +83,13 @@ export const useCoursesBySubtopic = (subtopicId: string) => {
   });
 };
 
+export const useLibraryCourses = () => {
+  return useQuery<Course[]>({
+    queryKey: ["library-courses"],
+    queryFn: async () => {
+      const { mockLibraryCourses } = await import("../../__mocks__/courses");
+      return Promise.resolve(mockLibraryCourses);
+    },
+  });
+};
+

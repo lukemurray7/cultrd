@@ -9,6 +9,8 @@ export const colorSchemes = {
       primary: "hsl(264, 0%, 96%)",
       secondary: "hsl(264, 0%, 82%)",
       muted: "hsl(264, 0%, 70%)",
+      white: "#FFFFFF",
+      black: "#000000",
     },
     brand: {
       primary: "#6369D1",
@@ -37,6 +39,8 @@ export const colorSchemes = {
       primary: "hsl(264, 0%, 10%)",
       secondary: "hsl(264, 0%, 20%)",
       muted: "hsl(264, 0%, 50%)",
+      white: "#FFFFFF",
+      black: "#000000",
     },
     brand: {
       primary: "#6369D1",

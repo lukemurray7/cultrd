@@ -1,9 +1,21 @@
 import { MaterialIcons } from "@expo/vector-icons";
-import { TextInput, View } from "react-native";
+import { Pressable, TextInput, TextInputProps, View } from "react-native";
 import { useTheme } from "../../../theme/ThemeProvider";
 
-export const SearchBar = () => {
+interface SearchBarProps extends Omit<TextInputProps, "style"> {
+  value?: string;
+  onChangeText?: (text: string) => void;
+}
+
+export const SearchBar = ({ value, onChangeText, ...props }: SearchBarProps) => {
   const theme = useTheme();
+  const hasValue = value && value.length > 0;
+
+  const handleClear = () => {
+    if (onChangeText) {
+      onChangeText("");
+    }
+  };
 
   return (
     <View
@@ -28,6 +40,8 @@ export const SearchBar = () => {
         <MaterialIcons name="search" size={20} color={theme.colors.text.muted} />
       </View>
       <TextInput
+        value={value}
+        onChangeText={onChangeText}
         style={{
           flex: 1,
           height: "100%",
@@ -38,7 +52,21 @@ export const SearchBar = () => {
         }}
         placeholder="What do you want to learn today?"
         placeholderTextColor={theme.colors.text.muted}
+        {...props}
       />
+      {hasValue && (
+        <Pressable
+          onPress={handleClear}
+          style={{
+            paddingRight: theme.spacing[3],
+            paddingLeft: theme.spacing[2],
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <MaterialIcons name="close" size={20} color={theme.colors.text.muted} />
+        </Pressable>
+      )}
     </View>
   );
 };
