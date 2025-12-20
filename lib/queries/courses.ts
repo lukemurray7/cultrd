@@ -41,3 +41,13 @@ export const useCoursesByTopic = (topicId: string) => {
   });
 };
 
+export const useAllCoursesByTopic = () => {
+  return useQuery({
+    queryKey: ["all-courses-by-topic"],
+    queryFn: async () => {
+      const { mockCoursesByTopic } = await import("../../__mocks__/courses");
+      return mockCoursesByTopic;
+    },
+  });
+};
+
