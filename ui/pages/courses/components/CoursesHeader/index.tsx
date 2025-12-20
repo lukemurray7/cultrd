@@ -1,4 +1,3 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useEffect, useState } from "react";
 import { ScrollView } from "react-native";
@@ -13,7 +12,6 @@ import { topics } from "../../../../../types/topics";
 import { Box } from "../../../../components/Box";
 import { Pressable } from "../../../../components/Pressable";
 import { SearchBar } from "../../../../components/SearchBar";
-import { Text } from "../../../../components/Text";
 
 interface TopicPillProps {
   topic: typeof topics[0];
@@ -127,26 +125,15 @@ export const CoursesHeader = () => {
   return (
     <Box>
       <Box
-        px={4}
-        py={4}
         mx={4}
-        mb={3}
-        borderRadius="xl"
-        bg="surfaceLight"
-        border
+        my={3}
         shadow="sm"
       >
-        <Box row between center style={{ marginBottom: theme.spacing[4] }}>
-          <Text size="xl" weight="bold">
-            Explore
-          </Text>
-          <MaterialIcons
-            name="search"
-            size={24}
-            color={theme.colors.text.primary}
-          />
+        <Box row between gap={4} center mb={4}>
+          <Box style={{ flex: 1}}>
+            <SearchBar />
+          </Box>
         </Box>
-        <SearchBar />
       </Box>
       <ScrollView
         horizontal

@@ -267,7 +267,7 @@ app/
       ├── index.tsx          # Redirects to default route (home)
       ├── home/
       │   └── index.tsx
-      ├── explore/
+      ├── courses/
       │   └── index.tsx
       ├── library/
       │   └── index.tsx

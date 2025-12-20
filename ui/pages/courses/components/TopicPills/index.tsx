@@ -41,7 +41,7 @@ export const TopicPills = () => {
               style={{
                 backgroundColor: theme.colors.bg.surfaceLight,
                 borderColor: isSelected ? topicColor : theme.colors.border,
-                borderWidth: isSelected ? 2 : 1,
+                borderWidth: isSelected ? 2 : 2,
               }}
             >
               <Image
