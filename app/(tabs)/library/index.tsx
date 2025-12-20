@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { Text, View } from "react-native";
 import { useTheme } from "../../../theme/ThemeProvider";
 
 export default function LibraryScreen() {
@@ -8,7 +8,7 @@ export default function LibraryScreen() {
     <View
       style={{
         flex: 1,
-        backgroundColor: theme.colors.bg.canvas,
+        backgroundColor: theme.colors.bg.primary,
         justifyContent: "center",
         alignItems: "center",
       }}

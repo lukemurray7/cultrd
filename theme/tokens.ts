@@ -1,21 +1,42 @@
-export const colors = {
-  bg: {
-    canvas: "#0B0C10",
-    surface: "#12131A",
-    surface2: "#1A1C25",
+export const colorSchemes = {
+  dark: {
+    bg: {
+      primary: "hsl(264, 0%, 10%)",
+      surface: "hsl(264, 0%, 20%)",
+      surfaceLight: "hsl(264, 0%, 30%)",
+    },
+    text: {
+      primary: "hsl(264, 0%, 96%)",
+      secondary: "hsl(264, 0%, 82%)",
+      muted: "hsl(264, 0%, 76%)",
+    },
+    brand: {
+      primary: "#6369D1",
+      accent: "#FCD34D",
+      danger: "#E83F6F",
+      success: "#22C55E",
+    },
+    border: "rgba(255,255,255,0.10)",
   },
-  text: {
-    primary: "#FFFFFF",
-    secondary: "rgba(255,255,255,0.78)",
-    muted: "rgba(255,255,255,0.55)",
-  },   
-  brand: {
-    primary: "#6369D1",
-    accent: "#FCD34D",
-    danger: "#E83F6F",
-    success: "#22C55E",
+  light: {
+    bg: {
+      primary: "hsl(264, 20%, 95%)",
+      surface: "hsl(264, 0%, 96%)",
+      surfaceLight: "hsl(264, 0%, 100%)",
+    },
+    text: {
+      primary: "hsl(264, 0%, 10%)",
+      secondary: "hsl(264, 0%, 20%)",
+      muted: "hsl(264, 0%, 30%)",
+    },
+    brand: {
+      primary: "#6369D1",
+      accent: "#FCD34D",
+      danger: "#E83F6F",
+      success: "#22C55E",
+    },
+    border: "rgba(0,0,0,0.10)",
   },
-  border: "rgba(255,255,255,0.10)",
 } as const;
 
 export const spacing = {
@@ -67,5 +88,14 @@ export const typography = {
   },
 } as const;
 
-export const theme = { colors, spacing, radii, typography } as const;
-export type Theme = typeof theme;
+export type ColorScheme = keyof typeof colorSchemes;
+
+export const createTheme = (mode: ColorScheme = "light") => ({
+  colors: colorSchemes[mode],
+  spacing,
+  radii,
+  typography,
+} as const);
+
+export const theme = createTheme("light");
+export type Theme = ReturnType<typeof createTheme>;

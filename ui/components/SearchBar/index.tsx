@@ -11,7 +11,7 @@ export const SearchBar = () => {
         flexDirection: "row",
         alignItems: "center",
         height: 44,
-        backgroundColor: theme.colors.bg.surface2,
+        backgroundColor: theme.colors.bg.surfaceLight,
         borderColor: theme.colors.border,
         borderWidth: 1,
         borderRadius: theme.radii.lg,

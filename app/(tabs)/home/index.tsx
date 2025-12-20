@@ -20,8 +20,8 @@ export default function HomeScreen() {
   const { data: recommendedCourses } = useRecommendedCourses();
 
   return (
-    <SafeAreaView edges={["top"]}>
-      <Box bg="canvas" border pb={0}>
+    <SafeAreaView edges={["top"]} bg="primary">
+      <Box bg="primary" border pb={0}>
         <HomeHeader />
         <Box px={4} pb={4}>
           <SearchBar />

@@ -12,7 +12,6 @@ export interface Course {
 }
 
 export interface FeaturedCourse extends Course {
-  isDailyPick: boolean;
   timeRemaining: number;
 }
 

@@ -21,7 +21,7 @@ interface BoxProps extends Omit<ViewProps, "style"> {
   ml?: SpacingKey;
   mr?: SpacingKey;
   gap?: SpacingKey;
-  bg?: "canvas" | "surface" | "surface2";
+  bg?: "primary" | "surface" | "surfaceLight";
   border?: boolean;
   borderRadius?: RadiiKey;
   flex?: boolean;

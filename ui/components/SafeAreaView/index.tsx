@@ -1,23 +1,19 @@
-import { SafeAreaView as RNSafeAreaView, SafeAreaViewProps, ViewStyle } from "react-native-safe-area-context";
+import { SafeAreaView as RNSafeAreaView, SafeAreaViewProps } from "react-native-safe-area-context";
 import { useTheme } from "../../../theme/ThemeProvider";
 
 interface SafeAreaViewComponentProps extends Omit<SafeAreaViewProps, "style"> {
-  bg?: "canvas" | "surface" | "surface2";
+  bg?: "primary" | "surface" | "surfaceLight";
   flex?: boolean;
-  style?: ViewStyle;
 }
 
-export const SafeAreaView = ({ bg = "canvas", flex = true, style, children, ...props }: SafeAreaViewComponentProps) => {
+export const SafeAreaView = ({ bg = "primary", flex = true, children, ...props }: SafeAreaViewComponentProps) => {
   const theme = useTheme();
 
-  const computedStyle: ViewStyle = {
-    flex: flex ? 1 : undefined,
-    backgroundColor: theme.colors.bg[bg],
-    ...style,
-  };
-
   return (
-    <RNSafeAreaView style={computedStyle} {...props}>
+    <RNSafeAreaView style={{
+      flex: flex ? 1 : undefined,
+      backgroundColor: theme.colors.bg[bg],
+    }} {...props}>
       {children}
     </RNSafeAreaView>
   );

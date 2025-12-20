@@ -25,7 +25,7 @@ export const RecommendedCard = ({ course }: RecommendedCardProps) => {
         gap: theme.spacing[4],
         padding: theme.spacing[3],
         borderRadius: theme.radii.lg,
-        backgroundColor: `${theme.colors.bg.surface2}80`,
+        backgroundColor: `${theme.colors.bg.surfaceLight}80`,
         borderWidth: 1,
         borderColor: theme.colors.border,
       }}

@@ -56,7 +56,7 @@ export const HomeHeader = () => {
                 backgroundColor: theme.colors.brand.success,
                 borderRadius: theme.radii.pill,
                 borderWidth: 2,
-                borderColor: theme.colors.bg.canvas,
+                borderColor: theme.colors.bg.primary,
               }}
             />
           )}
@@ -88,7 +88,7 @@ export const HomeHeader = () => {
           flexDirection: "row",
           alignItems: "center",
           justifyContent: "flex-end",
-          backgroundColor: `${theme.colors.bg.surface2}80`,
+          backgroundColor: `${theme.colors.bg.surfaceLight}80`,
           borderRadius: theme.radii.pill,
           paddingHorizontal: theme.spacing[3],
           paddingVertical: theme.spacing[1],

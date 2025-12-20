@@ -14,7 +14,7 @@ export default function TabLayout() {
         tabBarActiveTintColor: theme.colors.brand.primary,
         tabBarInactiveTintColor: theme.colors.text.secondary,
         tabBarStyle: {
-          backgroundColor: `${theme.colors.bg.canvas}CC`,
+          backgroundColor: `${theme.colors.bg.primary}CC`,
           borderTopColor: theme.colors.border,
           borderTopWidth: 1,
         },

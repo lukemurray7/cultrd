@@ -24,7 +24,7 @@ export const CategoryChip = ({ label, icon, selected = false, onPress }: Categor
         borderRadius: theme.radii.md,
         paddingLeft: theme.spacing[4],
         paddingRight: theme.spacing[4],
-        backgroundColor: selected ? theme.colors.brand.primary : theme.colors.bg.surface2,
+        backgroundColor: selected ? theme.colors.brand.primary : theme.colors.bg.surfaceLight,
         borderWidth: selected ? 0 : 1,
         borderColor: theme.colors.border,
       }}

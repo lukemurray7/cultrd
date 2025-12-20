@@ -21,7 +21,7 @@ interface PressableComponentProps extends Omit<PressableProps, "style"> {
   ml?: SpacingKey;
   mr?: SpacingKey;
   gap?: SpacingKey;
-  bg?: "canvas" | "surface" | "surface2" | "primary" | "accent" | "success" | "danger";
+  bg?: "primary" | "surface" | "surfaceLight" | "primary" | "accent" | "success" | "danger";
   border?: boolean;
   borderRadius?: RadiiKey;
   flex?: boolean;

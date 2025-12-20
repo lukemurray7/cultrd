@@ -1,6 +1,6 @@
 import { ScrollView as RNScrollView, ScrollViewProps, ViewStyle } from "react-native";
-import { spacing } from "../../../theme/tokens";
 import { useTheme } from "../../../theme/ThemeProvider";
+import { spacing } from "../../../theme/tokens";
 
 type SpacingKey = keyof typeof spacing;
 
@@ -20,7 +20,7 @@ interface ScrollViewComponentProps extends Omit<ScrollViewProps, "style" | "cont
   ml?: SpacingKey;
   mr?: SpacingKey;
   gap?: SpacingKey;
-  bg?: "canvas" | "surface" | "surface2";
+  bg?: "primary" | "surface" | "surfaceLight";
   flex?: boolean;
   style?: ViewStyle;
   contentContainerStyle?: ViewStyle;

@@ -1,7 +1,9 @@
 import { Image } from "expo-image";
-import { Pressable, Text, View } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Pressable, View } from "react-native";
 import { useFeaturedCourse } from "../../../../../lib/queries/courses";
 import { useTheme } from "../../../../../theme/ThemeProvider";
+import { Text } from "../../../../components/Text";
 
 export const FeaturedCard = () => {
   const theme = useTheme();
@@ -16,53 +18,27 @@ export const FeaturedCard = () => {
       style={{
         borderRadius: theme.radii.lg,
         overflow: "hidden",
-        backgroundColor: theme.colors.bg.surface2,
+        backgroundColor: theme.colors.bg.surfaceLight,
         borderWidth: 1,
         borderColor: theme.colors.border,
       }}
     >
-      <View style={{ position: "relative", width: "100%", aspectRatio: 16 / 9 }}>
+      <View style={{ position: "relative", width: "100%", aspectRatio: 16 / 12 }}>
         <Image
           source={{ uri: course.imageUrl }}
           style={{ width: "100%", height: "100%" }}
           contentFit="cover"
         />
-        <View
+        <LinearGradient
+          colors={["transparent", theme.colors.bg.surfaceLight]}
           style={{
             position: "absolute",
             bottom: 0,
             left: 0,
             right: 0,
-            height: "50%",
-            backgroundColor: theme.colors.bg.surface2,
-            opacity: 0.9,
+            height: "20%",
           }}
         />
-        {course.isDailyPick && (
-          <View
-            style={{
-              position: "absolute",
-              bottom: theme.spacing[3],
-              left: theme.spacing[3],
-              backgroundColor: "rgba(0, 0, 0, 0.6)",
-              paddingHorizontal: theme.spacing[2],
-              paddingVertical: theme.spacing[1],
-              borderRadius: theme.radii.sm,
-            }}
-          >
-            <Text
-              style={{
-                color: theme.colors.text.primary,
-                fontSize: theme.typography.size.xs,
-                fontWeight: theme.typography.weight.bold,
-                textTransform: "uppercase",
-                letterSpacing: 1,
-              }}
-            >
-              Daily Pick
-            </Text>
-          </View>
-        )}
       </View>
       <View
         style={{
