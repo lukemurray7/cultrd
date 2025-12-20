@@ -73,9 +73,12 @@ Base components are wrapper components around React Native primitives that provi
 
 - ✅ **DO**: Use base components (`Box`, `Text`, `Pressable`, etc.) in screen pages
 - ✅ **DO**: Use theme props (e.g., `p={4}`, `bg="surface"`, `size="lg"`) instead of inline styles
+- ✅ **DO**: Prefer component props over inline styles, even when using theme tokens
 - ❌ **DON'T**: Import raw React Native components (`View`, `Text`, etc.) in screen pages
 - ❌ **DON'T**: Use inline styles with hardcoded values in screen pages
+- ❌ **DON'T**: Use inline styles when equivalent props exist on base components
 - ✅ **DO**: Use raw React Native components only within base components or other shared components
+- ✅ **DO**: Use minimal inline styles only for properties not supported by component props (e.g., specific Image styles, complex positioning)
 
 #### Box Component Example
 
@@ -96,6 +99,43 @@ import { Text } from "../../../ui/components/Text";
   Content
 </Text>
 ```
+
+#### Avoiding Inline Styles
+
+Always prefer component props over inline styles, even when using theme tokens:
+
+**Bad Example:**
+```typescript
+<View style={{
+  flexDirection: "row",
+  padding: theme.spacing[4],
+  backgroundColor: theme.colors.bg.surface,
+  borderRadius: theme.radii.md,
+}}>
+  <Text style={{
+    color: theme.colors.text.primary,
+    fontSize: theme.typography.size.md,
+    fontWeight: theme.typography.weight.bold,
+  }}>
+    Content
+  </Text>
+</View>
+```
+
+**Good Example:**
+```typescript
+<Box row p={4} bg="surface" borderRadius="md">
+  <Text size="md" weight="bold">
+    Content
+  </Text>
+</Box>
+```
+
+**When Inline Styles Are Acceptable:**
+- Component-specific styles not supported by props (e.g., `Image` width/height/borderRadius)
+- Complex positioning that requires specific calculations
+- Third-party component styling that doesn't accept theme props
+- Temporary workarounds for unsupported prop combinations (should be rare)
 
 ### Shared Components
 

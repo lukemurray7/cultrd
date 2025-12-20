@@ -1,8 +1,10 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { Pressable, Text, View } from "react-native";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Course } from "../../../../../types/courses";
+import { Box } from "../../../../components/Box";
+import { Pressable } from "../../../../components/Pressable";
+import { Text } from "../../../../components/Text";
 
 interface RecommendedCardProps {
   course: Course;
@@ -20,15 +22,12 @@ export const RecommendedCard = ({ course }: RecommendedCardProps) => {
 
   return (
     <Pressable
-      style={{
-        flexDirection: "row",
-        gap: theme.spacing[4],
-        padding: theme.spacing[3],
-        borderRadius: theme.radii.lg,
-        backgroundColor: `${theme.colors.bg.surfaceLight}80`,
-        borderWidth: 1,
-        borderColor: theme.colors.border,
-      }}
+      row
+      gap={4}
+      p={3}
+      borderRadius="lg"
+      bg={`${theme.colors.bg.surfaceLight}80`}
+      border
     >
       <Image
         source={{ uri: course.imageUrl }}
@@ -39,67 +38,32 @@ export const RecommendedCard = ({ course }: RecommendedCardProps) => {
         }}
         contentFit="cover"
       />
-      <View style={{ flex: 1, justifyContent: "center" }}>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "flex-start",
-            marginBottom: theme.spacing[1],
-          }}
-        >
+      <Box flex style={{ justifyContent: "center" }}>
+        <Box row between mb={1} style={{ alignItems: "flex-start" }}>
           <Text
-            style={{
-              fontSize: 10,
-              fontWeight: theme.typography.weight.bold,
-              textTransform: "uppercase",
-              letterSpacing: 1,
-              color: getCategoryColor(course.category),
-            }}
+            size="xs"
+            weight="bold"
+            textTransform="uppercase"
+            letterSpacing={1}
+            color={getCategoryColor(course.category)}
           >
             {course.category}
           </Text>
           <MaterialIcons name="more-horiz" size={20} color={theme.colors.text.secondary} />
-        </View>
-        <Text
-          style={{
-            color: theme.colors.text.primary,
-            fontSize: theme.typography.size.md,
-            fontWeight: theme.typography.weight.bold,
-            lineHeight: theme.typography.lineHeight.sm,
-            marginBottom: theme.spacing[1],
-          }}
-        >
+        </Box>
+        <Text size="md" weight="bold" lineHeight="sm" mb={1}>
           {course.title}
         </Text>
-        <Text
-          style={{
-            color: theme.colors.text.secondary,
-            fontSize: theme.typography.size.xs,
-            marginBottom: theme.spacing[2],
-          }}
-          numberOfLines={2}
-        >
+        <Text variant="secondary" size="xs" mb={2} numberOfLines={2}>
           {course.description}
         </Text>
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            gap: theme.spacing[1],
-          }}
-        >
+        <Box row center gap={1}>
           <MaterialIcons name="schedule" size={12} color={theme.colors.text.secondary} />
-          <Text
-            style={{
-              color: theme.colors.text.secondary,
-              fontSize: 10,
-            }}
-          >
+          <Text variant="secondary" style={{ fontSize: 10 }}>
             {course.duration} min read
           </Text>
-        </View>
-      </View>
+        </Box>
+      </Box>
     </Pressable>
   );
 };

@@ -1,8 +1,8 @@
 import { Image } from "expo-image";
-import { LinearGradient } from "expo-linear-gradient";
-import { Pressable, View } from "react-native";
 import { useFeaturedCourse } from "../../../../../lib/queries/courses";
 import { useTheme } from "../../../../../theme/ThemeProvider";
+import { Box } from "../../../../components/Box";
+import { Pressable } from "../../../../components/Pressable";
 import { Text } from "../../../../components/Text";
 
 export const FeaturedCard = () => {
@@ -14,124 +14,63 @@ export const FeaturedCard = () => {
   }
 
   return (
-    <Pressable
-      style={{
-        borderRadius: theme.radii.lg,
-        overflow: "hidden",
-        backgroundColor: theme.colors.bg.surfaceLight,
-        borderWidth: 1,
-        borderColor: theme.colors.border,
-      }}
-    >
-      <View style={{ position: "relative", width: "100%", aspectRatio: 16 / 12 }}>
+    <Pressable borderRadius="xl" bg="surfaceLight" border overflow="hidden" shadow="sm">
+      <Box position="relative" width="100%" aspectRatio={16 / 12}>
         <Image
           source={{ uri: course.imageUrl }}
           style={{ width: "100%", height: "100%" }}
           contentFit="cover"
         />
-        <LinearGradient
-          colors={["transparent", theme.colors.bg.surfaceLight]}
-          style={{
-            position: "absolute",
-            bottom: 0,
-            left: 0,
-            right: 0,
-            height: "20%",
-          }}
-        />
-      </View>
-      <View
-        style={{
-          padding: theme.spacing[4],
-          gap: theme.spacing[2],
-        }}
-      >
-        <View>
+      </Box>
+      <Box p={4} gap={2}>
+        <Box>
           <Text
-            style={{
-              color: theme.colors.text.primary,
-              fontSize: theme.typography.size.xl,
-              fontWeight: theme.typography.weight.bold,
-              lineHeight: theme.typography.lineHeight.sm,
-              marginBottom: theme.spacing[1],
-            }}
+            size="lg"
+            weight="bold"
+            variant="primary"
+            lineHeight="sm"
+            mb={1}
           >
             {course.title}
           </Text>
-          <Text
-            style={{
-              color: theme.colors.text.secondary,
-              fontSize: theme.typography.size.sm,
-              fontWeight: theme.typography.weight.medium,
-            }}
-            numberOfLines={2}
-          >
+          <Text size="sm" weight="regular" variant="muted" numberOfLines={2}>
             {course.description}
           </Text>
-        </View>
+        </Box>
         {course.progress !== undefined && (
-          <View
-            style={{
-              width: "100%",
-              backgroundColor: `${theme.colors.text.muted}80`,
-              borderRadius: theme.radii.pill,
-              height: 4,
-              marginTop: theme.spacing[2],
-              marginBottom: theme.spacing[1],
-            }}
+          <Box
+            width="100%"
+            bg={`${theme.colors.text.muted}80`}
+            borderRadius="pill"
+            height={4}
+            mt={2}
+            mb={1}
           >
-            <View
-              style={{
-                width: `${course.progress}%`,
-                backgroundColor: theme.colors.brand.primary,
-                height: 4,
-                borderRadius: theme.radii.pill,
-              }}
+            <Box
+              width={`${course.progress}%`}
+              bg={theme.colors.brand.primary}
+              height={4}
+              borderRadius="pill"
             />
-          </View>
+          </Box>
         )}
-        <View
-          style={{
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            marginTop: theme.spacing[1],
-          }}
-        >
-          <Text
-            style={{
-              color: theme.colors.text.secondary,
-              fontSize: theme.typography.size.xs,
-              fontWeight: theme.typography.weight.semibold,
-            }}
-          >
+        <Box row center between mt={1}>
+          <Text size="xs" weight="semibold" variant="secondary">
             {course.category} • {course.timeRemaining} min left
           </Text>
-          <Pressable
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: theme.radii.md,
-              height: 32,
-              paddingHorizontal: theme.spacing[4],
-              backgroundColor: theme.colors.brand.primary,
-            }}
-          >
+          <Pressable center borderRadius="md" bg="primary" px={4} height={32}>
             <Text
-              style={{
-                color: theme.colors.text.primary,
-                fontSize: theme.typography.size.xs,
-                fontWeight: theme.typography.weight.bold,
-                textTransform: "uppercase",
-                letterSpacing: 0.5,
-              }}
+              size="xs"
+              weight="bold"
+              variant="primary"
+              textTransform="uppercase"
+              letterSpacing={0.5}
             >
               Continue
             </Text>
           </Pressable>
-        </View>
-      </View>
+        </Box>
+      </Box>
     </Pressable>
   );
 };
-

@@ -1,4 +1,5 @@
-import { View, ViewProps, ViewStyle } from "react-native";
+import { DimensionValue, View, ViewProps, ViewStyle } from "react-native";
+import { getShadowStyle } from "../../../theme/shadow";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { radii, spacing } from "../../../theme/tokens";
 
@@ -21,13 +22,19 @@ interface BoxProps extends Omit<ViewProps, "style"> {
   ml?: SpacingKey;
   mr?: SpacingKey;
   gap?: SpacingKey;
-  bg?: "primary" | "surface" | "surfaceLight";
+  bg?: "primary" | "surface" | "surfaceLight" | string;
   border?: boolean;
   borderRadius?: RadiiKey;
   flex?: boolean;
   row?: boolean;
   center?: boolean;
   between?: boolean;
+  shadow?: boolean | "sm" | "md" | "lg";
+  overflow?: "hidden" | "visible" | "scroll";
+  position?: "relative" | "absolute";
+  width?: DimensionValue;
+  height?: DimensionValue;
+  aspectRatio?: number;
   style?: ViewStyle;
 }
 
@@ -54,11 +61,25 @@ export const Box = ({
   row,
   center,
   between,
+  shadow,
+  overflow,
+  position,
+  width,
+  height,
+  aspectRatio,
   style,
   children,
   ...props
 }: BoxProps) => {
   const theme = useTheme();
+
+  const getBackgroundColor = () => {
+    if (!bg) return undefined;
+    if (bg === "primary" || bg === "surface" || bg === "surfaceLight") {
+      return theme.colors.bg[bg];
+    }
+    return bg;
+  };
 
   const computedStyle: ViewStyle = {
     ...(p !== undefined && { padding: theme.spacing[p] }),
@@ -76,7 +97,7 @@ export const Box = ({
     ...(ml !== undefined && { marginLeft: theme.spacing[ml] }),
     ...(mr !== undefined && { marginRight: theme.spacing[mr] }),
     ...(gap !== undefined && { gap: theme.spacing[gap] }),
-    ...(bg && { backgroundColor: theme.colors.bg[bg] }),
+    ...(bg && { backgroundColor: getBackgroundColor() }),
     ...(border && {
       borderWidth: 1,
       borderColor: theme.colors.border,
@@ -86,6 +107,12 @@ export const Box = ({
     ...(row && { flexDirection: "row" }),
     ...(center && { alignItems: "center", justifyContent: "center" }),
     ...(between && { justifyContent: "space-between" }),
+    ...(overflow && { overflow }),
+    ...(position && { position }),
+    ...(width !== undefined && { width }),
+    ...(height !== undefined && { height }),
+    ...(aspectRatio !== undefined && { aspectRatio }),
+    ...getShadowStyle(shadow),
     ...style,
   };
 

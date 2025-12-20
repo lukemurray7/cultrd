@@ -1,7 +1,8 @@
 import { Image } from "expo-image";
-import { Text, View } from "react-native";
 import { useUser } from "../../../../../lib/queries/courses";
 import { useTheme } from "../../../../../theme/ThemeProvider";
+import { Box } from "../../../../components/Box";
+import { Text } from "../../../../components/Text";
 
 export const HomeHeader = () => {
   const theme = useTheme();
@@ -19,23 +20,20 @@ export const HomeHeader = () => {
   };
 
   return (
-    <View
-      style={{
-        flexDirection: "row",
-        alignItems: "center",
-        justifyContent: "space-between",
-        paddingHorizontal: theme.spacing[4],
-        paddingBottom: theme.spacing[2],
-      }}
+    <Box
+      row
+      center
+      between
+      px={4}
+      py={4}
+      mx={4}
+      borderRadius="xl"
+      bg="surfaceLight"
+      border
+      shadow="sm"
     >
-      <View
-        style={{
-          flexDirection: "row",
-          alignItems: "center",
-          gap: theme.spacing[3],
-        }}
-      >
-        <View style={{ position: "relative" }}>
+      <Box row center gap={3}>
+        <Box style={{ position: "relative" }}>
           <Image
             source={{ uri: user.avatarUrl }}
             style={{
@@ -46,7 +44,7 @@ export const HomeHeader = () => {
             contentFit="cover"
           />
           {user.isOnline && (
-            <View
+            <Box
               style={{
                 position: "absolute",
                 bottom: 0,
@@ -60,55 +58,39 @@ export const HomeHeader = () => {
               }}
             />
           )}
-        </View>
-        <View>
+        </Box>
+        <Box>
           <Text
-            style={{
-              color: theme.colors.text.primary,
-              fontSize: theme.typography.size.md,
-              fontWeight: theme.typography.weight.bold,
-              lineHeight: theme.typography.lineHeight.sm,
-            }}
+            size="md"
+            weight="bold"
+            style={{ lineHeight: theme.typography.lineHeight.sm }}
           >
             {getGreeting()}, {user.name}
           </Text>
-          <Text
-            style={{
-              color: theme.colors.text.secondary,
-              fontSize: theme.typography.size.xs,
-              fontWeight: theme.typography.weight.medium,
-            }}
-          >
+          <Text variant="secondary" size="xs" weight="medium">
             Ready to learn?
           </Text>
-        </View>
-      </View>
-      <View
+        </Box>
+      </Box>
+      <Box
+        row
+        center
+        bg="surfaceLight"
+        borderRadius="pill"
+        px={3}
+        py={1}
+        gap={1}
+        border
         style={{
-          flexDirection: "row",
-          alignItems: "center",
           justifyContent: "flex-end",
           backgroundColor: `${theme.colors.bg.surfaceLight}80`,
-          borderRadius: theme.radii.pill,
-          paddingHorizontal: theme.spacing[3],
-          paddingVertical: theme.spacing[1],
-          gap: theme.spacing[1],
-          borderWidth: 1,
-          borderColor: theme.colors.border,
         }}
       >
-        <Text style={{ fontSize: theme.typography.size.md }}>🔥</Text>
-        <Text
-          style={{
-            color: theme.colors.text.primary,
-            fontSize: theme.typography.size.sm,
-            fontWeight: theme.typography.weight.bold,
-          }}
-        >
+        <Text size="md">🔥</Text>
+        <Text variant="primary" size="sm" weight="bold">
           {user.streak}
         </Text>
-      </View>
-    </View>
+      </Box>
+    </Box>
   );
 };
-
