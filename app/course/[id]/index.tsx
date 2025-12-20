@@ -14,11 +14,14 @@ export default function CourseDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { data: course, isLoading } = useCourse(id || "");
   const theme = useTheme();
-  
-  const hasProgress = course?.currentChapter !== undefined && course?.totalChapters !== undefined;
-  const progressPercentage = hasProgress && course?.totalChapters
-    ? Math.round(((course.currentChapter || 0) / course.totalChapters) * 100)
-    : course?.progress || 0;
+
+  const hasProgress =
+    course?.currentChapter !== undefined && course?.totalChapters !== undefined;
+  const progressPercentage =
+    hasProgress && course?.totalChapters
+      ? Math.round(((course.currentChapter || 0) / course.totalChapters) * 100)
+      : course?.progress || 0;
+  const hasStarted = progressPercentage > 0;
 
   if (isLoading || !course) {
     return (
@@ -35,7 +38,12 @@ export default function CourseDetailScreen() {
         <Box flex>
           <CourseHeader />
 
-          <ScrollView mt={4}>
+          <ScrollView
+            mt={4}
+            style={{
+              paddingBottom: 100,
+            }}
+          >
             <Box row center shadow="sm" mx={3}>
               <Box
                 width="100%"
