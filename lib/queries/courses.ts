@@ -93,3 +93,34 @@ export const useLibraryCourses = () => {
   });
 };
 
+export const useCourse = (courseId: string) => {
+  return useQuery<Course | null>({
+    queryKey: ["course", courseId],
+    queryFn: async () => {
+      const {
+        mockFeaturedCourse,
+        mockTrendingCourses,
+        mockRecommendedCourses,
+        mockLibraryCourses,
+        mockCoursesByTopic,
+      } = await import("../../__mocks__/courses");
+      
+      const allCourses = [
+        mockFeaturedCourse,
+        ...mockTrendingCourses,
+        ...mockRecommendedCourses,
+        ...mockLibraryCourses,
+      ];
+      
+      for (const topicData of mockCoursesByTopic) {
+        for (const subtopic of topicData.subtopics) {
+          allCourses.push(...subtopic.courses);
+        }
+      }
+      
+      return allCourses.find((course) => course.id === courseId) || null;
+    },
+    enabled: !!courseId,
+  });
+};
+

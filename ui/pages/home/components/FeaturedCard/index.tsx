@@ -1,4 +1,5 @@
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import { useFeaturedCourse } from "../../../../../lib/queries/courses";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Box } from "../../../../components/Box";
@@ -7,6 +8,7 @@ import { Text } from "../../../../components/Text";
 
 export const FeaturedCard = () => {
   const theme = useTheme();
+  const router = useRouter();
   const { data: course } = useFeaturedCourse();
 
   if (!course) {
@@ -14,7 +16,14 @@ export const FeaturedCard = () => {
   }
 
   return (
-    <Pressable borderRadius="xl" bg="surfaceLight" border overflow="hidden" shadow="sm">
+    <Pressable
+      borderRadius="xl"
+      bg="surfaceLight"
+      border
+      overflow="hidden"
+      shadow="sm"
+      onPress={() => router.push(`/course/${course.id}`)}
+    >
       <Box position="relative" width="100%" aspectRatio={16 / 12}>
         <Image
           source={{ uri: course.imageUrl }}

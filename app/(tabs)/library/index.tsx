@@ -7,6 +7,7 @@ import { LibraryCourseCard } from "../../../ui/components/LibraryCourseCard";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
 import { ScrollView } from "../../../ui/components/ScrollView";
 import { SearchBar } from "../../../ui/components/SearchBar";
+import { StatusBar } from "../../../ui/components/StatusBar";
 import { LibraryFilterPills } from "../../../ui/pages/library/components/LibraryFilterPills";
 
 type FilterType = "in-progress" | "completed" | "all";
@@ -58,7 +59,9 @@ export default function LibraryScreen() {
   });
 
   return (
-    <SafeAreaView edges={["top"]} bg="primary">
+    <>
+      <StatusBar />
+      <SafeAreaView edges={["top"]} bg="primary">
       <ScrollView flex pb={12} showsVerticalScrollIndicator={false}>
         <Box px={4} pt={4} pb={2}>
           <Box mb={4}>
@@ -81,5 +84,6 @@ export default function LibraryScreen() {
         </Box>
       </ScrollView>
     </SafeAreaView>
+    </>
   );
 }

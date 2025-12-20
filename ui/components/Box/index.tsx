@@ -40,6 +40,11 @@ interface BoxProps extends Omit<ViewProps, "style"> {
   shadow?: boolean | "sm" | "md" | "lg";
   overflow?: "hidden" | "visible" | "scroll";
   position?: "relative" | "absolute";
+  top?: number;
+  left?: number;
+  right?: number;
+  bottom?: number;
+  zIndex?: number;
   width?: DimensionValue;
   height?: DimensionValue;
   aspectRatio?: number;
@@ -80,6 +85,11 @@ export const Box = ({
   shadow,
   overflow,
   position,
+  top,
+  left,
+  right,
+  bottom,
+  zIndex,
   width,
   height,
   aspectRatio,
@@ -145,6 +155,11 @@ export const Box = ({
     ...(between && { justifyContent: "space-between" }),
     ...(overflow && { overflow }),
     ...(position && { position }),
+    ...(top !== undefined && { top }),
+    ...(left !== undefined && { left }),
+    ...(right !== undefined && { right }),
+    ...(bottom !== undefined && { bottom }),
+    ...(zIndex !== undefined && { zIndex }),
     ...(width !== undefined && { width }),
     ...(height !== undefined && { height }),
     ...(aspectRatio !== undefined && { aspectRatio }),

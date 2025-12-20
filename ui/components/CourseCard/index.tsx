@@ -1,4 +1,5 @@
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import { Course } from "../../../types/courses";
 import { Box } from "../Box";
 import { Pressable } from "../Pressable";
@@ -13,8 +14,17 @@ export const CourseCard = ({
   course,
   width = 160,
 }: CourseCardProps) => {
+  const router = useRouter();
+
   return (
-    <Pressable width={width} bg="surfaceLight" borderRadius="xl" border overflow="hidden">
+    <Pressable
+      width={width}
+      bg="surfaceLight"
+      borderRadius="xl"
+      border
+      overflow="hidden"
+      onPress={() => router.push(`/course/${course.id}`)}
+    >
       <Box
         width={width}
         height={208}

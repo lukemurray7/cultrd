@@ -9,6 +9,7 @@ import { Box } from "../../../ui/components/Box";
 import { CourseCard } from "../../../ui/components/CourseCard";
 import { Pressable } from "../../../ui/components/Pressable";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
+import { StatusBar } from "../../../ui/components/StatusBar";
 import { Text } from "../../../ui/components/Text";
 import { CoursesHeader } from "../../../ui/pages/courses/components/CoursesHeader";
 
@@ -190,7 +191,9 @@ export default function CoursesScreen() {
   };
 
   return (
-    <SafeAreaView bg="primary" flex>
+    <>
+      <StatusBar />
+      <SafeAreaView bg="primary" flex>
       <CoursesHeader
         ref={topNavScrollRef}
         selectedTopic={selectedTopic}
@@ -212,6 +215,7 @@ export default function CoursesScreen() {
         style={{ backgroundColor: theme.colors.bg.primary }}
       />
     </SafeAreaView>
+    </>
   );
 }
 

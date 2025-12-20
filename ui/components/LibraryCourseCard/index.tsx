@@ -1,5 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import { DimensionValue } from "react-native";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { Course } from "../../../types/courses";
@@ -14,13 +15,21 @@ interface LibraryCourseCardProps {
 
 export const LibraryCourseCard = ({ course, width }: LibraryCourseCardProps) => {
   const theme = useTheme();
+  const router = useRouter();
   const hasProgress = course.currentChapter !== undefined && course.totalChapters !== undefined;
   const progressPercentage = hasProgress && course.totalChapters
     ? Math.round(((course.currentChapter || 0) / course.totalChapters) * 100)
     : course.progress || 0;
 
   return (
-    <Pressable bg="surfaceLight" borderRadius="xl" border overflow="hidden" width={width}>
+    <Pressable
+      bg="surfaceLight"
+      borderRadius="xl"
+      border
+      overflow="hidden"
+      width={width}
+      onPress={() => router.push(`/course/${course.id}`)}
+    >
       <Box width="100%" height={208} overflow="hidden" position="relative">
         <Image
           source={{ uri: course.imageUrl }}

@@ -1,5 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Course } from "../../../../../types/courses";
 import { Box } from "../../../../components/Box";
@@ -12,6 +13,7 @@ interface RecommendedCardProps {
 
 export const RecommendedCard = ({ course }: RecommendedCardProps) => {
   const theme = useTheme();
+  const router = useRouter();
 
   const getCategoryColor = (category: string) => {
     if (category === "Science") {
@@ -28,6 +30,7 @@ export const RecommendedCard = ({ course }: RecommendedCardProps) => {
       borderRadius="lg"
       bg={`${theme.colors.bg.surfaceLight}80`}
       border
+      onPress={() => router.push(`/course/${course.id}`)}
     >
       <Image
         source={{ uri: course.imageUrl }}

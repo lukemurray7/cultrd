@@ -1,15 +1,18 @@
 import { Switch } from "react-native";
+import { useTheme, useThemeMode } from "../../../theme/ThemeProvider";
 import { Box } from "../../../ui/components/Box";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
+import { StatusBar } from "../../../ui/components/StatusBar";
 import { Text } from "../../../ui/components/Text";
-import { useTheme, useThemeMode } from "../../../theme/ThemeProvider";
 
 export default function ProfileScreen() {
   const theme = useTheme();
   const { colorScheme, toggleColorScheme } = useThemeMode();
 
   return (
-    <SafeAreaView edges={["top"]} bg="primary">
+    <>
+      <StatusBar />
+      <SafeAreaView edges={["top"]} bg="primary">
       <Box flex p={4}>
         <Box row between mb={6}>
           <Text size="2xl" weight="bold">
@@ -40,6 +43,7 @@ export default function ProfileScreen() {
         </Box>
       </Box>
     </SafeAreaView>
+    </>
   );
 }
 

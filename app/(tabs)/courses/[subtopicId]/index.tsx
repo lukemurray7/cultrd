@@ -11,6 +11,7 @@ import { EmptyCourseCard } from "../../../../ui/components/EmptyCourseCard";
 import { Pressable } from "../../../../ui/components/Pressable";
 import { SafeAreaView } from "../../../../ui/components/SafeAreaView";
 import { ScrollView } from "../../../../ui/components/ScrollView";
+import { StatusBar } from "../../../../ui/components/StatusBar";
 import { Text } from "../../../../ui/components/Text";
 
 export default function SubtopicCoursesScreen() {
@@ -23,11 +24,14 @@ export default function SubtopicCoursesScreen() {
 
   if (isLoading || !data) {
     return (
-      <SafeAreaView bg="primary" flex>
-        <Box flex center>
-          <Text>Loading...</Text>
-        </Box>
-      </SafeAreaView>
+      <>
+        <StatusBar />
+        <SafeAreaView bg="primary" flex>
+          <Box flex center>
+            <Text>Loading...</Text>
+          </Box>
+        </SafeAreaView>
+      </>
     );
   }
 
@@ -47,7 +51,9 @@ export default function SubtopicCoursesScreen() {
   });
 
   return (
-    <SafeAreaView bg="primary" flex>
+    <>
+      <StatusBar />
+      <SafeAreaView bg="primary" flex>
       <Box px={4} pt={3} pb={3} row between center>
         <Pressable onPress={() => router.back()} center>
           <MaterialIcons name="arrow-back" size={24} color={theme.colors.text.primary} />
@@ -81,6 +87,7 @@ export default function SubtopicCoursesScreen() {
         ))}
       </ScrollView>
     </SafeAreaView>
+    </>
   );
 }
 
