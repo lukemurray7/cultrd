@@ -1,5 +1,5 @@
 import { Image } from "expo-image";
-import { useEffect } from "react";
+import { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
 import { ScrollView } from "react-native";
 import Animated, {
   interpolateColor,
@@ -123,46 +123,54 @@ interface CoursesHeaderProps {
   onTopicChange: (topicId: string) => void;
 }
 
-export const CoursesHeader = ({ selectedTopic, onTopicChange }: CoursesHeaderProps) => {
-  const theme = useTheme();
+export const CoursesHeader = forwardRef<ScrollView, CoursesHeaderProps>(
+  ({ selectedTopic, onTopicChange }, ref) => {
+    const theme = useTheme();
+    const scrollViewRef = useRef<ScrollView>(null);
 
-  return (
-    <Box>
-      <Box
-        mx={4}
-        my={3}
-        shadow="sm"
-      >
-        <Box row between gap={4} center mb={4}>
-          <Box style={{ flex: 1}}>
-            <SearchBar />
+    useImperativeHandle(ref, () => scrollViewRef.current as ScrollView);
+
+    return (
+      <Box>
+        <Box
+          mx={4}
+          my={3}
+          shadow="sm"
+        >
+          <Box row between gap={4} center mb={4}>
+            <Box style={{ flex: 1}}>
+              <SearchBar />
+            </Box>
           </Box>
         </Box>
+        <ScrollView
+          ref={scrollViewRef}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{
+            gap: theme.spacing[4],
+            paddingHorizontal: theme.spacing[4],
+            paddingBottom: theme.spacing[3],
+          }}
+        >
+          {topics.map((topic) => {
+            const isSelected = selectedTopic === topic.id;
+            const topicColor = theme.colors.topics[topic.colorKey];
+            return (
+              <TopicPill
+                key={topic.id}
+                topic={topic}
+                isSelected={isSelected}
+                onPress={() => onTopicChange(topic.id)}
+                topicColor={topicColor}
+              />
+            );
+          })}
+        </ScrollView>
       </Box>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{
-          gap: theme.spacing[4],
-          paddingHorizontal: theme.spacing[4],
-          paddingBottom: theme.spacing[3],
-        }}
-      >
-        {topics.map((topic) => {
-          const isSelected = selectedTopic === topic.id;
-          const topicColor = theme.colors.topics[topic.colorKey];
-          return (
-            <TopicPill
-              key={topic.id}
-              topic={topic}
-              isSelected={isSelected}
-              onPress={() => onTopicChange(topic.id)}
-              topicColor={topicColor}
-            />
-          );
-        })}
-      </ScrollView>
-    </Box>
-  );
-};
+    );
+  }
+);
+
+CoursesHeader.displayName = "CoursesHeader";
 

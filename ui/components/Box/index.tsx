@@ -24,7 +24,15 @@ interface BoxProps extends Omit<ViewProps, "style"> {
   gap?: SpacingKey;
   bg?: "primary" | "surface" | "surfaceLight" | string;
   border?: boolean;
+  borderTop?: boolean;
+  borderBottom?: boolean;
+  borderLeft?: boolean;
+  borderRight?: boolean;
   borderRadius?: RadiiKey;
+  borderRadiusTopLeft?: RadiiKey;
+  borderRadiusTopRight?: RadiiKey;
+  borderRadiusBottomLeft?: RadiiKey;
+  borderRadiusBottomRight?: RadiiKey;
   flex?: boolean;
   row?: boolean;
   center?: boolean;
@@ -56,7 +64,15 @@ export const Box = ({
   gap,
   bg,
   border,
+  borderTop,
+  borderBottom,
+  borderLeft,
+  borderRight,
   borderRadius,
+  borderRadiusTopLeft,
+  borderRadiusTopRight,
+  borderRadiusBottomLeft,
+  borderRadiusBottomRight,
   flex,
   row,
   center,
@@ -102,7 +118,27 @@ export const Box = ({
       borderWidth: 1,
       borderColor: theme.colors.border,
     }),
+    ...(borderTop && {
+      borderTopWidth: 1,
+      borderTopColor: theme.colors.border,
+    }),
+    ...(borderBottom && {
+      borderBottomWidth: 1,
+      borderBottomColor: theme.colors.border,
+    }),
+    ...(borderLeft && {
+      borderLeftWidth: 1,
+      borderLeftColor: theme.colors.border,
+    }),
+    ...(borderRight && {
+      borderRightWidth: 1,
+      borderRightColor: theme.colors.border,
+    }),
     ...(borderRadius && { borderRadius: theme.radii[borderRadius] }),
+    ...(borderRadiusTopLeft && { borderTopLeftRadius: theme.radii[borderRadiusTopLeft] }),
+    ...(borderRadiusTopRight && { borderTopRightRadius: theme.radii[borderRadiusTopRight] }),
+    ...(borderRadiusBottomLeft && { borderBottomLeftRadius: theme.radii[borderRadiusBottomLeft] }),
+    ...(borderRadiusBottomRight && { borderBottomRightRadius: theme.radii[borderRadiusBottomRight] }),
     ...(flex && { flex: 1 }),
     ...(row && { flexDirection: "row" }),
     ...(center && { alignItems: "center", justifyContent: "center" }),

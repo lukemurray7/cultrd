@@ -1,6 +1,4 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
-import { useTheme } from "../../../theme/ThemeProvider";
 import { Course } from "../../../types/courses";
 import { Box } from "../Box";
 import { Pressable } from "../Pressable";
@@ -8,19 +6,20 @@ import { Text } from "../Text";
 
 interface CourseCardProps {
   course: Course;
-  showBookmark?: boolean;
   width?: number;
 }
 
-export const CourseCard = ({ course, showBookmark = false, width = 160 }: CourseCardProps) => {
-  const theme = useTheme();
-
+export const CourseCard = ({
+  course,
+  width = 160,
+}: CourseCardProps) => {
   return (
-    <Pressable width={width} gap={2}>
+    <Pressable width={width} bg="surfaceLight" borderRadius="xl" border overflow="hidden">
       <Box
         width={width}
         height={208}
-        borderRadius="lg"
+        borderRadiusTopLeft="xl"
+        borderRadiusTopRight="xl"
         overflow="hidden"
         position="relative"
       >
@@ -28,33 +27,10 @@ export const CourseCard = ({ course, showBookmark = false, width = 160 }: Course
           source={{ uri: course.imageUrl }}
           style={{ width: "100%", height: "100%" }}
           contentFit="cover"
+          contentPosition="center"
         />
-        <Box
-          position="absolute"
-          bg="rgba(0, 0, 0, 0.2)"
-          style={{
-            top: 0,
-            left: 0,
-            right: 0,
-            bottom: 0,
-          }}
-        />
-        {showBookmark && (
-          <Box
-            position="absolute"
-            bg="rgba(255, 255, 255, 0.2)"
-            borderRadius="pill"
-            p={1}
-            style={{
-              top: theme.spacing[2],
-              right: theme.spacing[2],
-            }}
-          >
-            <MaterialIcons name="bookmark" size={16} color={theme.colors.text.primary} />
-          </Box>
-        )}
       </Box>
-      <Box>
+      <Box p={3} height={80} borderRadiusBottomLeft="xl" borderRadiusBottomRight="xl" shadow="md">
         <Text size="sm" weight="bold" lineHeight="sm" mb={0} numberOfLines={2}>
           {course.title}
         </Text>
@@ -65,4 +41,3 @@ export const CourseCard = ({ course, showBookmark = false, width = 160 }: Course
     </Pressable>
   );
 };
-

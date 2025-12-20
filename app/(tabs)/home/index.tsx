@@ -36,6 +36,7 @@ export default function HomeScreen() {
               showBookmark={index === 0}
             />
           )}
+          showSeeAll={false}
         />
 
         <Box px={4}>

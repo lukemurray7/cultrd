@@ -15,7 +15,13 @@ export default function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
-        <Stack>
+        <Stack
+          screenOptions={{
+            animation: "slide_from_right",
+            animationDuration: 300,
+            headerShown: false,
+          }}
+        >
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         </Stack>
         <StatusBar style="auto" />

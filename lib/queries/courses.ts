@@ -51,3 +51,35 @@ export const useAllCoursesByTopic = () => {
   });
 };
 
+export const useCoursesBySubtopic = (subtopicId: string) => {
+  return useQuery({
+    queryKey: ["courses-by-subtopic", subtopicId],
+    queryFn: async () => {
+      if (subtopicId === "trending") {
+        const { mockTrendingCourses } = await import("../../__mocks__/courses");
+        return {
+          subtopic: {
+            id: "trending",
+            title: "Trending Now",
+            description: "Popular courses trending right now",
+            courses: mockTrendingCourses,
+          },
+          topicId: "trending",
+        };
+      }
+      const { mockCoursesByTopic } = await import("../../__mocks__/courses");
+      for (const topicData of mockCoursesByTopic) {
+        const subtopic = topicData.subtopics.find((s) => s.id === subtopicId);
+        if (subtopic) {
+          return {
+            subtopic,
+            topicId: topicData.topicId,
+          };
+        }
+      }
+      return null;
+    },
+    enabled: !!subtopicId,
+  });
+};
+

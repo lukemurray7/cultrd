@@ -1,10 +1,12 @@
 import { MaterialIcons } from '@expo/vector-icons';
-import { Tabs } from 'expo-router';
+import { Tabs, usePathname, useRouter } from 'expo-router';
 import React from 'react';
 import { useTheme } from '../../theme/ThemeProvider';
 
 export default function TabLayout() {
   const theme = useTheme();
+  const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <Tabs
@@ -45,12 +47,20 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="courses/index"
+        name="courses"
         options={{
           title: 'Courses',
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="menu-book" size={size || 26} color={color} />
           ),
+        }}
+        listeners={{
+          tabPress: (e) => {
+            if (pathname && pathname.startsWith("/(tabs)/courses/") && pathname !== "/(tabs)/courses/index") {
+              e.preventDefault();
+              router.replace("/(tabs)/courses/index");
+            }
+          },
         }}
       />
       <Tabs.Screen

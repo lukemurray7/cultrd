@@ -21,7 +21,7 @@ export const mockFeaturedCourse: FeaturedCourse = {
 export const mockTrendingCourses: Course[] = [
   {
     id: "2",
-    title: "Modern Art Movements",
+    title: "Modern Art Movements, this is a really long title that should be truncated",
     description: "",
     category: "Art",
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCWDW5nCrCmmujKugk70eawdAt0y_8VcSPpvEMjsT9oo_EgkmIm2dHvFae58t365G0jBv8_Zn-HhYXxWOX1cHGPHPrZmv4UFF2AD6O2S-R3AVF8RW179bRThrHAX3zhxduFZFI9fRqXHbDQzO9kFzzkD4p8LzZvt6k3HgIF6UrC7wgsFhdPv3kuWkbR3d9Hhb6nHblfw8-xHlbR9NIO-S704_NGEFyX1XEuzvn1hwUYxxdYjzp2gTzBz_rLLBAVsVB8kghSycDv7d5E",
