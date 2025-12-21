@@ -1,9 +1,10 @@
 import { useRouter } from "expo-router";
 import {
-  useContinueLearningPaths,
-  useExplorePaths,
-  usePathOfTheWeek,
+    useContinueLearningPaths,
+    useExplorePaths,
+    usePathOfTheWeek,
 } from "../../../lib/queries/paths";
+import { useTheme } from "../../../theme/ThemeProvider";
 import { Box } from "../../../ui/components/Box";
 import { Pressable } from "../../../ui/components/Pressable";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
@@ -14,7 +15,6 @@ import { ContinueLearningCard } from "../../../ui/pages/paths/components/Continu
 import { ExplorePathCard } from "../../../ui/pages/paths/components/ExplorePathCard";
 import { PathOfTheWeekCard } from "../../../ui/pages/paths/components/PathOfTheWeekCard";
 import { PathsHeader } from "../../../ui/pages/paths/components/PathsHeader";
-import { useTheme } from "../../../theme/ThemeProvider";
 
 export default function PathsScreen() {
   const theme = useTheme();

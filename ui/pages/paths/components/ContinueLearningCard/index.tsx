@@ -1,9 +1,8 @@
-import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { LearningPathProgress } from "../../../../../types/paths";
+import { getCategoryColor } from "../../../../../lib/utils/categoryColors";
 import { useTheme } from "../../../../../theme/ThemeProvider";
-import { Theme } from "../../../../../theme/tokens";
+import { LearningPathProgress } from "../../../../../types/paths";
 import { Box } from "../../../../components/Box";
 import { Pressable } from "../../../../components/Pressable";
 import { Text } from "../../../../components/Text";
@@ -11,16 +10,6 @@ import { Text } from "../../../../components/Text";
 interface ContinueLearningCardProps {
   path: LearningPathProgress;
 }
-
-const getCategoryColor = (category: string, theme: Theme) => {
-  if (category === "Economics") {
-    return theme.colors.brand.accent;
-  }
-  if (category === "Philosophy") {
-    return theme.colors.topics.philosophy;
-  }
-  return theme.colors.brand.primary;
-};
 
 export const ContinueLearningCard = ({ path }: ContinueLearningCardProps) => {
   const theme = useTheme();

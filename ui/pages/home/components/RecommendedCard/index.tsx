@@ -1,6 +1,7 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
+import { getCategoryColor } from "../../../../../lib/utils/categoryColors";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Course } from "../../../../../types/courses";
 import { Box } from "../../../../components/Box";
@@ -14,13 +15,6 @@ interface RecommendedCardProps {
 export const RecommendedCard = ({ course }: RecommendedCardProps) => {
   const theme = useTheme();
   const router = useRouter();
-
-  const getCategoryColor = (category: string) => {
-    if (category === "Science") {
-      return theme.colors.brand.accent;
-    }
-    return theme.colors.brand.primary;
-  };
 
   return (
     <Pressable
@@ -48,7 +42,7 @@ export const RecommendedCard = ({ course }: RecommendedCardProps) => {
             weight="bold"
             textTransform="uppercase"
             letterSpacing={1}
-            color={getCategoryColor(course.category)}
+            style={{ color: getCategoryColor(course.category, theme) }}
           >
             {course.category}
           </Text>

@@ -1,4 +1,3 @@
-import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Box } from "../../../../components/Box";
 import { Text } from "../../../../components/Text";
 

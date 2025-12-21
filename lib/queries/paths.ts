@@ -1,14 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import {
-  mockAllUserPaths,
-  mockContinueLearningPaths,
-  mockExplorePaths,
-  mockPathOfTheWeek,
+    mockAllUserPaths,
+    mockContinueLearningPaths,
+    mockExplorePaths,
+    mockPathOfTheWeek,
 } from "../../__mocks__/paths";
+import { Course } from "../../types/courses";
 import {
-  LearningPath,
-  LearningPathProgress,
-  PathOfTheWeek,
+    LearningPath,
+    LearningPathProgress,
+    PathOfTheWeek,
 } from "../../types/paths";
 
 export const usePathOfTheWeek = () => {
@@ -52,6 +53,44 @@ export const useAllUserPaths = () => {
   return useQuery<LearningPathProgress[]>({
     queryKey: ["all-user-paths"],
     queryFn: () => Promise.resolve(mockAllUserPaths),
+  });
+};
+
+const getAllCourses = async (): Promise<Course[]> => {
+  const {
+    mockFeaturedCourse,
+    mockTrendingCourses,
+    mockRecommendedCourses,
+    mockLibraryCourses,
+    mockCoursesByTopic,
+  } = await import("../../__mocks__/courses");
+
+  const allCourses: Course[] = [
+    mockFeaturedCourse,
+    ...mockTrendingCourses,
+    ...mockRecommendedCourses,
+    ...mockLibraryCourses,
+  ];
+
+  for (const topicData of mockCoursesByTopic) {
+    for (const subtopic of topicData.subtopics) {
+      allCourses.push(...subtopic.courses);
+    }
+  }
+
+  return allCourses;
+};
+
+export const usePathCourses = (courseIds: string[]) => {
+  return useQuery<Course[]>({
+    queryKey: ["path-courses", courseIds.join(",")],
+    queryFn: async () => {
+      const allCourses = await getAllCourses();
+      return courseIds
+        .map((id) => allCourses.find((course) => course.id === id))
+        .filter((course): course is Course => course !== undefined);
+    },
+    enabled: courseIds.length > 0,
   });
 };
 

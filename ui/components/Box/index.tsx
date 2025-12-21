@@ -37,6 +37,8 @@ interface BoxProps extends Omit<ViewProps, "style"> {
   row?: boolean;
   center?: boolean;
   between?: boolean;
+  start?: boolean;
+  end?: boolean;
   shadow?: boolean | "sm" | "md" | "lg";
   overflow?: "hidden" | "visible" | "scroll";
   position?: "relative" | "absolute";
@@ -82,6 +84,8 @@ export const Box = ({
   row,
   center,
   between,
+  start,
+  end,
   shadow,
   overflow,
   position,
@@ -158,6 +162,8 @@ export const Box = ({
     ...(row && { flexDirection: "row" }),
     ...(center && { alignItems: "center", justifyContent: "center" }),
     ...(between && { justifyContent: "space-between" }),
+    ...(start && { justifyContent: "flex-start" }),
+    ...(end && { justifyContent: "flex-end" }),
     ...(overflow && { overflow }),
     ...(position && { position }),
     ...(top !== undefined && { top }),

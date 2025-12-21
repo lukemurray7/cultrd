@@ -13,11 +13,11 @@ export interface Course {
   category: Category;
   imageUrl: string;
   duration: number;
-  lessons?: number;
-  progress?: number;
+  lessons: number;
+  progress: number;
   currentChapter?: number;
   totalChapters?: number;
-  chapters?: Chapter[];
+  chapters: Chapter[];
 }
 
 export interface FeaturedCourse extends Course {
@@ -29,5 +29,10 @@ export interface User {
   avatarUrl: string;
   streak: number;
   isOnline: boolean;
+  email: string;
+  subscription?: {
+    type: string;
+    status: string;
+  };
 }
 

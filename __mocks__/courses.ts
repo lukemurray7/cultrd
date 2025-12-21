@@ -1,10 +1,15 @@
-import { Category, Chapter, Course, FeaturedCourse, User } from "../types/courses";
+import { Category, Course, FeaturedCourse, User } from "../types/courses";
 
 export const mockUser: User = {
   name: "Alex",
   avatarUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCv67l6Cl8RJDczacAAglmg65vGqXngLByQPFnqsFoB1y_NoQDF1HvJJ8dlEwnBcBP0DajD7BtyJjiUowMF79xhwCh07edg8jyT7-Itl4rqv47LA4WIP7FBRxgDZWFa9PTZuagmPt1COiUec_UNOHUioMmfAAViLGe-UnBNy6rSe15oAEE4eb4CinkIWpZaMdDMiOISr1S5gT7kzle3eA9nF8y3pIdVZzKISPaqT7BqdX6-TfaeznKCFrRJdkm7QIRZs_54RhgkmNSw",
   streak: 12,
   isOnline: true,
+  email: "alex.chen@example.com",
+  subscription: {
+    type: "Pro Member",
+    status: "active",
+  },
 };
 
 export const mockFeaturedCourse: FeaturedCourse = {
@@ -14,7 +19,8 @@ export const mockFeaturedCourse: FeaturedCourse = {
   category: "Economics",
   imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCOY7WUPoYPR2giHfrtpS0SjcJYJC1eL3oOw5psDJFS123S_egD3tPZLlWNS9M8aKyjEs4QhRKGB1o8Mk7kUykMZK32AyXm114rWJyrPPRHa8pFb4XoJZqbM9v4dZ-yZmCYyTC3c_ZKjlgcgeArjGni0vjw11xgxOhKT1uOktu5DnbMg2CCi-abNtJvSNnWfoALDsRdaL-hu6WilSZzE4Q6hy1yswNwpRAyY8-r4T_3uy_dRr0VwjoT1cd1IXsSs_NVr5jrYd7HjyiU",
   duration: 0,
-  progress: 35,
+  lessons: 5,
+  progress: 100,
   timeRemaining: 5,
   totalChapters: 5,
   chapters: [
@@ -36,6 +42,7 @@ export const mockTrendingCourses: Course[] = [
     duration: 0,
     lessons: 8,
     totalChapters: 8,
+    progress: 100,
     chapters: [
       { id: "2-1", title: "Introduction to Modern Art", duration: 6 },
       { id: "2-2", title: "Impressionism and Post-Impressionism", duration: 7 },
@@ -55,6 +62,7 @@ export const mockTrendingCourses: Course[] = [
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuBPMFHpQQ93RNsLXJo8ZWjqovXj29idGeOok4fLC4Ma-rMFA2BrDqDE4HDMdcCyu189rtus9hQ6TIKfLFFk8v7k3rL6TAaNzVjZEcXnlGP1kvmwbJ0BKTv1v4ZKgfkoFzEogHK2xqP0KznNuPCkzOTVTyEVKODApG1E5ujM74485EyTWTBlJP9gLFqa9TVLOzPOiWdwRbQja3UAPdRAjaCxtm6t4GBGlEjfRhl2R4sE7vOU1L7aII5bTP9AO3jQ7pks1ApmAn8plpv9",
     duration: 0,
     lessons: 12,
+    progress: 0,
     totalChapters: 12,
     chapters: [
       { id: "3-1", title: "Origins of the Cold War", duration: 8 },
@@ -80,6 +88,7 @@ export const mockTrendingCourses: Course[] = [
     duration: 0,
     lessons: 6,
     totalChapters: 6,
+    progress: 100,
     chapters: [
       { id: "4-1", title: "Understanding Supply", duration: 5 },
       { id: "4-2", title: "Understanding Demand", duration: 5 },
@@ -99,6 +108,8 @@ export const mockRecommendedCourses: Course[] = [
     category: "Philosophy",
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDSJl-qLvznExOX21MrEsIkM6uZ19Q1J8-nBbxbtP36M5Unbo2MrtYx2gEA2n1MU9WebfwWHphpmuYaG3knKlXJZEybV55wha4Ngu78_EpMvgYGi04Z6YRsSazwx9CGEhi8ua5HctpsScER2UXzRWI0d_ZlgHvpqCc4HmDyGvlWfOvGYMTNe5818HUFAaisE6H3WLqffPsnFKLpIYsBfLaZQJ9gXSx0-H8gZZeJ8YFssRtPHpBYnoLlcdwOocqkw4tHFu-sEdFdB4eY",
     duration: 15,
+    lessons: 5,
+    progress: 100,
     totalChapters: 5,
     chapters: [
       { id: "5-1", title: "Introduction to Stoicism", duration: 3 },
@@ -115,6 +126,8 @@ export const mockRecommendedCourses: Course[] = [
     category: "Science",
     imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuDl9AkFDrPkVu9kE_S5sqhtazV1tqSZqKcHJTnvyf0FCpHEwvKB_RbGqkMK7ZD5NPTitC-FeYpPD1QxFTv5nqLy8cXMAAN1hKnlehklelrEF49TQNM3sfQ_vy8BgN34x-_8Dmbk6_uHPD5QViL_pv7qlAuxC4CC7P4SjppnOp9OxXi-s75-QUpEuHMapfH_aoKChKlSqQtomm6VlHGTtQ_z9GgmJkWsqvUV5yLfjYVXQaqO1PeSlGtpTYYwO-u8n39vxYo9IIfZ4ndK",
     duration: 8,
+    lessons: 4,
+    progress: 0,
     totalChapters: 4,
     chapters: [
       { id: "6-1", title: "What is CRISPR?", duration: 2 },
@@ -167,6 +180,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 45,
             lessons: 8,
+            progress: 100,
+            chapters: [],
           },
           {
             id: "eh-2",
@@ -176,6 +191,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 50,
             lessons: 10,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "eh-3",
@@ -185,6 +202,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 42,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "eh-4",
@@ -194,6 +213,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 55,
             lessons: 11,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "eh-5",
@@ -203,6 +224,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 38,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "eh-6",
@@ -212,6 +235,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 48,
             lessons: 10,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "eh-7",
@@ -221,6 +246,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 52,
             lessons: 12,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -237,6 +264,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 60,
             lessons: 12,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ww-2",
@@ -246,6 +275,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 55,
             lessons: 11,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ww-3",
@@ -255,6 +286,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 47,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ww-4",
@@ -264,6 +297,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 58,
             lessons: 13,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ww-5",
@@ -273,6 +308,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 44,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -289,6 +326,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 56,
             lessons: 14,
+            progress: 100,
+            chapters: [],
           },
           {
             id: "ac-2",
@@ -298,6 +337,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 49,
             lessons: 10,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ac-3",
@@ -307,6 +348,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 43,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ac-4",
@@ -316,6 +359,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 41,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -332,6 +377,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 46,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ah-2",
@@ -341,6 +388,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 54,
             lessons: 11,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ah-3",
@@ -350,6 +399,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 39,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -371,6 +422,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 30,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "macro-2",
@@ -380,6 +433,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 40,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "macro-3",
@@ -389,6 +444,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 35,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "macro-4",
@@ -398,6 +455,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 33,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "macro-5",
@@ -407,6 +466,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 37,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "macro-6",
@@ -416,6 +477,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 32,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -432,6 +495,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 28,
             lessons: 5,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "micro-2",
@@ -441,6 +506,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 36,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "micro-3",
@@ -450,6 +517,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 31,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "micro-4",
@@ -459,6 +528,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 29,
             lessons: 5,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -475,6 +546,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 34,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "be-2",
@@ -484,6 +557,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 27,
             lessons: 5,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "be-3",
@@ -493,6 +568,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 38,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -514,6 +591,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 25,
             lessons: 5,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "phil-2",
@@ -523,6 +602,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 48,
             lessons: 10,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "phil-3",
@@ -532,6 +613,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 42,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "phil-4",
@@ -541,6 +624,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 22,
             lessons: 4,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "phil-5",
@@ -550,6 +635,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 26,
             lessons: 5,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -566,6 +653,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 55,
             lessons: 12,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "phil-7",
@@ -575,6 +664,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 44,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "phil-8",
@@ -584,6 +675,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 32,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -600,6 +693,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 36,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "eth-2",
@@ -609,6 +704,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 40,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "eth-3",
@@ -618,6 +715,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 29,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "eth-4",
@@ -627,6 +726,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 31,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -648,6 +749,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 35,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "bio-2",
@@ -657,6 +760,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 41,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "bio-3",
@@ -666,6 +771,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 38,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "bio-4",
@@ -675,6 +782,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 33,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "bio-5",
@@ -684,6 +793,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 37,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "bio-6",
@@ -693,6 +804,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 45,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -709,6 +822,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 52,
             lessons: 11,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "phys-2",
@@ -718,6 +833,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 48,
             lessons: 10,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "phys-3",
@@ -727,6 +844,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 36,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "phys-4",
@@ -736,6 +855,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 39,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -752,6 +873,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 44,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "chem-2",
@@ -761,6 +884,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 40,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "chem-3",
@@ -770,6 +895,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 37,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -786,6 +913,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 32,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "astro-2",
@@ -795,6 +924,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 46,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -816,6 +947,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 43,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "cult-2",
@@ -825,6 +958,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 39,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "cult-3",
@@ -834,6 +969,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 41,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "cult-4",
@@ -843,6 +980,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 37,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "cult-5",
@@ -852,6 +991,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 35,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -868,6 +1009,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 45,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "cs-2",
@@ -877,6 +1020,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 28,
             lessons: 5,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "cs-3",
@@ -886,6 +1031,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 31,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -907,6 +1054,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 50,
             lessons: 10,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "mh-2",
@@ -916,6 +1065,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 42,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "mh-3",
@@ -925,6 +1076,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 38,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "mh-4",
@@ -934,6 +1087,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 33,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "mh-5",
@@ -943,6 +1098,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 36,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -959,6 +1116,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 29,
             lessons: 5,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "mt-2",
@@ -968,6 +1127,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 44,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "mt-3",
@@ -977,6 +1138,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 47,
             lessons: 10,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -998,6 +1161,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 46,
             lessons: 9,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "pt-2",
@@ -1007,6 +1172,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 43,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "pt-3",
@@ -1016,6 +1183,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 35,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "pt-4",
@@ -1025,6 +1194,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[1],
             duration: 40,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -1041,6 +1212,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[2],
             duration: 38,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ir-2",
@@ -1050,6 +1223,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[3],
             duration: 34,
             lessons: 6,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "ir-3",
@@ -1059,6 +1234,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[4],
             duration: 41,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
         ],
       },
@@ -1075,6 +1252,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[5],
             duration: 37,
             lessons: 7,
+            progress: 0,
+            chapters: [],
           },
           {
             id: "cp-2",
@@ -1084,6 +1263,8 @@ export const mockCoursesByTopic: TopicCourses[] = [
             imageUrl: imageUrls[0],
             duration: 39,
             lessons: 8,
+            progress: 0,
+            chapters: [],
           },
         ],
       },

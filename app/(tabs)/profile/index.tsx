@@ -1,49 +1,31 @@
-import { Switch } from "react-native";
-import { useTheme, useThemeMode } from "../../../theme/ThemeProvider";
 import { Box } from "../../../ui/components/Box";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
+import { ScrollView } from "../../../ui/components/ScrollView";
 import { StatusBar } from "../../../ui/components/StatusBar";
-import { Text } from "../../../ui/components/Text";
+import { AccountSection } from "../../../ui/pages/profile/components/AccountSection";
+import { LogOutSection } from "../../../ui/pages/profile/components/LogOutSection";
+import { PreferencesSection } from "../../../ui/pages/profile/components/PreferencesSection";
+import { ProfileHeader } from "../../../ui/pages/profile/components/ProfileHeader";
+import { SupportLegalSection } from "../../../ui/pages/profile/components/SupportLegalSection";
+import { VersionFooter } from "../../../ui/pages/profile/components/VersionFooter";
 
 export default function ProfileScreen() {
-  const theme = useTheme();
-  const { colorScheme, toggleColorScheme } = useThemeMode();
-
   return (
     <>
       <StatusBar />
-      <SafeAreaView edges={["top"]} bg="primary">
-      <Box flex p={4}>
-        <Box row between mb={6}>
-          <Text size="2xl" weight="bold">
-            Profile
-          </Text>
-        </Box>
+      <SafeAreaView bg="primary" flex>
+        <ProfileHeader />
 
-        <Box bg="surface" border borderRadius="md" p={4}>
-          <Box row between>
-            <Box flex>
-              <Text size="lg" weight="semibold" mb={1}>
-                Dark Mode
-              </Text>
-              <Text size="sm" variant="secondary">
-                Switch between light and dark theme
-              </Text>
-            </Box>
-            <Switch
-              value={colorScheme === "dark"}
-              onValueChange={toggleColorScheme}
-              trackColor={{
-                false: theme.colors.bg.surfaceLight,
-                true: theme.colors.brand.primary,
-              }}
-              thumbColor={theme.colors.bg.primary}
-            />
+        <ScrollView px={4} pb={6}>
+          <Box gap={4} mt={2}>
+            <AccountSection />
+            <PreferencesSection />
+            <SupportLegalSection />
+            <LogOutSection />
+            <VersionFooter />
           </Box>
-        </Box>
-      </Box>
-    </SafeAreaView>
+        </ScrollView>
+      </SafeAreaView>
     </>
   );
 }
-

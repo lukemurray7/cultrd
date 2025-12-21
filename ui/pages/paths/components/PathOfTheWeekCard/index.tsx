@@ -1,8 +1,8 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
-import { PathOfTheWeek } from "../../../../../types/paths";
 import { useTheme } from "../../../../../theme/ThemeProvider";
+import { PathOfTheWeek } from "../../../../../types/paths";
 import { Box } from "../../../../components/Box";
 import { Pressable } from "../../../../components/Pressable";
 import { Text } from "../../../../components/Text";
