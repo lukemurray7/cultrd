@@ -58,6 +58,21 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
+        name="paths/index"
+        options={{
+          title: 'Paths',
+          tabBarIcon: ({ color, size }) => (
+            <MaterialIcons name="account-tree" size={size || 26} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="paths/all"
+        options={{
+          href: null,
+        }}
+      />
+      <Tabs.Screen
         name="library/index"
         options={{
           title: 'Library',
