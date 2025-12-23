@@ -1,10 +1,11 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import { useEffect } from "react";
+import Animated, { useAnimatedStyle, useSharedValue, withRepeat, withTiming } from "react-native-reanimated";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Chapter } from "../../../../../types/courses";
 import { Box } from "../../../../../ui/components/Box";
 import { Pressable } from "../../../../../ui/components/Pressable";
 import { Text } from "../../../../../ui/components/Text";
-
 
 interface ChapterListItemProps {
   chapter: Chapter;
@@ -24,29 +25,50 @@ export const ChapterListItem = ({
   onPress,
 }: ChapterListItemProps) => {
   const theme = useTheme();
+  const pulseAnim = useSharedValue(1);
 
-  const borderLeftWidth = isActive || isHighlighted ? 4 : 1;
-  const borderLeftColor = isActive || isHighlighted ? theme.colors.brand.primary : theme.colors.border;
+  useEffect(() => {
+    if (isActive || isHighlighted) {
+      pulseAnim.value = withRepeat(
+        withTiming(1.005, { duration: 1500 }),
+        -1,
+        true
+      );
+    } else {
+      pulseAnim.value = 1;
+    }
+  }, [isActive, isHighlighted, pulseAnim]);
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      transform: [{ scale: pulseAnim.value }],
+    };
+  });
+
+  const borderWidth = isActive || isHighlighted ? 2 : 1;
+  const borderColor = isActive || isHighlighted 
+    ? `${theme.colors.brand.primary}60` 
+    : theme.colors.border;
   const bg = isActive || isHighlighted ? "surfaceLight" : "surface";
 
   return (
-    <Pressable
-      onPress={onPress}
-      disabled={isLocked}
-      bg={bg}
-      borderRadius="lg"
-      border
-      shadow="md"
-      p={3}
-      mb={3}
-      row
-      gap={3}
-      style={{
-        borderLeftWidth,
-        borderLeftColor,
-        alignItems: "center",
-      }}
-    >
+    <Animated.View style={animatedStyle}>
+      <Pressable
+        onPress={onPress}
+        disabled={isLocked}
+        bg={bg}
+        borderRadius="lg"
+        shadow="md"
+        p={3}
+        mb={3}
+        row
+        gap={3}
+        style={{
+          borderWidth,
+          borderColor,
+          alignItems: "center",
+        }}
+      >
       <Box
         width={40}
         height={40}
@@ -80,6 +102,7 @@ export const ChapterListItem = ({
         </Text>
       </Box>
     </Pressable>
+    </Animated.View>
   );
 };
 
