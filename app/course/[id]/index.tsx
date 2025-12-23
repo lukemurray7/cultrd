@@ -11,7 +11,7 @@ import { ChaptersList } from "../../../ui/pages/course/components/ChaptersList";
 import { CourseHeader } from "../../../ui/pages/course/components/CourseHeader";
 
 export default function CourseDetailScreen() {
-  const { id } = useLocalSearchParams<{ id: string }>();
+  const { id, highlightChapterId } = useLocalSearchParams<{ id: string; highlightChapterId?: string }>();
   const { data: course, isLoading } = useCourse(id || "");
   const theme = useTheme();
 
@@ -129,6 +129,8 @@ export default function CourseDetailScreen() {
               <ChaptersList
                 chapters={course.chapters}
                 currentChapter={course.currentChapter}
+                courseId={id || ""}
+                highlightChapterId={highlightChapterId}
               />
             )}
           </ScrollView>

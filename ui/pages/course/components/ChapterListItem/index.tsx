@@ -11,6 +11,7 @@ interface ChapterListItemProps {
   chapterNumber: number;
   isActive?: boolean;
   isLocked?: boolean;
+  isHighlighted?: boolean;
   onPress?: () => void;
 }
 
@@ -19,15 +20,20 @@ export const ChapterListItem = ({
   chapterNumber,
   isActive = false,
   isLocked = false,
+  isHighlighted = false,
   onPress,
 }: ChapterListItemProps) => {
   const theme = useTheme();
+
+  const borderLeftWidth = isActive || isHighlighted ? 4 : 1;
+  const borderLeftColor = isActive || isHighlighted ? theme.colors.brand.primary : theme.colors.border;
+  const bg = isActive || isHighlighted ? "surfaceLight" : "surface";
 
   return (
     <Pressable
       onPress={onPress}
       disabled={isLocked}
-      bg={isActive ? "surfaceLight" : "surface"}
+      bg={bg}
       borderRadius="lg"
       border
       shadow="md"
@@ -36,8 +42,8 @@ export const ChapterListItem = ({
       row
       gap={3}
       style={{
-        borderLeftWidth: isActive ? 4 : 1,
-        borderLeftColor: isActive ? theme.colors.brand.primary : theme.colors.border,
+        borderLeftWidth,
+        borderLeftColor,
         alignItems: "center",
       }}
     >

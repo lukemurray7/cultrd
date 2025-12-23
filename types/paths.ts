@@ -20,3 +20,4 @@ export interface PathOfTheWeek extends LearningPath {
   isPathOfTheWeek: true;
 }
 
+

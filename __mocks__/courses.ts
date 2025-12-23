@@ -13,26 +13,44 @@ export const mockUser: User = {
 };
 
 export const mockFeaturedCourse: FeaturedCourse = {
-  id: "1",
-  title: "The Psychology of Money",
-  description: "Timeless lessons on wealth, greed, and happiness doing well with money.",
+  id: "wealth-inequality-101",
+  title: "Wealth Inequality",
+  description: "A deep dive into the widening gap, the COVID-19 effect, and the future of the global economy.",
   category: "Economics",
-  imageUrl: "https://lh3.googleusercontent.com/aida-public/AB6AXuCOY7WUPoYPR2giHfrtpS0SjcJYJC1eL3oOw5psDJFS123S_egD3tPZLlWNS9M8aKyjEs4QhRKGB1o8Mk7kUykMZK32AyXm114rWJyrPPRHa8pFb4XoJZqbM9v4dZ-yZmCYyTC3c_ZKjlgcgeArjGni0vjw11xgxOhKT1uOktu5DnbMg2CCi-abNtJvSNnWfoALDsRdaL-hu6WilSZzE4Q6hy1yswNwpRAyY8-r4T_3uy_dRr0VwjoT1cd1IXsSs_NVr5jrYd7HjyiU",
-  duration: 0,
+  imageUrl: "https://images.unsplash.com/photo-1579532536935-619928decd08?q=80&w=800&auto=format&fit=crop",
+  duration: 25,
   lessons: 5,
-  progress: 100,
-  timeRemaining: 5,
+  progress: 0,
+  timeRemaining: 25,
   totalChapters: 5,
   chapters: [
-    { id: "1-1", title: "The Renaissance Boom", duration: 5 },
-    { id: "1-2", title: "The Modern Auction House", duration: 7 },
-    { id: "1-3", title: "NFTs and the Future", duration: 6 },
-    { id: "1-4", title: "Wealth and Happiness", duration: 8 },
-    { id: "1-5", title: "Building Long-term Wealth", duration: 9 },
+    { id: "ch_1", title: "The Big Picture", duration: 5 },
+    { id: "ch_2", title: "The COVID-19 Acceleration", duration: 5 },
+    { id: "ch_3", title: "The Cost of Opportunity", duration: 5 },
+    { id: "ch_4", title: "Erosion of Democracy", duration: 5 },
+    { id: "ch_5", title: "Pathways to Change", duration: 5 },
   ],
 };
 
 export const mockTrendingCourses: Course[] = [
+  {
+    id: "wealth-inequality-101",
+    title: "Wealth Inequality",
+    description: "A deep dive into the widening gap, the COVID-19 effect, and the future of the global economy.",
+    category: "Economics",
+    imageUrl: "https://images.unsplash.com/photo-1579532536935-619928decd08?q=80&w=800&auto=format&fit=crop",
+    duration: 25,
+    lessons: 5,
+    totalChapters: 5,
+    progress: 0,
+    chapters: [
+      { id: "ch_1", title: "The Big Picture", duration: 5 },
+      { id: "ch_2", title: "The COVID-19 Acceleration", duration: 5 },
+      { id: "ch_3", title: "The Cost of Opportunity", duration: 5 },
+      { id: "ch_4", title: "Erosion of Democracy", duration: 5 },
+      { id: "ch_5", title: "Pathways to Change", duration: 5 },
+    ],
+  },
   {
     id: "2",
     title: "Modern Art Movements, this is a really long title that should be truncated",
