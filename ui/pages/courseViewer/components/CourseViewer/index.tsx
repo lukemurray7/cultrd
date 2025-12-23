@@ -1,10 +1,13 @@
 import { MaterialIcons } from "@expo/vector-icons";
+import * as Haptics from "expo-haptics";
+import * as Linking from "expo-linking";
 import { router } from "expo-router";
-import { useCallback, useState } from "react";
-import { Dimensions, Pressable as RNPressable, Share } from "react-native";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import { useCallback, useEffect, useState } from "react";
+import { Dimensions, Pressable as RNPressable, ScrollView, Share } from "react-native";
+import Animated, { FadeIn, FadeInUp, FadeOut } from "react-native-reanimated";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Box } from "../../../../../ui/components/Box";
+import { LottieAnimation } from "../../../../../ui/components/LottieAnimation";
 import { Pressable } from "../../../../../ui/components/Pressable";
 import { SafeAreaView } from "../../../../../ui/components/SafeAreaView";
 import { Text } from "../../../../../ui/components/Text";
@@ -19,16 +22,56 @@ interface CourseViewerProps {
 
 const { width: SCREEN_WIDTH } = Dimensions.get("window");
 
+const completeAnimation = require("../../../../../assets/animations/complete.json");
+
+const completionMessages = [
+  "Great work! You've completed {percentage}% of the course",
+  "Awesome! You're {percentage}% through the course",
+  "Excellent progress! You've finished {percentage}% of the course",
+  "Well done! You've completed {percentage}% of the course",
+  "Fantastic! You're {percentage}% through the course",
+  "Outstanding! You've finished {percentage}% of the course",
+  "Brilliant! You've completed {percentage}% of the course",
+  "Amazing! You're {percentage}% through the course",
+  "Incredible! You've finished {percentage}% of the course",
+  "Superb! You've completed {percentage}% of the course",
+  "Terrific! You're {percentage}% through the course",
+  "Wonderful! You've finished {percentage}% of the course",
+  "Impressive! You've completed {percentage}% of the course",
+  "Phenomenal! You're {percentage}% through the course",
+  "Stellar! You've finished {percentage}% of the course",
+  "Magnificent! You've completed {percentage}% of the course",
+  "Exceptional! You're {percentage}% through the course",
+  "Remarkable! You've finished {percentage}% of the course",
+  "Splendid! You've completed {percentage}% of the course",
+  "Marvelous! You're {percentage}% through the course",
+];
+
 export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerProps) => {
   const theme = useTheme();
   const [slideIndex, setSlideIndex] = useState(0);
   const [showComplete, setShowComplete] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState<string>("");
 
   const slides = chapter.slides;
   const currentSlide = slides[slideIndex];
   const isLastSlide = slideIndex === slides.length - 1;
 
   const nextChapter = allChapters.find((ch) => ch.order === chapter.order + 1);
+
+  useEffect(() => {
+    if (showComplete) {
+      const randomMessage = completionMessages[Math.floor(Math.random() * completionMessages.length)];
+      setSelectedMessage(randomMessage);
+      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+      setTimeout(() => {
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+      }, 200);
+    } else {
+      setSelectedMessage("");
+    }
+  }, [showComplete]);
+
 
   const handleNext = useCallback(() => {
     if (isLastSlide) {
@@ -61,60 +104,233 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
     router.back();
   };
 
+  const handleContinueToNextChapter = () => {
+    if (nextChapter) {
+      router.replace({
+        pathname: "/course/[id]/chapter/[chapterId]",
+        params: {
+          id: courseId,
+          chapterId: nextChapter.id,
+        },
+      });
+    }
+  };
+
   const handleClose = () => {
     router.back();
   };
 
-  const handleShare = async () => {
+  const handleShareCourse = async () => {
     try {
+      const courseUrl = Linking.createURL(`/course/${courseId}`);
       await Share.share({
-        message: `Check out "${chapter.title}" from ${chapter.title}`,
-        title: chapter.title,
+        message: `Check out this course: ${courseUrl}`,
+        title: "Share Course",
+        url: courseUrl,
       });
     } catch (error) {
       console.error("Error sharing:", error);
     }
   };
 
+  const handleGoHome = () => {
+    router.replace("/(tabs)/home");
+  };
+
   if (showComplete) {
+    const currentChapterIndex = allChapters.findIndex((ch) => ch.id === chapter.id);
+    const completedChapters = allChapters.filter((ch) => ch.order <= chapter.order);
+    const totalChapters = allChapters.length;
+    const completionPercentage = Math.round((completedChapters.length / totalChapters) * 100);
+
     return (
       <SafeAreaView bg="surface" flex>
-        <Box flex center bg="surface" p={6}>
-          <Animated.View entering={FadeIn} style={{ alignItems: "center", gap: theme.spacing[6] }}>
-            <Box
-              width={120}
-              height={120}
-              borderRadius="pill"
-              bg="brand.primary"
-              center
-              mb={4}
-            >
-              <MaterialIcons name="check-circle" size={80} color={theme.colors.text.white} />
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            padding: theme.spacing[6],
+            gap: theme.spacing[6],
+          }}
+        >
+          <Animated.View entering={FadeIn} style={{ alignItems: "center" }}>
+            <Box width={200} height={200} center mb={4}>
+              <LottieAnimation
+                source={completeAnimation}
+                autoPlay
+                loop={false}
+                style={{ width: "100%", height: "100%" }}
+              />
             </Box>
-            <Text size="2xl" weight="bold" style={{ textAlign: "center" }}>
-              Chapter Complete!
-            </Text>
-            <Text size="lg" variant="secondary" style={{ textAlign: "center" }}>
-              {chapter.title}
-            </Text>
-            {nextChapter && (
-              <Text size="md" variant="muted" style={{ textAlign: "center" }}>
-                Next: {nextChapter.title}
-              </Text>
-            )}
-            <Pressable
-              bg="brand.primary"
-              p={4}
-              borderRadius="lg"
-              mt={6}
-              onPress={handleReturnToCourse}
-            >
-              <Text size="lg" weight="semibold" style={{ color: theme.colors.text.white }}>
-                Back to Course
-              </Text>
-            </Pressable>
+            <Box row flexWrap="wrap" center gap={2} style={{ minHeight: 60, justifyContent: "center" }}>
+              {showComplete && (() => {
+                const currentChapterIndex = allChapters.findIndex((ch) => ch.id === chapter.id);
+                const completedChapters = allChapters.filter((ch) => ch.order <= chapter.order);
+                const totalChapters = allChapters.length;
+                const completionPercentage = Math.round((completedChapters.length / totalChapters) * 100);
+                const message = selectedMessage || completionMessages[0];
+                const fullText = message.replace("{percentage}", completionPercentage.toString());
+                const words = fullText.split(" ");
+                
+                return words.map((word, index) => (
+                  <Animated.View
+                    key={index}
+                    entering={FadeIn.delay(index * 100).duration(400)}
+                  >
+                    <Text size="xl" weight="bold">
+                      {word}
+                      {index < words.length - 1 && " "}
+                    </Text>
+                  </Animated.View>
+                ));
+              })()}
+            </Box>
           </Animated.View>
-        </Box>
+
+          <Box gap={4}>
+            <Animated.View entering={FadeInUp.delay(300).duration(400)}>
+              <Box
+                bg="surfaceLight"
+                borderRadius="lg"
+                border
+                p={4}
+                row
+                gap={3}
+                style={{
+                  borderWidth: 2,
+                  borderColor: theme.colors.brand.success,
+                  minHeight: 80,
+                  alignItems: "center",
+                }}
+              >
+                <Box
+                  width={48}
+                  height={48}
+                  borderRadius="pill"
+                  bg="brand.success"
+                  center
+                >
+                  <MaterialIcons
+                    name="check-circle"
+                    size={28}
+                    color={theme.colors.text.white}
+                  />
+                </Box>
+                <Box flex gap={1}>
+                  <Text size="md" weight="bold">
+                    {currentChapterIndex + 1}. {chapter.title}
+                  </Text>
+                  <Text size="sm" variant="secondary">
+                    Completed
+                  </Text>
+                </Box>
+              </Box>
+            </Animated.View>
+
+            {nextChapter && (
+              <Animated.View entering={FadeInUp.delay(600).duration(400)}>
+                <Box
+                  bg="surfaceLight"
+                  borderRadius="lg"
+                  border
+                  p={4}
+                  row
+                  gap={3}
+                  style={{
+                    minHeight: 80,
+                    alignItems: "center",
+                  }}
+                >
+                  <Box
+                    width={48}
+                    height={48}
+                    borderRadius="pill"
+                    bg="brand.primary"
+                    center
+                    border
+                  >
+                    <MaterialIcons
+                      name="play-arrow"
+                      size={24}
+                      color={theme.colors.text.white}
+                    />
+                  </Box>
+                  <Box flex gap={1}>
+                    <Text size="md" weight="bold">
+                      {currentChapterIndex + 2}. {nextChapter.title}
+                    </Text>
+                    <Text size="sm" variant="secondary">
+                      Next Chapter
+                    </Text>
+                  </Box>
+                  <Pressable
+                    bg="brand.primary"
+                    px={5}
+                    py={3}
+                    borderRadius="lg"
+                    onPress={handleContinueToNextChapter}
+                  >
+                    <Text size="md" weight="semibold" style={{ color: theme.colors.text.white }}>
+                      Continue
+                    </Text>
+                  </Pressable>
+                </Box>
+              </Animated.View>
+            )}
+          </Box>
+
+          <Animated.View entering={FadeInUp.delay(900).duration(400)}>
+            <Box row gap={3} center>
+              <Pressable
+                bg="surfaceLight"
+                width={56}
+                height={56}
+                borderRadius="lg"
+                border
+                shadow="md"
+                center
+                onPress={handleReturnToCourse}
+              >
+                <MaterialIcons
+                  name="arrow-back"
+                  size={24}
+                  color={theme.colors.text.primary}
+                />
+              </Pressable>
+              <Pressable
+                bg="surfaceLight"
+                width={56}
+                height={56}
+                borderRadius="lg"
+                border
+                shadow="md"
+                center
+                onPress={handleGoHome}
+              >
+                <MaterialIcons
+                  name="home"
+                  size={24}
+                  color={theme.colors.text.primary}
+                />
+              </Pressable>
+              <Pressable
+                bg="surfaceLight"
+                width={56}
+                height={56}
+                borderRadius="lg"
+                border
+                shadow="md"
+                center
+                onPress={handleShareCourse}
+              >
+                <MaterialIcons
+                  name="share"
+                  size={24}
+                  color={theme.colors.text.primary}
+                />
+              </Pressable>
+            </Box>
+          </Animated.View>
+        </ScrollView>
       </SafeAreaView>
     );
   }
@@ -167,7 +383,7 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
             </Box>
 
             <Pressable
-              onPress={handleShare}
+              onPress={handleShareCourse}
               bg="surfaceLight"
               borderRadius="pill"
               border
@@ -195,4 +411,3 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
     </SafeAreaView>
   );
 };
-
