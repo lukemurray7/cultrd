@@ -1,12 +1,20 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { Tabs, usePathname, useRouter } from 'expo-router';
-import React from 'react';
+import { useEffect } from 'react';
+import { useAuth } from '../../lib/auth/AuthProvider';
 import { useTheme } from '../../theme/ThemeProvider';
 
 export default function TabLayout() {
   const theme = useTheme();
   const router = useRouter();
   const pathname = usePathname();
+  const { user, loading } = useAuth();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      router.replace('/auth/login');
+    }
+  }, [user, loading, router]);
 
   return (
     <Tabs

@@ -8,13 +8,16 @@
 8. Reset password screen
 9. Onboarding flow
 
-10. hook up supabase for auth
-11. hook up supabase for database
-12. hook up supabase for storage
+10. course complete screen - adding animation + streak count + maybe achievements
+11. Achievements screen
 
-13. setup revenuecat/superwall for subscriptions
+12. hook up supabase for auth
+13. hook up supabase for database
+14. hook up supabase for storage
 
-14. setup analytics (posthog?)
-15. setup error tracking (sentry?)
+15. setup revenuecat/superwall for subscriptions
 
-16. write data pipelines to create courses/paths/lessons/chapters/etc.
+16. setup analytics (posthog?)
+17. setup error tracking (sentry?)
+
+18. write data pipelines to create courses/paths/lessons/chapters/etc.
