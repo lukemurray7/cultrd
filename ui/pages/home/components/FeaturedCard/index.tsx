@@ -16,70 +16,75 @@ export const FeaturedCard = () => {
   }
 
   return (
-    <Pressable
-      borderRadius="xl"
-      bg="surfaceLight"
-      border
-      overflow="hidden"
-      shadow="sm"
-      onPress={() => router.push(`/course/${course.id}`)}
-    >
-      <Box position="relative" width="100%" aspectRatio={16 / 12}>
-        <Image
-          source={{ uri: course.imageUrl }}
-          style={{ width: "100%", height: "100%" }}
-          contentFit="cover"
-        />
-      </Box>
-      <Box p={4} gap={2}>
-        <Box>
-          <Text
-            size="lg"
-            weight="bold"
-            variant="primary"
-            lineHeight="sm"
-            mb={1}
-          >
-            {course.title}
-          </Text>
-          <Text size="sm" weight="regular" variant="muted" numberOfLines={2}>
-            {course.description}
-          </Text>
+    <Box borderRadius="xl" bg="surfaceLight" border shadow="sm" overflow="hidden">
+      <Pressable
+        borderRadius="xl"
+        onPress={() => router.push(`/course/${course.id}`)}
+      >
+        <Box position="relative" borderRadius="xl" width="100%" aspectRatio={16 / 12}>
+          <Image
+            source={{ uri: course.imageUrl }}
+            style={{ width: "100%", height: "100%", borderRadius: theme.radii.xl }}
+            contentFit="cover"
+          />
         </Box>
-        {course.progress !== undefined && (
-          <Box
-            width="100%"
-            bg={`${theme.colors.text.muted}80`}
-            borderRadius="pill"
-            height={4}
-            mt={2}
-            mb={1}
-          >
-            <Box
-              width={`${course.progress}%`}
-              bg={theme.colors.brand.primary}
-              height={4}
-              borderRadius="pill"
-            />
-          </Box>
-        )}
-        <Box row center between mt={1}>
-          <Text size="xs" weight="semibold" variant="secondary">
-            {course.category} • {course.timeRemaining} min left
-          </Text>
-          <Pressable center borderRadius="md" bg="primary" px={4} height={32}>
+        <Box p={4} gap={2}>
+          <Box>
             <Text
-              size="xs"
+              size="lg"
               weight="bold"
               variant="primary"
-              textTransform="uppercase"
-              letterSpacing={0.5}
+              lineHeight="sm"
+              mb={1}
             >
-              Continue
+              {course.title}
             </Text>
-          </Pressable>
+            <Text size="sm" weight="regular" variant="muted" numberOfLines={2}>
+              {course.description}
+            </Text>
+          </Box>
+          {course.progress !== undefined && (
+            <Box
+              width="100%"
+              bg={`${theme.colors.text.muted}80`}
+              borderRadius="pill"
+              height={4}
+              mt={2}
+              mb={1}
+            >
+              <Box
+                width={`${course.progress}%`}
+                bg={theme.colors.brand.primary}
+                height={4}
+                borderRadius="pill"
+              />
+            </Box>
+          )}
+          <Box row center between mt={1}>
+            <Text size="xs" weight="semibold" variant="secondary">
+              {course.category} • {course.timeRemaining} min left
+            </Text>
+            <Pressable
+              center
+              borderRadius="md"
+              bg="primary"
+              px={4}
+              height={32}
+              onPress={() => router.push(`/course/${course.id}`)}
+            >
+              <Text
+                size="xs"
+                weight="bold"
+                variant="primary"
+                textTransform="uppercase"
+                letterSpacing={0.5}
+              >
+                Continue
+              </Text>
+            </Pressable>
+          </Box>
         </Box>
-      </Box>
-    </Pressable>
+      </Pressable>
+    </Box>
   );
 };
