@@ -1,9 +1,12 @@
+import { router } from "expo-router";
+import { useAuth } from "../../../../../lib/auth/AuthProvider";
 import { useUser } from "../../../../../lib/queries/courses";
 import { Box } from "../../../../components/Box";
 import { Text } from "../../../../components/Text";
 import { SettingsRow } from "../SettingsRow";
 
 export const AccountSection = () => {
+  const { user: authUser } = useAuth();
   const { data: user } = useUser();
 
   return (
@@ -17,7 +20,7 @@ export const AccountSection = () => {
           iconColor="#3B82F6"
           title="Email"
           rightContent="text"
-          rightText={user?.email || "alex.chen@example.com"}
+          rightText={authUser?.email || "Not signed in"}
         />
         <SettingsRow
           icon="workspace-premium"
@@ -33,7 +36,7 @@ export const AccountSection = () => {
           iconColor="#F97316"
           title="Change Password"
           rightContent="arrow"
-          onPress={() => {}}
+          onPress={() => router.push("/(tabs)/profile/change-password")}
         />
       </Box>
     </Box>

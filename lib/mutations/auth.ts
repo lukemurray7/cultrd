@@ -19,6 +19,10 @@ interface SignInWithOAuthParams {
   provider: "google" | "apple";
 }
 
+interface UpdatePasswordParams {
+  newPassword: string;
+}
+
 export const useSignInWithEmail = () => {
   return useMutation({
     mutationFn: async ({ email, password }: SignInWithEmailParams) => {
@@ -82,6 +86,18 @@ export const useSignOut = () => {
     },
     onSuccess: () => {
       queryClient.clear();
+    },
+  });
+};
+
+export const useUpdatePassword = () => {
+  return useMutation({
+    mutationFn: async ({ newPassword }: UpdatePasswordParams) => {
+      const { data, error } = await supabase.auth.updateUser({
+        password: newPassword,
+      });
+      if (error) throw error;
+      return data;
     },
   });
 };

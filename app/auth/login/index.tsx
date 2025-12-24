@@ -2,19 +2,18 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { useSignInWithEmail } from "../../../lib/mutations/auth";
-import { useTheme } from "../../../theme/ThemeProvider";
 import { Box } from "../../../ui/components/Box";
-import { Input } from "../../../ui/components/Input";
-import { Pressable } from "../../../ui/components/Pressable";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
 import { ScrollView } from "../../../ui/components/ScrollView";
 import { StatusBar } from "../../../ui/components/StatusBar";
-import { Text } from "../../../ui/components/Text";
 import { AppleSignInButton } from "../../../ui/pages/auth/components/AppleSignInButton";
+import { AuthDivider } from "../../../ui/pages/auth/components/AuthDivider";
 import { GoogleSignInButton } from "../../../ui/pages/auth/components/GoogleSignInButton";
+import { LoginForm } from "../../../ui/pages/auth/components/LoginForm";
+import { LoginHeader } from "../../../ui/pages/auth/components/LoginHeader";
+import { SignUpPrompt } from "../../../ui/pages/auth/components/SignUpPrompt";
 
 export default function LoginScreen() {
-  const theme = useTheme();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -60,84 +59,27 @@ export default function LoginScreen() {
       <SafeAreaView edges={["top", "bottom"]} bg="primary">
         <ScrollView flex showsVerticalScrollIndicator={false}>
           <Box px={4} py={8} gap={6}>
-            <Box gap={2}>
-              <Text size="2xl" weight="bold">
-                Welcome back
-              </Text>
-              <Text variant="secondary" size="md">
-                Sign in to continue learning
-              </Text>
-            </Box>
+            <LoginHeader />
 
-            <Box gap={4}>
-              <Input
-                label="Email"
-                value={email}
-                onChangeText={setEmail}
-                placeholder="Enter your email"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoComplete="email"
-                error={emailError}
-              />
+            <LoginForm
+              email={email}
+              password={password}
+              emailError={emailError}
+              passwordError={passwordError}
+              isLoading={signInWithEmail.isPending}
+              onEmailChange={setEmail}
+              onPasswordChange={setPassword}
+              onSignIn={handleSignIn}
+            />
 
-              <Input
-                label="Password"
-                value={password}
-                onChangeText={setPassword}
-                placeholder="Enter your password"
-                secureTextEntry
-                autoCapitalize="none"
-                autoComplete="password"
-                error={passwordError}
-              />
+            <AuthDivider />
 
-              <Pressable
-                onPress={() => router.push("/auth/forgot-password")}
-                style={{ alignSelf: "flex-end" }}
-              >
-                <Text size="sm" variant="brand">
-                  Forgot password?
-                </Text>
-              </Pressable>
-
-              <Pressable
-                onPress={handleSignIn}
-                disabled={signInWithEmail.isPending}
-                bg="primary"
-                borderRadius="md"
-                py={3}
-                center
-              >
-                <Text size="md" weight="semibold" color={theme.colors.text.white}>
-                  {signInWithEmail.isPending ? "Signing in..." : "Sign in"}
-                </Text>
-              </Pressable>
-            </Box>
-
-            <Box row center gap={2} my={2}>
-              <Box flex height={1} bg="border" />
-              <Text variant="muted" size="sm">
-                OR
-              </Text>
-              <Box flex height={1} bg="border" />
-            </Box>
-
-            <Box gap={3}>
+            <Box gap={3} border borderRadius="xl" p={4} mt={4} shadow="sm" bg="surface">
               <GoogleSignInButton />
               <AppleSignInButton />
             </Box>
 
-            <Box row center gap={1} mt={4}>
-              <Text variant="secondary" size="sm">
-                Don&apos;t have an account?
-              </Text>
-              <Pressable onPress={() => router.push("/auth/signup")}>
-                <Text size="sm" variant="brand" weight="semibold">
-                  Sign up
-                </Text>
-              </Pressable>
-            </Box>
+            <SignUpPrompt />
           </Box>
         </ScrollView>
       </SafeAreaView>

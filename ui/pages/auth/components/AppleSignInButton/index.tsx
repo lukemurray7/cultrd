@@ -1,4 +1,4 @@
-import { MaterialIcons } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { appleAuth, appleAuthAndroid } from "@invertase/react-native-apple-authentication";
 import { SignInWithIdTokenCredentials } from "@supabase/supabase-js";
 import { Platform } from "react-native";
@@ -117,10 +117,10 @@ export const AppleSignInButton = () => {
       px={4}
       width="100%"
     >
-      <MaterialIcons
-        name="apple"
-        size={20}
-        color={theme.colors.auth.apple}
+      <Ionicons
+        name="logo-apple"
+        size={24}
+        color={theme.colors.text.primary}
         style={{ marginRight: theme.spacing[2] }}
       />
       <Text size="md" weight="medium">
