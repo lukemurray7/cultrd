@@ -4,6 +4,7 @@ import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
 import { AuthProvider, useAuth } from "../lib/auth/AuthProvider";
+import { OnboardingProvider } from "../lib/onboarding/OnboardingContext";
 import { ThemeProvider } from "../theme/ThemeProvider";
 import { LoadingScreen } from "../ui/components/LoadingScreen";
 
@@ -29,6 +30,7 @@ function RootStack() {
       }}
     >
       <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      <Stack.Screen name="onboarding" options={{ headerShown: false }} />
       <Stack.Screen name="auth/login/index" options={{ headerShown: false }} />
       <Stack.Screen name="auth/signup/index" options={{ headerShown: false }} />
       <Stack.Screen name="auth/forgot-password/index" options={{ headerShown: false }} />
@@ -44,8 +46,10 @@ export default function RootLayout() {
     <QueryClientProvider client={queryClient}>
       <ThemeProvider>
         <AuthProvider>
-          <RootStack />
-          <StatusBar style="auto" />
+          <OnboardingProvider>
+            <RootStack />
+            <StatusBar style="auto" />
+          </OnboardingProvider>
         </AuthProvider>
       </ThemeProvider>
     </QueryClientProvider>

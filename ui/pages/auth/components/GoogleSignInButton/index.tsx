@@ -1,6 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router, useLocalSearchParams } from "expo-router";
 import * as WebBrowser from "expo-web-browser";
+import { useEffect } from "react";
 import { useSignInWithOAuth } from "../../../../../lib/mutations/auth";
+import { useAuth } from "../../../../../lib/auth/AuthProvider";
+import { useOnboarding } from "../../../../../lib/onboarding/OnboardingContext";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Pressable } from "../../../../components/Pressable";
 import { Text } from "../../../../components/Text";
@@ -9,7 +13,19 @@ WebBrowser.maybeCompleteAuthSession();
 
 export const GoogleSignInButton = () => {
   const theme = useTheme();
+  const params = useLocalSearchParams();
+  const fromOnboarding = params.fromOnboarding === "true";
+  const { user } = useAuth();
+  const { fromOnboarding: contextFromOnboarding } = useOnboarding();
   const signInWithOAuth = useSignInWithOAuth();
+
+  useEffect(() => {
+    if (user && (fromOnboarding || contextFromOnboarding)) {
+      router.replace("/onboarding/complete");
+    } else if (user) {
+      router.replace("/(tabs)/home");
+    }
+  }, [user, fromOnboarding, contextFromOnboarding]);
 
   const handleGoogleSignIn = async () => {
     try {

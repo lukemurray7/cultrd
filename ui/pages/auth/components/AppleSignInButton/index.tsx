@@ -1,16 +1,32 @@
 import { Ionicons } from "@expo/vector-icons";
+import { router, useLocalSearchParams } from "expo-router";
 import { appleAuth, appleAuthAndroid } from "@invertase/react-native-apple-authentication";
 import { SignInWithIdTokenCredentials } from "@supabase/supabase-js";
 import { Platform } from "react-native";
+import { useEffect } from "react";
 import "react-native-get-random-values";
 import { v4 as uuid } from "uuid";
 import { supabase } from "../../../../../lib/supabase";
+import { useAuth } from "../../../../../lib/auth/AuthProvider";
+import { useOnboarding } from "../../../../../lib/onboarding/OnboardingContext";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Pressable } from "../../../../components/Pressable";
 import { Text } from "../../../../components/Text";
 
 export const AppleSignInButton = () => {
   const theme = useTheme();
+  const params = useLocalSearchParams();
+  const fromOnboarding = params.fromOnboarding === "true";
+  const { user } = useAuth();
+  const { fromOnboarding: contextFromOnboarding } = useOnboarding();
+
+  useEffect(() => {
+    if (user && (fromOnboarding || contextFromOnboarding)) {
+      router.replace("/onboarding/complete");
+    } else if (user) {
+      router.replace("/(tabs)/home");
+    }
+  }, [user, fromOnboarding, contextFromOnboarding]);
 
   const handleAppleSignInIOS = async () => {
     try {
@@ -43,7 +59,7 @@ export const AppleSignInButton = () => {
           console.error("Error signing in with Apple:", error);
         }
 
-        if (data) {
+        if (data?.session) {
           console.log("Apple sign in successful:", data);
         }
       }
@@ -84,7 +100,7 @@ export const AppleSignInButton = () => {
           console.error("Error signing in with Apple:", error);
         }
 
-        if (data) {
+        if (data?.session) {
           console.log("Apple sign in successful:", data);
         }
       }

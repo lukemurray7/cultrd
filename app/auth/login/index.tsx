@@ -1,4 +1,4 @@
-import { router } from "expo-router";
+import { router, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Alert } from "react-native";
 import { useSignInWithEmail } from "../../../lib/mutations/auth";
@@ -14,6 +14,8 @@ import { LoginHeader } from "../../../ui/pages/auth/components/LoginHeader";
 import { SignUpPrompt } from "../../../ui/pages/auth/components/SignUpPrompt";
 
 export default function LoginScreen() {
+  const params = useLocalSearchParams();
+  const fromOnboarding = params.fromOnboarding === "true";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -46,7 +48,11 @@ export default function LoginScreen() {
 
     try {
       await signInWithEmail.mutateAsync({ email, password });
-      router.replace("/(tabs)/home");
+      if (fromOnboarding) {
+        router.replace("/onboarding/complete");
+      } else {
+        router.replace("/(tabs)/home");
+      }
     } catch (error: unknown) {
       const errorMessage = error instanceof Error ? error.message : "Failed to sign in";
       Alert.alert("Error", errorMessage);
