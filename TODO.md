@@ -1,7 +1,7 @@
 1. All my Paths screen
 2. Path detail screen (flow overview)
 3. Profile screen
-4. Actual chapter/lesson flow
+4. Actual chapter/lesson flow (V1 DONE)
 5. Signup/
 6. Sign in screen
 7. Forgot password screen
