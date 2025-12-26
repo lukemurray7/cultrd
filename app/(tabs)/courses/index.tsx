@@ -1,10 +1,10 @@
 import { useRouter } from "expo-router";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { ScrollView, SectionList, useWindowDimensions, ViewToken } from "react-native";
+import { topics } from "../../../constants/topics";
 import { useAllCoursesByTopic } from "../../../lib/queries/courses";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { Course } from "../../../types/courses";
-import { topics } from "../../../constants/topics";
 import { Box } from "../../../ui/components/Box";
 import { CourseCard } from "../../../ui/components/CourseCard";
 import { Pressable } from "../../../ui/components/Pressable";
@@ -34,16 +34,6 @@ export default function CoursesScreen() {
   const { data: allTopicsData } = useAllCoursesByTopic();
   const { width } = useWindowDimensions();
   const cardWidth = (width - 32 - 16) / 2;
-
-  useEffect(() => {
-    if (allTopicsData && allTopicsData.length > 0 && selectedTopicRef.current === "history") {
-      const firstTopic = topics.find((t) => allTopicsData.some((d) => d.topicId === t.id));
-      if (firstTopic) {
-        setSelectedTopic(firstTopic.id);
-        selectedTopicRef.current = firstTopic.id;
-      }
-    }
-  }, [allTopicsData]);
 
   const flattenTopicsToSections = (): SubtopicSection[] => {
     const sections: SubtopicSection[] = [];
@@ -213,6 +203,10 @@ export default function CoursesScreen() {
         onViewableItemsChanged={onViewableItemsChanged}
         viewabilityConfig={viewabilityConfig}
         style={{ backgroundColor: theme.colors.bg.primary }}
+        removeClippedSubviews={false}
+        initialNumToRender={1000}
+        maxToRenderPerBatch={1000}
+        windowSize={21}
       />
     </SafeAreaView>
     </>
