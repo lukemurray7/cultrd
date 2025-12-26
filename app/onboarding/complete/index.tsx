@@ -23,7 +23,7 @@ export default function OnboardingCompleteScreen() {
     const persistOnboarding = async () => {
       try {
         await updateProfile.mutateAsync({
-          topic_ids: draft.topicIds,
+          topic_id: draft.topicIds.length > 0 ? draft.topicIds[0] : null,
           notifications_preference: draft.notificationsPreference,
           referral_shared: draft.referralShared,
           onboarding_completed: true,
