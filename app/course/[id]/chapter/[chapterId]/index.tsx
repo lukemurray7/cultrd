@@ -1,4 +1,6 @@
+import { useEffect } from "react";
 import { useLocalSearchParams } from "expo-router";
+import { useStartChapter } from "../../../../../lib/mutations/courses";
 import { useCourseContent } from "../../../../../lib/queries/courseContent";
 import { Box } from "../../../../../ui/components/Box";
 import { SafeAreaView } from "../../../../../ui/components/SafeAreaView";
@@ -10,6 +12,23 @@ export default function ChapterViewerScreen() {
   const { id, chapterId } = useLocalSearchParams<{ id: string; chapterId: string }>();
 
   const { data: courseContent, isLoading, error } = useCourseContent(id || "");
+  const startChapter = useStartChapter();
+
+  const chapter = courseContent?.chapters.find((ch) => ch.id === chapterId);
+
+  useEffect(() => {
+    if (chapter && courseContent && id) {
+      const isFirstChapter = chapter.order === 1;
+      const hasNoProgress = courseContent.progress === 0 && !courseContent.chapters.some((ch) => ch.isCompleted);
+
+      if (isFirstChapter && hasNoProgress) {
+        startChapter.mutate({
+          courseId: id,
+          chapterOrder: chapter.order,
+        });
+      }
+    }
+  }, [chapter, courseContent, id, startChapter]);
 
   if (isLoading) {
     return (
@@ -33,8 +52,6 @@ export default function ChapterViewerScreen() {
       </SafeAreaView>
     );
   }
-
-  const chapter = courseContent.chapters.find((ch) => ch.id === chapterId);
 
   if (!chapter) {
     return (

@@ -8,9 +8,16 @@ interface ChaptersListProps {
   currentChapter?: number;
   courseId: string;
   highlightChapterId?: string;
+  allCompleted?: boolean;
 }
 
-export const ChaptersList = ({ chapters, currentChapter, courseId, highlightChapterId }: ChaptersListProps) => {
+export const ChaptersList = ({
+  allCompleted,
+  chapters,
+  currentChapter,
+  courseId,
+  highlightChapterId,
+}: ChaptersListProps) => {
   const handleChapterPress = (chapterId: string) => {
     router.push({
       pathname: "/course/[id]/chapter/[chapterId]",
@@ -24,9 +31,15 @@ export const ChaptersList = ({ chapters, currentChapter, courseId, highlightChap
   return (
     <Box px={4} pt={4} gap={0}>
       {chapters.map((chapter, index) => {
-        const isActive = index === 0;
-        const isLocked = index > 0;
-        const isHighlighted = highlightChapterId === chapter.id;
+        const isFirstChapter = index === 0;
+        const previousChapter = index > 0 ? chapters[index - 1] : null;
+        const isPreviousCompleted = previousChapter?.isCompleted ?? false;
+        const isLocked = !isFirstChapter && !isPreviousCompleted;
+        const isActive =
+          !allCompleted &&
+          ((currentChapter === undefined && isFirstChapter) ||
+            (currentChapter !== undefined && currentChapter === index + 1));
+        const isHighlighted = highlightChapterId === chapter.id && !allCompleted;
 
         return (
           <ChapterListItem
@@ -43,4 +56,3 @@ export const ChaptersList = ({ chapters, currentChapter, courseId, highlightChap
     </Box>
   );
 };
-

@@ -3,12 +3,15 @@ import { useLocalSearchParams } from "expo-router";
 import { useCourse } from "../../../lib/queries/courses";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { Box } from "../../../ui/components/Box";
+import { LottieAnimation } from "../../../ui/components/LottieAnimation";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
 import { ScrollView } from "../../../ui/components/ScrollView";
 import { StatusBar } from "../../../ui/components/StatusBar";
 import { Text } from "../../../ui/components/Text";
 import { ChaptersList } from "../../../ui/pages/course/components/ChaptersList";
 import { CourseHeader } from "../../../ui/pages/course/components/CourseHeader";
+
+const completeAnimation = require("../../../assets/animations/complete.json");
 
 export default function CourseDetailScreen() {
   const { id, highlightChapterId } = useLocalSearchParams<{ id: string; highlightChapterId?: string }>();
@@ -21,7 +24,6 @@ export default function CourseDetailScreen() {
     hasProgress && course?.totalChapters
       ? Math.round(((course.currentChapter || 0) / course.totalChapters) * 100)
       : course?.progress || 0;
-  const hasStarted = progressPercentage > 0;
 
   if (isLoading || !course) {
     return (
@@ -36,7 +38,7 @@ export default function CourseDetailScreen() {
       <StatusBar />
       <SafeAreaView bg="primary" flex>
         <Box flex>
-          <CourseHeader />
+          <CourseHeader courseId={id || ""} course={course} />
 
           <ScrollView
             mt={4}
@@ -52,6 +54,7 @@ export default function CourseDetailScreen() {
                 borderRadiusTopLeft="xl"
                 borderRadiusTopRight="xl"
                 border
+                style={{ position: "relative" }}
               >
                 <Image
                   source={{ uri: course.imageUrl }}
@@ -59,6 +62,24 @@ export default function CourseDetailScreen() {
                   contentFit="cover"
                   contentPosition="center"
                 />
+                {progressPercentage === 100 && (
+                  <Box
+                    style={{
+                      position: "absolute",
+                      top: theme.spacing[2],
+                      right: theme.spacing[2],
+                      width: 120,
+                      height: 120,
+                    }}
+                  >
+                    <LottieAnimation
+                      source={completeAnimation}
+                      autoPlay
+                      loop={false}
+                      style={{ width: "100%", height: "100%" }}
+                    />
+                  </Box>
+                )}
               </Box>
             </Box>
             <Box
@@ -127,10 +148,11 @@ export default function CourseDetailScreen() {
             </Box>
             {course.chapters && course.chapters.length > 0 && (
               <ChaptersList
+                allCompleted={progressPercentage === 100}
                 chapters={course.chapters}
                 currentChapter={course.currentChapter}
                 courseId={id || ""}
-                highlightChapterId={highlightChapterId}
+                highlightChapterId={progressPercentage === 100 ? undefined : highlightChapterId}
               />
             )}
           </ScrollView>

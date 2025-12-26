@@ -21,9 +21,10 @@ export const RecommendedCard = ({ course }: RecommendedCardProps) => {
       row
       gap={4}
       p={3}
-      borderRadius="lg"
+      borderRadius="xl"
       bg={`${theme.colors.bg.surfaceLight}80`}
       border
+      shadow="sm"
       onPress={() => router.push(`/course/${course.id}`)}
     >
       <Image

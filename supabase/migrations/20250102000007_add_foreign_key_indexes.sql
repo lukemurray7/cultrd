@@ -4,3 +4,4 @@ create index if not exists idx_learning_paths_topic_id on public.learning_paths(
 
 create index if not exists idx_profiles_topic_id on public.profiles(topic_id);
 
+

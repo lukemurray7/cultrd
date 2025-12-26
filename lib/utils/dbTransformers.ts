@@ -145,10 +145,15 @@ export function transformFeaturedCourse(
 }
 
 export function transformChapter(dbChapter: DbChapter): Chapter {
+  const chapterProgress = Array.isArray(dbChapter.user_chapter_progress) && dbChapter.user_chapter_progress.length > 0
+    ? dbChapter.user_chapter_progress[0]
+    : undefined;
+
   return {
     id: dbChapter.id,
     title: dbChapter.title,
     duration: dbChapter.duration,
+    isCompleted: chapterProgress?.is_completed ?? false,
   };
 }
 

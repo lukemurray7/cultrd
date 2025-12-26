@@ -30,7 +30,7 @@ export const ChapterListItem = ({
   useEffect(() => {
     if (isActive || isHighlighted) {
       pulseAnim.value = withRepeat(
-        withTiming(1.005, { duration: 1500 }),
+        withTiming(1.015, { duration: 1500 }),
         -1,
         true
       );
@@ -73,7 +73,7 @@ export const ChapterListItem = ({
         width={40}
         height={40}
         borderRadius="pill"
-        bg={isLocked ? "surface" : isActive ? "brand.primary" : "surface"}
+        bg={isLocked ? "surface" : isActive || chapter.isCompleted ? "brand.primary" : "surface"}
         center
         border
       >
@@ -82,6 +82,12 @@ export const ChapterListItem = ({
             name="lock"
             size={20}
             color={theme.colors.text.muted}
+          />
+        ) : chapter.isCompleted ? (
+          <MaterialIcons
+            name="check"
+            size={24}
+            color={theme.colors.text.white}
           />
         ) : (
           <MaterialIcons

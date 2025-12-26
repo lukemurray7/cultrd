@@ -2,16 +2,17 @@ import { MaterialIcons } from "@expo/vector-icons";
 import * as Haptics from "expo-haptics";
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Dimensions, Pressable as RNPressable, ScrollView, Share } from "react-native";
 import Animated, { FadeIn, FadeInUp, FadeOut } from "react-native-reanimated";
+import { useCompleteChapter } from "../../../../../lib/mutations/courses";
 import { useTheme } from "../../../../../theme/ThemeProvider";
+import { ChapterContent } from "../../../../../types/courseContent";
 import { Box } from "../../../../../ui/components/Box";
 import { LottieAnimation } from "../../../../../ui/components/LottieAnimation";
 import { Pressable } from "../../../../../ui/components/Pressable";
 import { SafeAreaView } from "../../../../../ui/components/SafeAreaView";
 import { Text } from "../../../../../ui/components/Text";
-import { ChapterContent } from "../../../../../types/courseContent";
 import { SlideRenderer } from "../SlideRenderer";
 
 interface CourseViewerProps {
@@ -52,6 +53,8 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
   const [slideIndex, setSlideIndex] = useState(0);
   const [showComplete, setShowComplete] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState<string>("");
+  const completeChapter = useCompleteChapter();
+  const hasCompletedRef = useRef(false);
 
   const slides = chapter.slides;
   const currentSlide = slides[slideIndex];
@@ -67,10 +70,21 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
       setTimeout(() => {
         Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
       }, 200);
+
+      if (!chapter.isCompleted && !hasCompletedRef.current) {
+        hasCompletedRef.current = true;
+        completeChapter.mutate({
+          courseId,
+          chapterId: chapter.id,
+          chapterOrder: chapter.order,
+          totalChapters: allChapters.length,
+        });
+      }
     } else {
       setSelectedMessage("");
+      hasCompletedRef.current = false;
     }
-  }, [showComplete]);
+  }, [showComplete, chapter.id, chapter.isCompleted, courseId, allChapters.length]);
 
 
   const handleNext = useCallback(() => {
@@ -142,6 +156,9 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
     const completedChapters = allChapters.filter((ch) => ch.order <= chapter.order);
     const totalChapters = allChapters.length;
     const completionPercentage = Math.round((completedChapters.length / totalChapters) * 100);
+    const message = selectedMessage || completionMessages[0];
+    const fullText = message.replace("{percentage}", completionPercentage.toString());
+    const words = fullText.split(" ");
 
     return (
       <SafeAreaView bg="surface" flex>
@@ -161,28 +178,18 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
                 style={{ width: "100%", height: "100%" }}
               />
             </Box>
-            <Box row flexWrap="wrap" center gap={2} style={{ minHeight: 60, justifyContent: "center" }}>
-              {showComplete && (() => {
-                const currentChapterIndex = allChapters.findIndex((ch) => ch.id === chapter.id);
-                const completedChapters = allChapters.filter((ch) => ch.order <= chapter.order);
-                const totalChapters = allChapters.length;
-                const completionPercentage = Math.round((completedChapters.length / totalChapters) * 100);
-                const message = selectedMessage || completionMessages[0];
-                const fullText = message.replace("{percentage}", completionPercentage.toString());
-                const words = fullText.split(" ");
-                
-                return words.map((word, index) => (
-                  <Animated.View
-                    key={index}
-                    entering={FadeIn.delay(index * 100).duration(400)}
-                  >
-                    <Text size="xl" weight="bold">
-                      {word}
-                      {index < words.length - 1 && " "}
-                    </Text>
-                  </Animated.View>
-                ));
-              })()}
+            <Box row center gap={2} style={{ minHeight: 60, justifyContent: "center", flexWrap: "wrap" }}>
+              {words.map((word, index) => (
+                <Animated.View
+                  key={index}
+                  entering={FadeIn.delay(index * 100).duration(400)}
+                >
+                  <Text size="xl" weight="bold">
+                    {word}
+                    {index < words.length - 1 && " "}
+                  </Text>
+                </Animated.View>
+              ))}
             </Box>
           </Animated.View>
 

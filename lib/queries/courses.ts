@@ -381,7 +381,10 @@ export const useCourse = (courseId: string) => {
         .select(`
           *,
           topic:topics!topic_id(*),
-          chapters(*),
+          chapters(
+            *,
+            user_chapter_progress(*)
+          ),
           user_course_progress(*)
         `)
         .eq("id", courseId)

@@ -4,6 +4,7 @@ export interface Chapter {
   id: string;
   title: string;
   duration: number;
+  isCompleted?: boolean;
 }
 
 export interface Course {

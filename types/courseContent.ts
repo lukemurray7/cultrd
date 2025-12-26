@@ -61,3 +61,4 @@ export interface CourseContent {
   chapters: ChapterContent[];
 }
 
+

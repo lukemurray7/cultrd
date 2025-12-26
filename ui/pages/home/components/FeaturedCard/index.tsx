@@ -27,6 +27,19 @@ export const FeaturedCard = () => {
             style={{ width: "100%", height: "100%", borderRadius: theme.radii.xl }}
             contentFit="cover"
           />
+          <Box
+            position="absolute"
+            top={10}
+            left={12}
+            bg="brand.primary"
+            px={3}
+            py={1}
+            borderRadius="md"
+          >
+            <Text size="xs" weight="bold" style={{ color: theme.colors.text.white }}>
+              Featured Course
+            </Text>
+          </Box>
         </Box>
         <Box p={4} gap={2}>
           <Box>
@@ -68,6 +81,7 @@ export const FeaturedCard = () => {
               center
               borderRadius="md"
               bg="primary"
+              border
               px={4}
               height={32}
               onPress={() => router.push(`/course/${course.id}`)}
@@ -75,11 +89,12 @@ export const FeaturedCard = () => {
               <Text
                 size="xs"
                 weight="bold"
+                color={theme.colors.text.white}
                 variant="primary"
                 textTransform="uppercase"
                 letterSpacing={0.5}
               >
-                Continue
+                {(course.progress !== undefined && course.progress > 0) || course.currentChapter !== undefined ? "Continue" : "Start"}
               </Text>
             </Pressable>
           </Box>

@@ -15,3 +15,4 @@ declare module "lottie-react-native" {
   export default class LottieView extends Component<LottieViewProps> {}
 }
 
+
