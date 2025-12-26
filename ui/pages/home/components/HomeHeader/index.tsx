@@ -1,4 +1,3 @@
-import { Image } from "expo-image";
 import { useUser } from "../../../../../lib/queries/courses";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Box } from "../../../../components/Box";
@@ -32,45 +31,17 @@ export const HomeHeader = () => {
       border
       shadow="sm"
     >
-      <Box row center gap={3}>
-        <Box style={{ position: "relative" }}>
-          <Image
-            source={{ uri: user.avatarUrl }}
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: theme.radii.pill,
-            }}
-            contentFit="cover"
-          />
-          {user.isOnline && (
-            <Box
-              style={{
-                position: "absolute",
-                bottom: 0,
-                right: 0,
-                width: 12,
-                height: 12,
-                backgroundColor: theme.colors.brand.success,
-                borderRadius: theme.radii.pill,
-                borderWidth: 2,
-                borderColor: theme.colors.bg.primary,
-              }}
-            />
-          )}
-        </Box>
-        <Box>
-          <Text
-            size="md"
-            weight="bold"
-            style={{ lineHeight: theme.typography.lineHeight.sm }}
-          >
-            {getGreeting()}, {user.name}
-          </Text>
-          <Text variant="secondary" size="xs" weight="medium">
-            Ready to learn?
-          </Text>
-        </Box>
+      <Box>
+        <Text
+          size="md"
+          weight="bold"
+          style={{ lineHeight: theme.typography.lineHeight.sm }}
+        >
+          {getGreeting()}
+        </Text>
+        <Text variant="secondary" size="xs" weight="medium">
+          Ready to learn?
+        </Text>
       </Box>
       <Box
         row

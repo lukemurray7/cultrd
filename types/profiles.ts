@@ -5,6 +5,8 @@ export interface Profile {
   topic_id: string | null;
   notifications_preference: "unknown" | "enabled" | "skipped";
   referral_shared: boolean;
+  current_streak: number;
+  last_streak_date: string | null;
 }
 
 export interface UpdateProfileParams {

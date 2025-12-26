@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useEffect, useState } from "react";
 import "react-native-reanimated";
 
 import { AuthProvider, useAuth } from "../lib/auth/AuthProvider";
@@ -8,16 +9,40 @@ import { OnboardingProvider } from "../lib/onboarding/OnboardingContext";
 import { ThemeProvider } from "../theme/ThemeProvider";
 import { LoadingScreen } from "../ui/components/LoadingScreen";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 5 * 60 * 1000,
+      gcTime: 10 * 60 * 1000,
+    },
+  },
+});
 
 export const unstable_settings = {
   anchor: "(tabs)",
 };
 
+const MIN_LOADING_TIME_MS = 2000;
+
 function RootStack() {
   const { loading } = useAuth();
+  const [showLoading, setShowLoading] = useState(true);
+  const [loadingStartTime] = useState(Date.now());
 
-  if (loading) {
+  useEffect(() => {
+    if (!loading) {
+      const elapsedTime = Date.now() - loadingStartTime;
+      const remainingTime = Math.max(0, MIN_LOADING_TIME_MS - elapsedTime);
+      
+      const timer = setTimeout(() => {
+        setShowLoading(false);
+      }, remainingTime);
+
+      return () => clearTimeout(timer);
+    }
+  }, [loading, loadingStartTime]);
+
+  if (loading || showLoading) {
     return <LoadingScreen />;
   }
 
