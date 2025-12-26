@@ -24,7 +24,7 @@ export const OnboardingHeader = ({
 
   return (
     <Box px={4} pt={4} pb={3} bg="primary">
-      <Box row between center gap={3}>
+      <Box row center gap={3}>
         {showBack ? (
           <Pressable
             onPress={() => router.back()}
@@ -42,9 +42,7 @@ export const OnboardingHeader = ({
               color={theme.colors.text.primary}
             />
           </Pressable>
-        ) : (
-          <Box width={40} />
-        )}
+        ) : null}
         {showProgress ? (
           <Box flex height={4} bg="surfaceLight" borderRadius="pill" overflow="hidden">
             <Box
@@ -57,7 +55,6 @@ export const OnboardingHeader = ({
         ) : (
           <Box flex />
         )}
-        <Box width={40} />
       </Box>
     </Box>
   );

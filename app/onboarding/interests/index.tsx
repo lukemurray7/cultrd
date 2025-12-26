@@ -1,15 +1,16 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import { useState } from "react";
 import { Image } from "react-native";
+import { topics } from "../../../constants/topics";
+import { useOnboarding } from "../../../lib/onboarding/OnboardingContext";
+import { useTheme } from "../../../theme/ThemeProvider";
 import { Box } from "../../../ui/components/Box";
 import { Pressable } from "../../../ui/components/Pressable";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
 import { ScrollView } from "../../../ui/components/ScrollView";
 import { StatusBar } from "../../../ui/components/StatusBar";
 import { Text } from "../../../ui/components/Text";
-import { useTheme } from "../../../theme/ThemeProvider";
-import { useOnboarding } from "../../../lib/onboarding/OnboardingContext";
-import { topics } from "../../../types/topics";
 import { OnboardingFooter } from "../../../ui/pages/onboarding/components/OnboardingFooter";
 import { OnboardingHeader } from "../../../ui/pages/onboarding/components/OnboardingHeader";
 
@@ -28,16 +29,8 @@ export default function OnboardingInterestsScreen() {
   };
 
   const handleContinue = () => {
-    if (selectedIds.length < 3) return;
+    if (selectedIds.length < 1) return;
     setTopicIds(selectedIds);
-    router.push("/onboarding/notifications");
-  };
-
-  const handleSurpriseMe = () => {
-    const shuffled = [...topics].sort(() => Math.random() - 0.5);
-    const randomSelection = shuffled.slice(0, 3).map((t) => t.id);
-    setSelectedIds(randomSelection);
-    setTopicIds(randomSelection);
     router.push("/onboarding/notifications");
   };
 
@@ -53,13 +46,13 @@ export default function OnboardingInterestsScreen() {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ flexGrow: 1, paddingBottom: footerSpace }}
         >
-          <Box px={4} py={8} gap={6}>
+          <Box px={4} py={8} gap={6} bg="surface" border borderRadius="xl" p={4} mx={2}>
             <Box gap={2}>
               <Text size="xl" weight="bold" style={{ textAlign: "center" }}>
                 What interests you?
               </Text>
               <Text variant="secondary" size="sm" style={{ textAlign: "center" }}>
-                Pick at least 3 topics to personalize your learning experience
+                Select topics that interest you
               </Text>
             </Box>
 
@@ -72,12 +65,14 @@ export default function OnboardingInterestsScreen() {
                   <Pressable
                     key={topic.id}
                     onPress={() => toggleTopic(topic.id)}
-                    bg={isSelected ? "surface" : "surfaceLight"}
+                    bg={"surfaceLight"}
                     border
-                    borderRadius="md"
-                    p={3}
+                    borderRadius="xl"
+                    px={4}
+                    py={2}
                     row
                     gap={3}
+                    center
                     style={{
                       borderWidth: isSelected ? 2 : 1,
                       borderColor: isSelected ? topicColor : theme.colors.border,
@@ -88,7 +83,6 @@ export default function OnboardingInterestsScreen() {
                       height={48}
                       borderRadius="md"
                       overflow="hidden"
-                      style={{ backgroundColor: topicColor }}
                     >
                       <Image
                         source={topic.image}
@@ -101,13 +95,21 @@ export default function OnboardingInterestsScreen() {
                         {topic.label}
                       </Text>
                     </Box>
-                    {isSelected && (
-                      <Box width={24} height={24} borderRadius="pill" bg="brand.success" center>
-                        <Text size="xs" color={theme.colors.text.white}>
-                          ✓
-                        </Text>
-                      </Box>
-                    )}
+                    <Box
+                      width={24}
+                      height={24}
+                      borderRadius="sm"
+                      border
+                      center
+                      style={{
+                        borderColor: isSelected ? topicColor : theme.colors.border,
+                        backgroundColor: isSelected ? topicColor : "transparent",
+                      }}
+                    >
+                      {isSelected && (
+                        <MaterialIcons name="check" size={16} color={theme.colors.text.white} />
+                      )}
+                    </Box>
                   </Pressable>
                 );
               })}
@@ -116,27 +118,19 @@ export default function OnboardingInterestsScreen() {
         </ScrollView>
 
         <OnboardingFooter>
-          <Box gap={3}>
-            <Pressable
-              onPress={handleContinue}
-              disabled={selectedIds.length < 3}
-              bg="primary"
-              borderRadius="md"
-              py={4}
-              center
-              style={{ opacity: selectedIds.length < 3 ? 0.5 : 1 }}
-            >
-              <Text size="md" weight="semibold" color={theme.colors.text.white}>
-                Continue {selectedIds.length > 0 && `(${selectedIds.length})`}
-              </Text>
-            </Pressable>
-
-            <Pressable onPress={handleSurpriseMe} bg="surface" border borderRadius="md" py={4} center>
-              <Text size="md" weight="medium">
-                Surprise me
-              </Text>
-            </Pressable>
-          </Box>
+          <Pressable
+            onPress={handleContinue}
+            disabled={selectedIds.length < 1}
+            bg="primary"
+            borderRadius="xl"
+            py={4}
+            center
+            style={{ opacity: selectedIds.length < 1 ? 0.5 : 1 }}
+          >
+            <Text size="md" weight="semibold" color={theme.colors.text.white}>
+              Continue {selectedIds.length > 0 && `(${selectedIds.length})`}
+            </Text>
+          </Pressable>
         </OnboardingFooter>
       </Box>
     </>

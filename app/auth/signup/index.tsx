@@ -1,7 +1,8 @@
 import { router, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Alert } from "react-native";
 import { useSignUpWithEmail } from "../../../lib/mutations/auth";
+import { useOnboarding } from "../../../lib/onboarding/OnboardingContext";
 import { Box } from "../../../ui/components/Box";
 import { SafeAreaView } from "../../../ui/components/SafeAreaView";
 import { ScrollView } from "../../../ui/components/ScrollView";
@@ -12,15 +13,23 @@ import { GoogleSignInButton } from "../../../ui/pages/auth/components/GoogleSign
 import { SignInPrompt } from "../../../ui/pages/auth/components/SignInPrompt";
 import { SignUpForm } from "../../../ui/pages/auth/components/SignUpForm";
 import { SignUpHeader } from "../../../ui/pages/auth/components/SignUpHeader";
+import { OnboardingHeader } from "../../../ui/pages/onboarding/components/OnboardingHeader";
 
 export default function SignUpScreen() {
   const params = useLocalSearchParams();
   const fromOnboarding = params.fromOnboarding === "true";
+  const { setFromOnboarding } = useOnboarding();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const signUpWithEmail = useSignUpWithEmail();
+
+  useEffect(() => {
+    if (fromOnboarding) {
+      setFromOnboarding(true);
+    }
+  }, [fromOnboarding, setFromOnboarding]);
 
   const validateForm = () => {
     let isValid = true;
@@ -70,6 +79,11 @@ export default function SignUpScreen() {
     <>
       <StatusBar />
       <SafeAreaView edges={["top", "bottom"]} bg="primary">
+        {fromOnboarding && (
+          <Box bg="primary">
+            <OnboardingHeader currentStep={5} totalSteps={5} />
+          </Box>
+        )}
         <ScrollView flex showsVerticalScrollIndicator={false}>
           <Box px={4} py={8} gap={6}>
             <SignUpHeader />

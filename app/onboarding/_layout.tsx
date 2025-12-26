@@ -14,7 +14,6 @@ export default function OnboardingLayout() {
       <Stack.Screen name="interests/index" options={{ headerShown: false }} />
       <Stack.Screen name="notifications/index" options={{ headerShown: false }} />
       <Stack.Screen name="refer/index" options={{ headerShown: false }} />
-      <Stack.Screen name="create-account/index" options={{ headerShown: false }} />
       <Stack.Screen name="complete/index" options={{ headerShown: false }} />
     </Stack>
   );

@@ -8,7 +8,7 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { useTheme } from "../../../../../theme/ThemeProvider";
-import { topics } from "../../../../../types/topics";
+import { topics } from "../../../../../constants/topics";
 import { Box } from "../../../../components/Box";
 import { Pressable } from "../../../../components/Pressable";
 import { SearchBar } from "../../../../components/SearchBar";

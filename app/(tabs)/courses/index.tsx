@@ -4,7 +4,7 @@ import { ScrollView, SectionList, useWindowDimensions, ViewToken } from "react-n
 import { useAllCoursesByTopic } from "../../../lib/queries/courses";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { Course } from "../../../types/courses";
-import { topics } from "../../../types/topics";
+import { topics } from "../../../constants/topics";
 import { Box } from "../../../ui/components/Box";
 import { CourseCard } from "../../../ui/components/CourseCard";
 import { Pressable } from "../../../ui/components/Pressable";

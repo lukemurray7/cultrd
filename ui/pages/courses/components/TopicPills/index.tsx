@@ -2,7 +2,7 @@ import { Image } from "expo-image";
 import { useState } from "react";
 import { ScrollView } from "react-native";
 import { useTheme } from "../../../../../theme/ThemeProvider";
-import { topics } from "../../../../../types/topics";
+import { topics } from "../../../../../constants/topics";
 import { Box } from "../../../../components/Box";
 import { Pressable } from "../../../../components/Pressable";
 import { Text } from "../../../../components/Text";

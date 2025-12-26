@@ -44,7 +44,7 @@ export default function OnboardingWelcomeScreen() {
             <Pressable
               onPress={() => router.push("/onboarding/value")}
               bg="primary"
-              borderRadius="md"
+              borderRadius="xl"
               py={4}
               center
             >
@@ -57,7 +57,7 @@ export default function OnboardingWelcomeScreen() {
               onPress={() => router.push("/auth/login")}
               bg="surface"
               border
-              borderRadius="md"
+              borderRadius="xl"
               py={4}
               center
             >

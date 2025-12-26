@@ -14,10 +14,10 @@ export const colorSchemes = {
       muted: "hsl(264, 0%, 70%)",
       white: "#FFFFFF",
       black: "#000000",
-      inversePrimary: "hsl(264, 0%, 10%)",
+      inversePrimary: "#1a1a1a",
     },
     brand: {
-      primary: "#6369D1",
+      primary: "#80A4ED",
       accent: "#FCD34D",
       danger: "#E83F6F",
       success: "#22C55E",
