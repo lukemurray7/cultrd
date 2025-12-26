@@ -1,6 +1,7 @@
 import { Image } from "expo-image";
 import { useLocalSearchParams } from "expo-router";
 import { useCourse } from "../../../lib/queries/courses";
+import { getCategoryColor } from "../../../lib/utils/categoryColors";
 import { useTheme } from "../../../theme/ThemeProvider";
 import { Box } from "../../../ui/components/Box";
 import { LottieAnimation } from "../../../ui/components/LottieAnimation";
@@ -24,6 +25,7 @@ export default function CourseDetailScreen() {
     hasProgress && course?.totalChapters
       ? Math.round(((course.currentChapter || 0) / course.totalChapters) * 100)
       : course?.progress || 0;
+  const topicColor = course ? getCategoryColor(course.category, theme) : theme.colors.brand.primary;
 
   if (isLoading || !course) {
     return (
@@ -122,7 +124,7 @@ export default function CourseDetailScreen() {
                       height="100%"
                       width={`${progressPercentage}%`}
                       style={{
-                        backgroundColor: theme.colors.brand.primary,
+                        backgroundColor: topicColor,
                       }}
                       borderRadius="pill"
                     />
@@ -153,6 +155,7 @@ export default function CourseDetailScreen() {
                 currentChapter={course.currentChapter}
                 courseId={id || ""}
                 highlightChapterId={progressPercentage === 100 ? undefined : highlightChapterId}
+                topicColor={topicColor}
               />
             )}
           </ScrollView>

@@ -162,79 +162,41 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
 
     return (
       <SafeAreaView bg="surface" flex>
-        <ScrollView
-          contentContainerStyle={{
-            flexGrow: 1,
-            padding: theme.spacing[6],
-            gap: theme.spacing[6],
-          }}
-        >
-          <Animated.View entering={FadeIn} style={{ alignItems: "center" }}>
-            <Box width={200} height={200} center mb={4}>
-              <LottieAnimation
-                source={completeAnimation}
-                autoPlay
-                loop={false}
-                style={{ width: "100%", height: "100%" }}
-              />
-            </Box>
-            <Box row center gap={2} style={{ minHeight: 60, justifyContent: "center", flexWrap: "wrap" }}>
-              {words.map((word, index) => (
-                <Animated.View
-                  key={index}
-                  entering={FadeIn.delay(index * 100).duration(400)}
-                >
-                  <Text size="xl" weight="bold">
-                    {word}
-                    {index < words.length - 1 && " "}
-                  </Text>
-                </Animated.View>
-              ))}
-            </Box>
-          </Animated.View>
-
-          <Box gap={4}>
-            <Animated.View entering={FadeInUp.delay(300).duration(400)}>
-              <Box
-                bg="surfaceLight"
-                borderRadius="lg"
-                border
-                p={4}
-                row
-                gap={3}
-                style={{
-                  borderWidth: 2,
-                  borderColor: theme.colors.brand.success,
-                  minHeight: 80,
-                  alignItems: "center",
-                }}
-              >
-                <Box
-                  width={48}
-                  height={48}
-                  borderRadius="pill"
-                  bg="brand.success"
-                  center
-                >
-                  <MaterialIcons
-                    name="check-circle"
-                    size={28}
-                    color={theme.colors.text.white}
-                  />
-                </Box>
-                <Box flex gap={1}>
-                  <Text size="md" weight="bold">
-                    {currentChapterIndex + 1}. {chapter.title}
-                  </Text>
-                  <Text size="sm" variant="secondary">
-                    Completed
-                  </Text>
-                </Box>
+        <Box flex>
+          <ScrollView
+            contentContainerStyle={{
+              flexGrow: 1,
+              padding: theme.spacing[6],
+              gap: theme.spacing[6],
+              paddingBottom: theme.spacing[8],
+            }}
+          >
+            <Animated.View entering={FadeIn} style={{ alignItems: "center" }}>
+              <Box width={200} height={200} center mb={4}>
+                <LottieAnimation
+                  source={completeAnimation}
+                  autoPlay
+                  loop={false}
+                  style={{ width: "100%", height: "100%" }}
+                />
+              </Box>
+              <Box row center gap={2} style={{ minHeight: 60, justifyContent: "center", flexWrap: "wrap" }}>
+                {words.map((word, index) => (
+                  <Animated.View
+                    key={index}
+                    entering={FadeIn.delay(index * 100).duration(400)}
+                  >
+                    <Text size="xl" weight="bold">
+                      {word}
+                      {index < words.length - 1 && " "}
+                    </Text>
+                  </Animated.View>
+                ))}
               </Box>
             </Animated.View>
 
-            {nextChapter && (
-              <Animated.View entering={FadeInUp.delay(600).duration(400)}>
+            <Box gap={4}>
+              <Animated.View entering={FadeInUp.delay(300).duration(400)}>
                 <Box
                   bg="surfaceLight"
                   borderRadius="lg"
@@ -243,6 +205,8 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
                   row
                   gap={3}
                   style={{
+                    borderWidth: 2,
+                    borderColor: theme.colors.brand.success,
                     minHeight: 80,
                     alignItems: "center",
                   }}
@@ -251,42 +215,91 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
                     width={48}
                     height={48}
                     borderRadius="pill"
-                    bg="brand.primary"
+                    bg="brand.success"
                     center
-                    border
                   >
                     <MaterialIcons
-                      name="play-arrow"
-                      size={24}
+                      name="check-circle"
+                      size={28}
                       color={theme.colors.text.white}
                     />
                   </Box>
                   <Box flex gap={1}>
                     <Text size="md" weight="bold">
-                      {currentChapterIndex + 2}. {nextChapter.title}
+                      {currentChapterIndex + 1}. {chapter.title}
                     </Text>
                     <Text size="sm" variant="secondary">
-                      Next Chapter
+                      Completed
                     </Text>
                   </Box>
-                  <Pressable
-                    bg="brand.primary"
-                    px={5}
-                    py={3}
-                    borderRadius="lg"
-                    onPress={handleContinueToNextChapter}
-                  >
-                    <Text size="md" weight="semibold" style={{ color: theme.colors.text.white }}>
-                      Continue
-                    </Text>
-                  </Pressable>
                 </Box>
               </Animated.View>
-            )}
-          </Box>
+
+              {nextChapter && (
+                <Animated.View entering={FadeInUp.delay(600).duration(400)}>
+                  <Pressable
+                    bg="surfaceLight"
+                    borderRadius="lg"
+                    border
+                    p={4}
+                    row
+                    gap={3}
+                    onPress={handleContinueToNextChapter}
+                    style={{
+                      minHeight: 80,
+                      alignItems: "center",
+                    }}
+                  >
+                    <Box
+                      width={48}
+                      height={48}
+                      borderRadius="pill"
+                      bg="brand.primary"
+                      center
+                      border
+                    >
+                      <MaterialIcons
+                        name="play-arrow"
+                        size={24}
+                        color={theme.colors.text.white}
+                      />
+                    </Box>
+                    <Box flex gap={1}>
+                      <Text size="md" weight="bold">
+                        {currentChapterIndex + 2}. {nextChapter.title}
+                      </Text>
+                      <Text size="sm" variant="secondary">
+                        Next Chapter
+                      </Text>
+                    </Box>
+                    <Box
+                      style={{
+                        backgroundColor: theme.colors.brand.primary,
+                        paddingHorizontal: theme.spacing[5],
+                        paddingVertical: theme.spacing[3],
+                        borderRadius: theme.radii.lg,
+                      }}
+                    >
+                      <Text size="md" weight="semibold" style={{ color: theme.colors.text.white }}>
+                        Continue
+                      </Text>
+                    </Box>
+                  </Pressable>
+                </Animated.View>
+              )}
+            </Box>
+          </ScrollView>
 
           <Animated.View entering={FadeInUp.delay(900).duration(400)}>
-            <Box row gap={3} center>
+            <Box
+              row
+              gap={3}
+              center
+              p={4}
+              style={{
+                paddingBottom: theme.spacing[6],
+              }}
+            >
               <Pressable
                 bg="surfaceLight"
                 width={56}
@@ -337,7 +350,7 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
               </Pressable>
             </Box>
           </Animated.View>
-        </ScrollView>
+        </Box>
       </SafeAreaView>
     );
   }

@@ -9,6 +9,7 @@ interface ChaptersListProps {
   courseId: string;
   highlightChapterId?: string;
   allCompleted?: boolean;
+  topicColor: string;
 }
 
 export const ChaptersList = ({
@@ -17,6 +18,7 @@ export const ChaptersList = ({
   currentChapter,
   courseId,
   highlightChapterId,
+  topicColor,
 }: ChaptersListProps) => {
   const handleChapterPress = (chapterId: string) => {
     router.push({
@@ -50,6 +52,7 @@ export const ChaptersList = ({
             isLocked={isLocked}
             isHighlighted={isHighlighted}
             onPress={() => handleChapterPress(chapter.id)}
+            topicColor={topicColor}
           />
         );
       })}

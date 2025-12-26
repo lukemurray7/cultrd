@@ -14,6 +14,7 @@ interface ChapterListItemProps {
   isLocked?: boolean;
   isHighlighted?: boolean;
   onPress?: () => void;
+  topicColor: string;
 }
 
 export const ChapterListItem = ({
@@ -23,6 +24,7 @@ export const ChapterListItem = ({
   isLocked = false,
   isHighlighted = false,
   onPress,
+  topicColor,
 }: ChapterListItemProps) => {
   const theme = useTheme();
   const pulseAnim = useSharedValue(1);
@@ -47,7 +49,7 @@ export const ChapterListItem = ({
 
   const borderWidth = isActive || isHighlighted ? 2 : 1;
   const borderColor = isActive || isHighlighted 
-    ? `${theme.colors.brand.primary}60` 
+    ? `${topicColor}60` 
     : theme.colors.border;
   const bg = isActive || isHighlighted ? "surfaceLight" : "surface";
 
@@ -73,9 +75,15 @@ export const ChapterListItem = ({
         width={40}
         height={40}
         borderRadius="pill"
-        bg={isLocked ? "surface" : isActive || chapter.isCompleted ? "brand.primary" : "surface"}
         center
         border
+        style={{
+          backgroundColor: isLocked 
+            ? theme.colors.bg.surface 
+            : isActive || chapter.isCompleted 
+              ? topicColor 
+              : theme.colors.bg.surface,
+        }}
       >
         {isLocked ? (
           <MaterialIcons

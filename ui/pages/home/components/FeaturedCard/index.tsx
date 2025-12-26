@@ -75,7 +75,7 @@ export const FeaturedCard = () => {
           )}
           <Box row center between mt={1}>
             <Text size="xs" weight="semibold" variant="secondary">
-              {course.category} • {course.timeRemaining} min left
+              {course.category} • {course.progress === 100 || (course.currentChapter !== undefined && course.totalChapters !== undefined && course.currentChapter >= course.totalChapters) ? "Completed" : `${course.timeRemaining} min left`}
             </Text>
             <Pressable
               center
