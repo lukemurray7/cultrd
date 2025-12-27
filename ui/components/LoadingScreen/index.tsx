@@ -21,6 +21,38 @@ export const LoadingScreen = () => {
     const prefetchData = async () => {
       const prefetchPromises = [];
 
+      if (user) {
+        prefetchPromises.push(
+          queryClient.prefetchQuery({
+            queryKey: ["user"],
+            queryFn: async () => {
+              const { data: { user: authUser } } = await supabase.auth.getUser();
+              if (!authUser) throw new Error("User not authenticated");
+
+              const { data: profile, error } = await supabase
+                .from("profiles")
+                .select("*")
+                .eq("id", authUser.id)
+                .single();
+
+              if (error) throw error;
+
+              return {
+                name: "",
+                avatarUrl: "",
+                streak: profile?.current_streak ?? 0,
+                isOnline: false,
+                email: authUser.email ?? "",
+                subscription: {
+                  type: "Pro Member",
+                  status: "active",
+                },
+              };
+            },
+          })
+        );
+      }
+
       prefetchPromises.push(
         queryClient.prefetchQuery({
           queryKey: ["featured-course", user?.id],

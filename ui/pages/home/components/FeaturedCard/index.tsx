@@ -1,22 +1,29 @@
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { useFeaturedCourse } from "../../../../../lib/queries/courses";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Box } from "../../../../components/Box";
 import { Pressable } from "../../../../components/Pressable";
 import { Text } from "../../../../components/Text";
+import { FeaturedCardSkeleton } from "../FeaturedCardSkeleton";
 
 export const FeaturedCard = () => {
   const theme = useTheme();
   const router = useRouter();
-  const { data: course } = useFeaturedCourse();
+  const { data: course, isLoading } = useFeaturedCourse();
+
+  if (!course && isLoading) {
+    return <FeaturedCardSkeleton />;
+  }
 
   if (!course) {
     return null;
   }
 
   return (
-    <Box borderRadius="xl" bg="surfaceLight" border shadow="sm" overflow="hidden">
+    <Animated.View entering={FadeIn.delay(100).duration(400)}>
+      <Box borderRadius="xl" bg="surfaceLight" border shadow="sm" overflow="hidden">
       <Pressable
         borderRadius="xl"
         onPress={() => router.push(`/course/${course.id}`)}
@@ -101,5 +108,6 @@ export const FeaturedCard = () => {
         </Box>
       </Pressable>
     </Box>
+    </Animated.View>
   );
 };

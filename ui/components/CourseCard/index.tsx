@@ -1,5 +1,6 @@
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
+import Animated, { FadeIn } from "react-native-reanimated";
 import { Course } from "../../../types/courses";
 import { Box } from "../Box";
 import { Pressable } from "../Pressable";
@@ -8,23 +9,26 @@ import { Text } from "../Text";
 interface CourseCardProps {
   course: Course;
   width?: number;
+  index?: number;
 }
 
 export const CourseCard = ({
   course,
   width = 160,
+  index = 0,
 }: CourseCardProps) => {
   const router = useRouter();
 
   return (
-    <Pressable
-      width={width}
-      bg="surfaceLight"
-      borderRadius="xl"
-      border
-      overflow="hidden"
-      onPress={() => router.push(`/course/${course.id}`)}
-    >
+    <Animated.View entering={FadeIn.delay(200 + index * 50).duration(400)}>
+      <Pressable
+        width={width}
+        bg="surfaceLight"
+        borderRadius="xl"
+        border
+        overflow="hidden"
+        onPress={() => router.push(`/course/${course.id}`)}
+      >
       <Box
         width={width}
         height={208}
@@ -49,5 +53,6 @@ export const CourseCard = ({
         </Text>
       </Box>
     </Pressable>
+    </Animated.View>
   );
 };
