@@ -37,29 +37,35 @@ export const RecommendedCard = ({ course }: RecommendedCardProps) => {
         contentFit="cover"
       />
       <Box flex style={{ justifyContent: "center" }}>
-        <Box row between mb={1} style={{ alignItems: "flex-start" }}>
-          <Text
-            size="xs"
-            weight="bold"
-            textTransform="uppercase"
-            letterSpacing={1}
-            style={{ color: getCategoryColor(course.category, theme) }}
-          >
-            {course.category}
-          </Text>
-          <MaterialIcons name="more-horiz" size={20} color={theme.colors.text.secondary} />
-        </Box>
+        <Text
+          size="xs"
+          weight="bold"
+          textTransform="uppercase"
+          letterSpacing={1}
+          style={{ color: getCategoryColor(course.category, theme) }}
+          mb={1}
+        >
+          {course.category}
+        </Text>
         <Text size="md" weight="bold" lineHeight="sm" mb={1}>
           {course.title}
         </Text>
         <Text variant="secondary" size="xs" mb={2} numberOfLines={2}>
-          {course.description}
+          {course.description || "description"}
         </Text>
-        <Box row center gap={1}>
-          <MaterialIcons name="schedule" size={12} color={theme.colors.text.secondary} />
-          <Text variant="secondary" style={{ fontSize: 10 }}>
-            {course.duration} min read
-          </Text>
+        <Box row gap={2}>
+          <Box row center gap={1} style={{ alignItems: "center" }}>
+            <MaterialIcons name="book" size={12} color={theme.colors.text.secondary} />
+            <Text variant="secondary" style={{ fontSize: 10, lineHeight: 12 }}>
+              {course.totalChapters || course.lessons || course.chapters?.length || 0} Chapters
+            </Text>
+          </Box>
+          <Box row center gap={1} style={{ alignItems: "center" }}>
+            <MaterialIcons name="schedule" size={12} color={theme.colors.text.secondary} />
+            <Text variant="secondary" style={{ fontSize: 10, lineHeight: 12 }}>
+              {course.duration} min
+            </Text>
+          </Box>
         </Box>
       </Box>
     </Pressable>

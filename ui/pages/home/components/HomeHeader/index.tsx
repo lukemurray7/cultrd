@@ -1,7 +1,10 @@
 import { useUser } from "../../../../../lib/queries/courses";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { Box } from "../../../../components/Box";
+import { LottieAnimation } from "../../../../components/LottieAnimation";
 import { Text } from "../../../../components/Text";
+
+const bookAnimation = require("../../../../../assets/animations/book.json");
 
 export const HomeHeader = () => {
   const theme = useTheme();
@@ -24,7 +27,7 @@ export const HomeHeader = () => {
       center
       between
       px={4}
-      py={4}
+      py={1}
       mx={4}
       borderRadius="xl"
       bg="surfaceLight"
@@ -44,23 +47,21 @@ export const HomeHeader = () => {
         </Text>
       </Box>
       <Box
-        row
         center
-        bg="surfaceLight"
-        borderRadius="pill"
-        px={3}
-        py={1}
-        gap={1}
-        border
         style={{
-          justifyContent: "flex-end",
-          backgroundColor: `${theme.colors.bg.surfaceLight}80`,
+          width: 60,
+          height: 60,
         }}
       >
-        <Text size="md">🔥</Text>
-        <Text variant="primary" size="sm" weight="bold">
-          {user.streak}
-        </Text>
+        <LottieAnimation
+          source={bookAnimation}
+          autoPlay
+          loop
+          style={{
+            width: 60,
+            height: 60,
+          }}
+        />
       </Box>
     </Box>
   );

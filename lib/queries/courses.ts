@@ -333,40 +333,6 @@ export const useCoursesBySubtopic = (subtopicId: string) => {
   });
 };
 
-export const useLibraryCourses = () => {
-  const { user } = useAuth();
-  
-  return useQuery<Course[]>({
-    queryKey: ["library-courses", user?.id],
-    queryFn: async () => {
-      if (!user) return [];
-
-      const { data, error } = await supabase
-        .from("user_course_progress")
-        .select(`
-          *,
-          courses(
-            *,
-            topic:topics!topic_id(*),
-            chapters(*)
-          )
-        `)
-        .eq("user_id", user.id)
-        .order("last_accessed_at", { ascending: false });
-
-      if (error) throw error;
-      if (!data) return [];
-
-      return data
-        .filter((progress) => progress.courses)
-        .map((progress) => {
-          const course = progress.courses as any;
-          return transformCourse(course, progress);
-        });
-    },
-    enabled: !!user,
-  });
-};
 
 export const useCourse = (courseId: string) => {
   const { user } = useAuth();

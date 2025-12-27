@@ -3,7 +3,12 @@ import * as Haptics from "expo-haptics";
 import * as Linking from "expo-linking";
 import { router } from "expo-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Dimensions, Pressable as RNPressable, ScrollView, Share } from "react-native";
+import {
+  Dimensions,
+  Pressable as RNPressable,
+  ScrollView,
+  Share,
+} from "react-native";
 import Animated, { FadeIn, FadeInUp, FadeOut } from "react-native-reanimated";
 import { useCompleteChapter } from "../../../../../lib/mutations/courses";
 import { useTheme } from "../../../../../theme/ThemeProvider";
@@ -48,13 +53,18 @@ const completionMessages = [
   "Marvelous! You're {percentage}% through the course",
 ];
 
-export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerProps) => {
+export const CourseViewer = ({
+  courseId,
+  chapter,
+  allChapters,
+}: CourseViewerProps) => {
   const theme = useTheme();
   const [slideIndex, setSlideIndex] = useState(0);
   const [showComplete, setShowComplete] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState<string>("");
   const completeChapter = useCompleteChapter();
   const hasCompletedRef = useRef(false);
+  const messageInitializedRef = useRef(false);
 
   const slides = chapter.slides;
   const currentSlide = slides[slideIndex];
@@ -64,12 +74,18 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
 
   useEffect(() => {
     if (showComplete) {
-      const randomMessage = completionMessages[Math.floor(Math.random() * completionMessages.length)];
-      setSelectedMessage(randomMessage);
-      Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
-      setTimeout(() => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-      }, 200);
+      if (!messageInitializedRef.current) {
+        const randomMessage =
+          completionMessages[
+            Math.floor(Math.random() * completionMessages.length)
+          ];
+        setSelectedMessage(randomMessage);
+        messageInitializedRef.current = true;
+        Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+        setTimeout(() => {
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        }, 200);
+      }
 
       if (!chapter.isCompleted && !hasCompletedRef.current) {
         hasCompletedRef.current = true;
@@ -83,9 +99,17 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
     } else {
       setSelectedMessage("");
       hasCompletedRef.current = false;
+      messageInitializedRef.current = false;
     }
-  }, [showComplete, chapter.id, chapter.isCompleted, courseId, allChapters.length]);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    showComplete,
+    chapter.id,
+    courseId,
+    allChapters.length,
+    completeChapter,
+    chapter.order,
+  ]);
 
   const handleNext = useCallback(() => {
     if (isLastSlide) {
@@ -152,12 +176,21 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
   };
 
   if (showComplete) {
-    const currentChapterIndex = allChapters.findIndex((ch) => ch.id === chapter.id);
-    const completedChapters = allChapters.filter((ch) => ch.order <= chapter.order);
+    const currentChapterIndex = allChapters.findIndex(
+      (ch) => ch.id === chapter.id
+    );
+    const completedChapters = allChapters.filter(
+      (ch) => ch.order <= chapter.order
+    );
     const totalChapters = allChapters.length;
-    const completionPercentage = Math.round((completedChapters.length / totalChapters) * 100);
+    const completionPercentage = Math.round(
+      (completedChapters.length / totalChapters) * 100
+    );
     const message = selectedMessage || completionMessages[0];
-    const fullText = message.replace("{percentage}", completionPercentage.toString());
+    const fullText = message.replace(
+      "{percentage}",
+      completionPercentage.toString()
+    );
     const words = fullText.split(" ");
 
     return (
@@ -180,7 +213,16 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
                   style={{ width: "100%", height: "100%" }}
                 />
               </Box>
-              <Box row center gap={2} style={{ minHeight: 60, justifyContent: "center", flexWrap: "wrap" }}>
+              <Box
+                row
+                center
+                gap={2}
+                style={{
+                  minHeight: 60,
+                  justifyContent: "center",
+                  flexWrap: "wrap",
+                }}
+              >
                 {words.map((word, index) => (
                   <Animated.View
                     key={index}
@@ -280,7 +322,11 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
                         borderRadius: theme.radii.lg,
                       }}
                     >
-                      <Text size="md" weight="semibold" style={{ color: theme.colors.text.white }}>
+                      <Text
+                        size="md"
+                        weight="semibold"
+                        style={{ color: theme.colors.text.white }}
+                      >
                         Continue
                       </Text>
                     </Box>
@@ -381,7 +427,11 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
               width={40}
               height={40}
             >
-              <MaterialIcons name="close" size={24} color={theme.colors.text.primary} />
+              <MaterialIcons
+                name="close"
+                size={24}
+                color={theme.colors.text.primary}
+              />
             </Pressable>
 
             <Box
@@ -412,7 +462,11 @@ export const CourseViewer = ({ courseId, chapter, allChapters }: CourseViewerPro
               width={40}
               height={40}
             >
-              <MaterialIcons name="share" size={24} color={theme.colors.text.primary} />
+              <MaterialIcons
+                name="share"
+                size={24}
+                color={theme.colors.text.primary}
+              />
             </Pressable>
           </Box>
         </Box>

@@ -1,3 +1,4 @@
+import { MaterialIcons } from "@expo/vector-icons";
 import { Image } from "expo-image";
 import { useTheme } from "../../../../../theme/ThemeProvider";
 import { LearningPath, LearningPathProgress } from "../../../../../types/paths";
@@ -11,6 +12,7 @@ interface PathHeroProps {
 
 export const PathHero = ({ path, categoryColor }: PathHeroProps) => {
   const theme = useTheme();
+  const isCompleted = "progressPercentage" in path && (path.progressPercentage === 100 || path.coursesCompleted === path.totalCourses);
 
   return (
     <Box position="relative" height={300} mb={4} mx={4} borderRadius="xl" overflow="hidden" shadow="sm" border>
@@ -29,25 +31,55 @@ export const PathHero = ({ path, categoryColor }: PathHeroProps) => {
           backgroundColor: `${theme.colors.text.black}80`,
         }}
       >
-        <Box
-          borderRadius="md"
-          px={3}
-          py={1}
-          mb={3}
-          bg={categoryColor}
-          style={{
-            alignSelf: "flex-start",
-          }}
-        >
-          <Text
-            size="xs"
-            weight="bold"
-            textTransform="uppercase"
-            letterSpacing={1}
-            color={theme.colors.text.black}
+        <Box row gap={2} mb={3}>
+          <Box
+            borderRadius="md"
+            px={3}
+            py={1}
+            bg={categoryColor}
+            style={{
+              alignSelf: "flex-start",
+            }}
           >
-            {path.category}
-          </Text>
+            <Text
+              size="xs"
+              weight="bold"
+              textTransform="uppercase"
+              letterSpacing={1}
+              color={theme.colors.text.black}
+            >
+              {path.category}
+            </Text>
+          </Box>
+          {isCompleted && (
+            <Box
+              row
+              center
+              gap={1}
+              borderRadius="md"
+              px={3}
+              py={1}
+              style={{
+                backgroundColor: categoryColor,
+                alignSelf: "flex-start",
+              }}
+            >
+              <MaterialIcons
+                name="check-circle"
+                size={16}
+                color={theme.colors.text.black}
+              />
+              <Text
+                size="xs"
+                weight="bold"
+                textTransform="uppercase"
+                letterSpacing={1}
+                color={theme.colors.text.black}
+              >
+                Completed
+              </Text>
+            </Box>
+          )}
         </Box>
         <Text size="2xl" weight="bold" mb={2} color={theme.colors.text.white}>
           {path.title}

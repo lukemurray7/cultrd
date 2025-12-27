@@ -25,7 +25,7 @@ export const PathCourseNode = ({
   };
 
   return (
-    <Box
+    <Pressable
       row
       gap={3}
       mb={4}
@@ -35,10 +35,10 @@ export const PathCourseNode = ({
       shadow="sm"
       py={2}
       pr={2}
+      onPress={handlePress}
     >
       <Box width={60} center>
-        <Pressable
-          onPress={handlePress}
+        <Box
           width={48}
           height={48}
           borderRadius="pill"
@@ -51,24 +51,28 @@ export const PathCourseNode = ({
             borderColor: categoryColor,
           }}
         >
-          {isCompleted && (
+          {isCompleted ? (
             <MaterialIcons
               name="check"
               size={24}
               color={theme.colors.text.white}
             />
+          ) : (
+            <MaterialIcons
+              name="play-arrow"
+              size={24}
+              color={categoryColor}
+            />
           )}
-        </Pressable>
+        </Box>
       </Box>
       <Box flex gap={1}>
-        <Pressable onPress={handlePress}>
-          <Text size="md" weight="semibold" mb={1}>
-            {course.title}
-          </Text>
-          <Text size="xs" variant="secondary">
-            {course.chapters?.length || 0} chapters • {course.duration} minutes
-          </Text>
-        </Pressable>
+        <Text size="md" weight="semibold" mb={1}>
+          {course.title}
+        </Text>
+        <Text size="xs" variant="secondary">
+          {course.chapters?.length || 0} chapters • {course.duration} minutes
+        </Text>
         <Box row gap={2} center mr={4}>
           <Box
             flex
@@ -91,6 +95,6 @@ export const PathCourseNode = ({
           </Text>
         </Box>
       </Box>
-    </Box>
+    </Pressable>
   );
 };

@@ -2,60 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useAuth } from "../auth/AuthProvider";
 import { supabase } from "../supabase";
 
-export const useAddCourseToLibrary = () => {
-  const queryClient = useQueryClient();
-  const { user } = useAuth();
-
-  return useMutation({
-    mutationFn: async (courseId: string) => {
-      if (!user) throw new Error("User not authenticated");
-
-      const { data, error } = await supabase
-        .from("user_course_progress")
-        .upsert({
-          user_id: user.id,
-          course_id: courseId,
-          progress_percentage: 0,
-          current_chapter_order: null,
-          last_accessed_at: new Date().toISOString(),
-        })
-        .select()
-        .single();
-
-      if (error) throw error;
-      return data;
-    },
-    onSuccess: (_, courseId) => {
-      queryClient.invalidateQueries({ queryKey: ["course", courseId] });
-      queryClient.invalidateQueries({ queryKey: ["library-courses"] });
-      queryClient.invalidateQueries({ queryKey: ["course-content", courseId] });
-    },
-  });
-};
-
-export const useRemoveCourseFromLibrary = () => {
-  const queryClient = useQueryClient();
-  const { user } = useAuth();
-
-  return useMutation({
-    mutationFn: async (courseId: string) => {
-      if (!user) throw new Error("User not authenticated");
-
-      const { error } = await supabase
-        .from("user_course_progress")
-        .delete()
-        .eq("user_id", user.id)
-        .eq("course_id", courseId);
-
-      if (error) throw error;
-    },
-    onSuccess: (_, courseId) => {
-      queryClient.invalidateQueries({ queryKey: ["course", courseId] });
-      queryClient.invalidateQueries({ queryKey: ["library-courses"] });
-      queryClient.invalidateQueries({ queryKey: ["course-content", courseId] });
-    },
-  });
-};
 
 export const useStartChapter = () => {
   const queryClient = useQueryClient();
@@ -110,8 +56,13 @@ export const useStartChapter = () => {
     },
     onSuccess: (_, { courseId }) => {
       queryClient.invalidateQueries({ queryKey: ["course", courseId] });
-      queryClient.invalidateQueries({ queryKey: ["library-courses"] });
       queryClient.invalidateQueries({ queryKey: ["course-content", courseId] });
+      queryClient.invalidateQueries({ queryKey: ["path"] });
+      queryClient.invalidateQueries({ queryKey: ["path-of-the-week"] });
+      queryClient.invalidateQueries({ queryKey: ["continue-learning-paths"] });
+      queryClient.invalidateQueries({ queryKey: ["explore-paths"] });
+      queryClient.invalidateQueries({ queryKey: ["all-user-paths"] });
+      queryClient.invalidateQueries({ queryKey: ["path-courses"] });
     },
   });
 };
@@ -138,8 +89,13 @@ export const useCompleteChapter = () => {
     onSuccess: (_, { courseId }) => {
       queryClient.refetchQueries({ queryKey: ["course", courseId] });
       queryClient.refetchQueries({ queryKey: ["featured-course"] });
-      queryClient.invalidateQueries({ queryKey: ["library-courses"] });
       queryClient.invalidateQueries({ queryKey: ["course-content", courseId] });
+      queryClient.invalidateQueries({ queryKey: ["path"] });
+      queryClient.invalidateQueries({ queryKey: ["path-of-the-week"] });
+      queryClient.invalidateQueries({ queryKey: ["continue-learning-paths"] });
+      queryClient.invalidateQueries({ queryKey: ["explore-paths"] });
+      queryClient.invalidateQueries({ queryKey: ["all-user-paths"] });
+      queryClient.invalidateQueries({ queryKey: ["path-courses"] });
     },
   });
 };
