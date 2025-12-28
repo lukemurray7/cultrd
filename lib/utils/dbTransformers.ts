@@ -37,7 +37,7 @@ type DbSlide = {
   chapter_id: string;
   type: "text" | "text_image" | "quote" | "quote_image" | "image_only";
   order: number;
-  content: string | null;
+  content: string[] | null;
   author: string | null;
   media_url: string | null;
   media_type: "image" | "video" | null;
@@ -168,13 +168,13 @@ export function transformSlide(dbSlide: DbSlide): Slide {
       return {
         ...base,
         type: "text",
-        content: dbSlide.content || "",
+        content: dbSlide.content || [],
       };
     case "text_image":
       return {
         ...base,
         type: "text_image",
-        content: dbSlide.content || "",
+        content: dbSlide.content || [],
         mediaUrl: dbSlide.media_url || "",
         mediaType: (dbSlide.media_type || "image") as "image" | "video",
       };
@@ -182,14 +182,14 @@ export function transformSlide(dbSlide: DbSlide): Slide {
       return {
         ...base,
         type: "quote",
-        content: dbSlide.content || "",
+        content: dbSlide.content?.[0] || "",
         author: dbSlide.author || "",
       };
     case "quote_image":
       return {
         ...base,
         type: "quote_image",
-        content: dbSlide.content || "",
+        content: dbSlide.content?.[0] || "",
         author: dbSlide.author || "",
         mediaUrl: dbSlide.media_url || "",
         mediaType: (dbSlide.media_type || "image") as "image" | "video",

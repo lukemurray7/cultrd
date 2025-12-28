@@ -9,12 +9,12 @@ export interface BaseSlide {
 
 export interface TextSlide extends BaseSlide {
   type: "text";
-  content: string;
+  content: string[];
 }
 
 export interface TextImageSlide extends BaseSlide {
   type: "text_image";
-  content: string;
+  content: string[];
   mediaUrl: string;
   mediaType: MediaType;
 }
