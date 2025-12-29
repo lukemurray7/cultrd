@@ -92,9 +92,10 @@ export const radii = {
 
 export const typography = {
   fontFamily: {
-    regular: "System",
-    medium: "System",
-    semibold: "System",
+    regular: "FunnelSans-Regular",
+    medium: "FunnelSans-Medium",
+    semibold: "FunnelSans-SemiBold",
+    bold: "FunnelSans-Bold",
   },
   size: {
     xs: 12,

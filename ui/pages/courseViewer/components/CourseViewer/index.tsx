@@ -60,6 +60,7 @@ export const CourseViewer = ({
 }: CourseViewerProps) => {
   const theme = useTheme();
   const [slideIndex, setSlideIndex] = useState(0);
+  const [sentenceIndex, setSentenceIndex] = useState(0);
   const [showComplete, setShowComplete] = useState(false);
   const [selectedMessage, setSelectedMessage] = useState<string>("");
   const completeChapter = useCompleteChapter();
@@ -69,8 +70,19 @@ export const CourseViewer = ({
   const slides = chapter.slides;
   const currentSlide = slides[slideIndex];
   const isLastSlide = slideIndex === slides.length - 1;
+  const isTextSlide = currentSlide.type === "text";
+  const isTextImageSlide = currentSlide.type === "text_image";
+  const hasSequentialText = isTextSlide || isTextImageSlide;
+  const textSlideSentences = hasSequentialText 
+    ? (Array.isArray(currentSlide.content) ? currentSlide.content : [currentSlide.content])
+    : [];
+  const hasMoreSentences = hasSequentialText && sentenceIndex < textSlideSentences.length - 1;
 
   const nextChapter = allChapters.find((ch) => ch.order === chapter.order + 1);
+
+  useEffect(() => {
+    setSentenceIndex(0);
+  }, [slideIndex]);
 
   useEffect(() => {
     if (showComplete) {
@@ -112,20 +124,24 @@ export const CourseViewer = ({
   ]);
 
   const handleNext = useCallback(() => {
-    if (isLastSlide) {
+    if (hasMoreSentences) {
+      setSentenceIndex((prev) => prev + 1);
+    } else if (isLastSlide) {
       setShowComplete(true);
     } else {
       setSlideIndex((prev) => prev + 1);
     }
-  }, [isLastSlide]);
+  }, [hasMoreSentences, isLastSlide]);
 
   const handlePrevious = useCallback(() => {
     if (showComplete) {
       setShowComplete(false);
+    } else if (hasSequentialText && sentenceIndex > 0) {
+      setSentenceIndex((prev) => prev - 1);
     } else if (slideIndex > 0) {
       setSlideIndex((prev) => prev - 1);
     }
-  }, [slideIndex, showComplete]);
+  }, [slideIndex, showComplete, hasSequentialText, sentenceIndex]);
 
   const handleTap = (event: { nativeEvent: { locationX: number } }) => {
     const tapX = event.nativeEvent.locationX;
@@ -471,14 +487,20 @@ export const CourseViewer = ({
           </Box>
         </Box>
 
-        <RNPressable style={{ flex: 1 }} onPress={handleTap}>
+        <RNPressable
+          style={{
+            flex: 1,
+            paddingTop: theme.spacing[6] + theme.spacing[3] + 40 + theme.spacing[3],
+          }}
+          onPress={handleTap}
+        >
           <Animated.View
             key={currentSlide.id}
             entering={FadeIn.duration(300)}
             exiting={FadeOut.duration(200)}
             style={{ flex: 1 }}
           >
-            <SlideRenderer slide={currentSlide} />
+            <SlideRenderer slide={currentSlide} sentenceIndex={sentenceIndex} />
           </Animated.View>
         </RNPressable>
       </Box>

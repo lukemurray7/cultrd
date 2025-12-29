@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
@@ -28,9 +29,15 @@ function RootStack() {
   const { loading } = useAuth();
   const [showLoading, setShowLoading] = useState(true);
   const [loadingStartTime] = useState(Date.now());
+  const [fontsLoaded] = useFonts({
+    "FunnelSans-Regular": require("../assets/fonts/FunnelSans-Regular.ttf"),
+    "FunnelSans-Medium": require("../assets/fonts/FunnelSans-Medium.ttf"),
+    "FunnelSans-SemiBold": require("../assets/fonts/FunnelSans-SemiBold.ttf"),
+    "FunnelSans-Bold": require("../assets/fonts/FunnelSans-Bold.ttf"),
+  });
 
   useEffect(() => {
-    if (!loading) {
+    if (!loading && fontsLoaded) {
       const elapsedTime = Date.now() - loadingStartTime;
       const remainingTime = Math.max(0, MIN_LOADING_TIME_MS - elapsedTime);
       
@@ -40,9 +47,9 @@ function RootStack() {
 
       return () => clearTimeout(timer);
     }
-  }, [loading, loadingStartTime]);
+  }, [loading, fontsLoaded, loadingStartTime]);
 
-  if (loading || showLoading) {
+  if (loading || showLoading || !fontsLoaded) {
     return <LoadingScreen />;
   }
 

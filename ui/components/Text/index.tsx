@@ -53,7 +53,16 @@ export const Text = ({
     return undefined;
   };
 
+  const getFontFamily = () => {
+    if (!weight) return theme.typography.fontFamily.regular;
+    if (weight === "bold") return theme.typography.fontFamily.bold;
+    if (weight === "semibold") return theme.typography.fontFamily.semibold;
+    if (weight === "medium") return theme.typography.fontFamily.medium;
+    return theme.typography.fontFamily.regular;
+  };
+
   const computedStyle: TextStyle = {
+    fontFamily: getFontFamily(),
     color: getColor(),
     ...(size && { fontSize: theme.typography.size[size] }),
     ...(weight && { fontWeight: theme.typography.weight[weight] }),
